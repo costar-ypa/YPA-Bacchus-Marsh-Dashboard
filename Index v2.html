@@ -2,1334 +2,1280 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#071b3a">
-<title>YPA Open Home Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YPA Bacchus Marsh | Open Home Dashboard</title>
+
 <style>
+:root {
+    --navy: #061b3a;
+    --navy2: #0b2a55;
+    --yellow: #f4c400;
+    --white: #ffffff;
+    --light: #f4f6f8;
+    --grey: #687386;
+    --green: #1f9d55;
+    --red: #d64545;
+    --shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-html {
-  scroll-behavior: smooth;
-}
+
 body {
-  margin: 0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif;
-  background: #f4f6f8;
-  color: #10213d;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--light);
+    color: var(--navy);
 }
-/* =========================
-   HEADER
-========================= */
-.top {
-  background: #071b3a;
-  color: #fff;
-  padding:
-    calc(22px + env(safe-area-inset-top))
-    18px
-    16px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+
+/* HEADER */
+
+header {
+    background: linear-gradient(135deg, var(--navy), var(--navy2));
+    color: white;
+    padding: 22px 18px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
 .brand {
-  font-weight: 800;
-  letter-spacing: .08em;
-  font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
-.title {
-  font-size: 27px;
-  font-weight: 800;
-  margin: 5px 0;
+
+.logo {
+    width: 46px;
+    height: 46px;
+    background: var(--yellow);
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 19px;
+    border-radius: 8px;
 }
+
+.brand-text h1 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: .5px;
+}
+
+.brand-text p {
+    margin: 3px 0 0;
+    opacity: .75;
+    font-size: 12px;
+}
+
 .clock {
-  font-size: 13px;
-  opacity: .82;
+    text-align: right;
 }
-.bar {
-  display: flex;
-  gap: 8px;
-  margin-top: 13px;
+
+.clock-time {
+    font-size: 18px;
+    font-weight: bold;
 }
-.bar button {
-  border: 0;
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-weight: 800;
-  cursor: pointer;
-  font-size: 14px;
+
+.clock-date {
+    font-size: 11px;
+    opacity: .7;
 }
+
+/* CONTROLS */
+
+.controls {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding: 0 16px;
+}
+
+.top-controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button,
+.action-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 11px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
 .refresh {
-  background: #f5c400;
-  color: #071b3a;
+    background: var(--navy);
+    color: white;
 }
-.source {
-  background: rgba(255,255,255,.12);
-  color: #fff;
+
+.sheet {
+    background: var(--yellow);
+    color: var(--navy);
 }
-.sync {
-  font-size: 11px;
-  opacity: .7;
-  margin-top: 7px;
-}
-/* =========================
-   TABS
-========================= */
-.tabs {
-  display: flex;
-  gap: 8px;
-  padding: 11px 14px;
-  overflow-x: auto;
-  background: #fff;
-  position: sticky;
-  top: 154px;
-  z-index: 9;
-  border-bottom: 1px solid #e8ebef;
-  scrollbar-width: none;
-}
-.tabs::-webkit-scrollbar {
-  display: none;
-}
-.tabs button {
-  border: 0;
-  border-radius: 999px;
-  padding: 10px 17px;
-  background: #e9edf2;
-  color: #10213d;
-  font-weight: 700;
-  white-space: nowrap;
-  cursor: pointer;
-  font-size: 14px;
-}
-.tabs button.active {
-  background: #f5c400;
-  color: #071b3a;
-}
-/* =========================
-   CONTENT
-========================= */
-.wrap {
-  max-width: 760px;
-  margin: auto;
-  padding: 12px;
-}
-.card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 17px;
-  margin: 12px 0;
-  box-shadow: 0 3px 15px rgba(0,0,0,.05);
-}
-.time {
-  font-size: 23px;
-  font-weight: 800;
-  letter-spacing: -.02em;
-}
+
 .status {
-  font-size: 12px;
-  font-weight: 800;
-  margin: 5px 0 12px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--grey);
 }
-.status.now {
-  color: #d71920;
+
+/* TABS */
+
+.tabs {
+    max-width: 1200px;
+    margin: 18px auto 0;
+    padding: 0 16px;
+    display: flex;
+    gap: 8px;
 }
-.status.next {
-  color: #087443;
+
+.tab {
+    background: white;
+    color: var(--navy);
+    box-shadow: var(--shadow);
 }
-.meta {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  color: #526174;
-  font-size: 14px;
+
+.tab.active {
+    background: var(--navy);
+    color: white;
 }
-.addr {
-  font-size: 18px;
-  font-weight: 750;
-  margin: 5px 0 12px;
+
+/* CONTENT */
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 16px 40px;
 }
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0 15px;
+}
+
+.section-title h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.count {
+    background: var(--yellow);
+    color: var(--navy);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* CARDS */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
+}
+
+.card {
+    background: white;
+    border-radius: 13px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--yellow);
+}
+
+.time {
+    font-size: 23px;
+    font-weight: 900;
+    color: var(--navy);
+}
+
+.time-range {
+    color: var(--grey);
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.address {
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 15px;
+}
+
+.suburb {
+    color: var(--grey);
+    font-size: 13px;
+    margin-top: 3px;
+}
+
 .price {
-  font-weight: 800;
-  color: #10213d;
-}
-.actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 14px;
-}
-.actions a {
-  flex: 1;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 10px;
-  padding: 11px;
-  background: #071b3a;
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
-}
-.actions a.rea {
-  background: #e9edf2;
-  color: #071b3a;
-}
-.day-heading {
-  font-size: 13px;
-  font-weight: 800;
-  color: #687587;
-  margin: 20px 4px 6px;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-}
-.empty {
-  text-align: center;
-  padding: 55px 20px;
-  color: #687587;
-  background: #fff;
-  border-radius: 18px;
-  margin-top: 12px;
-}
-.loading {
-  text-align: center;
-  padding: 45px 20px;
-  color: #687587;
-}
-.error {
-  background: #fff1f1;
-  color: #a40000;
-  padding: 16px;
-  border-radius: 14px;
-  margin: 12px 0;
-  font-size: 14px;
-  line-height: 1.55;
-}
-.note {
-  font-size: 12px;
-  color: #687587;
-  padding: 10px 2px 30px;
-  line-height: 1.5;
-}
-/* =========================
-   MOBILE
-========================= */
-@media (max-width: 600px) {
-  .title {
-    font-size: 25px;
-  }
-  .tabs {
-    top: 151px;
-  }
-  .card {
-    padding: 16px;
-  }
-  .time {
-    font-size: 21px;
-  }
-  .addr {
+    margin-top: 15px;
+    font-weight: 900;
     font-size: 17px;
-  }
-  .actions a {
-    padding: 12px 8px;
-  }
 }
-/* =========================
-   DESKTOP
-========================= */
-@media (min-width: 900px) {
-  .wrap {
-    padding-top: 20px;
-  }
-  .card {
-    transition:
-      transform .15s ease,
-      box-shadow .15s ease;
-  }
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0,0,0,.08);
-  }
+
+.details {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #4c5665;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 17px;
+}
+
+.navigate {
+    background: var(--navy);
+    color: white;
+}
+
+.listing {
+    background: var(--yellow);
+    color: var(--navy);
+}
+
+/* EMPTY */
+
+.empty {
+    background: white;
+    border-radius: 13px;
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    color: var(--grey);
+}
+
+.empty strong {
+    display: block;
+    color: var(--navy);
+    font-size: 17px;
+    margin-bottom: 6px;
+}
+
+/* ERROR */
+
+.error {
+    background: #fff1f1;
+    border: 1px solid #f0b7b7;
+    color: #9b2929;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 16px;
+    }
+
+    .header-inner {
+        align-items: flex-start;
+    }
+
+    .brand-text h1 {
+        font-size: 17px;
+    }
+
+    .clock-time {
+        font-size: 15px;
+    }
+
+    .clock-date {
+        font-size: 10px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tabs {
+        overflow-x: auto;
+    }
+
+    .tab {
+        white-space: nowrap;
+    }
 }
 </style>
 </head>
-<body>
-<header class="top">
-  <div class="brand">
-    YPA BACCHUS MARSH
-  </div>
-  <div class="title">
-    Open Home Dashboard
-  </div>
-  <div id="clock" class="clock">
-    Loading time…
-  </div>
-  <div class="bar">
-<button
-  class="refresh"
-  id="refresh">
-  ↻ Refresh
-</button>
-<button
-  class="source"
-  id="source">
-  Google Sheet
-</button>
-  </div>
-  <div
-    id="sync"
-    class="sync">
-    Loading open homes…
-  </div>
-</header>
-<nav class="tabs">
 
-Today
-Tomorrow
-This Week
-</nav>
-<main class="wrap">
-  <div id="app">
-<div class="loading">
-  Loading open homes…
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <div class="brand">
+            <div class="logo">YPA</div>
+
+            <div class="brand-text">
+                <h1>YPA BACCHUS MARSH</h1>
+                <p>OPEN HOME DASHBOARD</p>
+            </div>
+        </div>
+
+        <div class="clock">
+            <div class="clock-time" id="clockTime">--:--</div>
+            <div class="clock-date" id="clockDate">Loading...</div>
+        </div>
+
+    </div>
+</header>
+
+<div class="controls">
+
+    <div class="top-controls">
+
+        <button class="refresh" onclick="loadHomes()">
+            ↻ Refresh
+        </button>
+
+        <a
+            class="action-btn sheet"
+            href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSuLVcmvHjwZcvZ4VMprmhHdkG-F5983q7Wo8GuzUq0UW0VSQ0WhFnzHnIqcphwpGOVvvffjMaYGLY4/pubhtml"
+            target="_blank"
+        >
+            Open Google Sheet
+        </a>
+
+    </div>
+
+    <div class="status" id="status">
+        Connecting to Google Sheet...
+    </div>
+
 </div>
-  </div>
-  <div class="note">
-Data is pulled from your published Google Sheet.
-Open homes automatically disappear after their scheduled
-end time.
-  </div>
+
+<div class="tabs">
+
+    <button class="tab active" onclick="setTab('today', this)">
+        Today
+    </button>
+
+    <button class="tab" onclick="setTab('tomorrow', this)">
+        Tomorrow
+    </button>
+
+    <button class="tab" onclick="setTab('week', this)">
+        This Week
+    </button>
+
+</div>
+
+<main class="container">
+
+    <div id="error"></div>
+
+    <div class="section-title">
+
+        <h2 id="sectionTitle">
+            Today's Open Homes
+        </h2>
+
+        <div class="count" id="count">
+            0
+        </div>
+
+    </div>
+
+    <div id="homes" class="grid"></div>
+
 </main>
+
 <script>
+
 /* =========================================================
-   GOOGLE SHEET SETTINGS
+   GOOGLE SHEET
 ========================================================= */
+
 const CSV_URL =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vSuLVcmvHjwZcvZ4VMprmhHdkG-F5983q7Wo8GuzUq0UW0VSQ0WhFnzHnlqcphwpGOVvvffjMaYGLY4/pub?output=csv";
-/*
-   This is what opens when you press
-   "Google Sheet".
-*/
-const SHEET_URL =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vSuLVcmvHjwZcvZ4VMprmhHdkG-F5983q7Wo8GuzUq0UW0VSQ0WhFnzHnlqcphwpGOVvvffjMaYGLY4/pubhtml";
-const TIMEZONE =
-"Australia/Melbourne";
-let events = [];
-let view = "today";
-let lastSync = null;
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSuLVcmvHjwZcvZ4VMprmhHdkG-F5983q7Wo8GuzUq0UW0VSQ0WhFnzHnIqcphwpGOVvvffjMaYGLY4/pub?output=csv";
+
+
 /* =========================================================
-   GET MELBOURNE DATE
+   APP STATE
 ========================================================= */
-function getMelbourneDate() {
-  const parts =
-    new Intl.DateTimeFormat(
-      "en-CA",
-      {
-        timeZone: TIMEZONE,
+
+let homes = [];
+let currentTab = "today";
+
+
+/* =========================================================
+   MELBOURNE TIME
+========================================================= */
+
+function melbourneNow() {
+
+    const parts = new Intl.DateTimeFormat("en-AU", {
+        timeZone: "Australia/Melbourne",
         year: "numeric",
         month: "2-digit",
-        day: "2-digit"
-      }
-    ).formatToParts(new Date());
-  const result = {};
-  parts.forEach(part => {
-    if (part.type !== "literal") {
-      result[part.type] =
-        part.value;
-    }
-  });
-  return (
-    result.year +
-    "-" +
-    result.month +
-    "-" +
-    result.day
-  );
-}
-/* =========================================================
-   ADD DAYS
-========================================================= */
-function addDays(dateString, amount) {
-  const parts =
-    dateString
-      .split("-")
-      .map(Number);
-  const date =
-    new Date(
-      Date.UTC(
-        parts[0],
-        parts[1] - 1,
-        parts[2]
-      )
-    );
-  date.setUTCDate(
-    date.getUTCDate() + amount
-  );
-  return date
-    .toISOString()
-    .slice(0, 10);
-}
-/* =========================================================
-   GET MELBOURNE TIME
-========================================================= */
-function getMelbourneMinutes() {
-  const parts =
-    new Intl.DateTimeFormat(
-      "en-AU",
-      {
-        timeZone: TIMEZONE,
+        day: "2-digit",
         hour: "2-digit",
         minute: "2-digit",
+        second: "2-digit",
         hour12: false
-      }
-    ).formatToParts(new Date());
-  let hour = 0;
-  let minute = 0;
-  parts.forEach(part => {
-    if (part.type === "hour") {
-      hour =
-        Number(part.value);
-    }
-    if (part.type === "minute") {
-      minute =
-        Number(part.value);
-    }
-  });
-  return (
-    hour * 60 +
-    minute
-  );
-}
-/* =========================================================
-   PARSE TIME
-========================================================= */
-function parseTime(value) {
-  if (!value) return null;
-  let s =
-    String(value)
-      .trim()
-      .toUpperCase()
-      .replace(/\s+/g, "");
-  /*
-    Supported examples:
-    9:00 AM
-    9:00AM
-    09:00
-    14:30
-    2 PM
-    2:30 PM
-  */
-  const match =
-    s.match(
-      /^(\d{1,2})(?::(\d{1,2}))?(AM|PM)?$/
-    );
-  if (!match) {
-    return null;
-  }
-  let hour =
-    Number(match[1]);
-  const minute =
-    Number(match[2] || 0);
-  const modifier =
-    match[3];
-  if (minute > 59) {
-    return null;
-  }
-  if (
-    modifier === "PM" &&
-    hour < 12
-  ) {
-    hour += 12;
-  }
-  if (
-    modifier === "AM" &&
-    hour === 12
-  ) {
-    hour = 0;
-  }
-  if (hour > 23) {
-    return null;
-  }
-  return (
-    hour * 60 +
-    minute
-  );
-}
-/* =========================================================
-   FORMAT TIME
-========================================================= */
-function formatTime(minutes) {
-  if (
-    minutes === null ||
-    minutes === undefined
-  ) {
-    return "";
-  }
-  const hour24 =
-    Math.floor(minutes / 60);
-  const minute =
-    minutes % 60;
-  const suffix =
-    hour24 >= 12
-      ? "PM"
-      : "AM";
-  let hour =
-    hour24 % 12;
-  if (hour === 0) {
-    hour = 12;
-  }
-  return (
-    hour +
-    ":" +
-    String(minute).padStart(2, "0") +
-    " " +
-    suffix
-  );
-}
-/* =========================================================
-   PARSE DATE
-========================================================= */
-function parseDate(value) {
-  if (!value) {
-    return "";
-  }
-  let s =
-    String(value)
-      .trim()
-      .replace(/^\uFEFF/, "")
-      .replace(/\s+/g, " ");
-  /*
-    DD/MM/YYYY
-  */
-  let match =
-    s.match(
-      /^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})$/
-    );
-  if (match) {
-    return (
-      match[3] +
-      "-" +
-      String(match[2]).padStart(2, "0") +
-      "-" +
-      String(match[1]).padStart(2, "0")
-    );
-  }
-  /*
-    YYYY-MM-DD
-  */
-  match =
-    s.match(
-      /^(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})$/
-    );
-  if (match) {
-    return (
-      match[1] +
-      "-" +
-      String(match[2]).padStart(2, "0") +
-      "-" +
-      String(match[3]).padStart(2, "0")
-    );
-  }
-  return "";
-}
-/* =========================================================
-   CSV PARSER
-========================================================= */
-function csvParse(text) {
-  const rows = [];
-  let row = [];
-  let cell = "";
-  let quoted = false;
-  for (
-    let i = 0;
-    i < text.length;
-    i++
-  ) {
-    const char =
-      text[i];
-    if (quoted) {
-      if (
-        char === '"' &&
-        text[i + 1] === '"'
-      ) {
-        cell += '"';
-        i++;
-      }
-      else if (
-        char === '"'
-      ) {
-        quoted = false;
-      }
-      else {
-        cell += char;
-      }
-    }
-    else {
-      if (char === '"') {
-        quoted = true;
-      }
-      else if (char === ",") {
-        row.push(cell);
-        cell = "";
-      }
-      else if (char === "\n") {
-        row.push(cell);
-        rows.push(row);
-        row = [];
-        cell = "";
-      }
-      else if (char !== "\r") {
-        cell += char;
-      }
-    }
-  }
-  if (
-    cell !== "" ||
-    row.length
-  ) {
-    row.push(cell);
-    rows.push(row);
-  }
-  return rows;
-}
-/* =========================================================
-   CLEAN VALUE
-========================================================= */
-function clean(value) {
-  return String(value || "")
-    .replace(/^\uFEFF/, "")
-    .trim();
-}
-/* =========================================================
-   LOAD GOOGLE SHEET
-========================================================= */
-async function loadCsv() {
-  const app =
-    document.getElementById("app");
-  app.innerHTML =
-    '<div class="loading">Refreshing open homes…</div>';
-  try {
-    const response =
-      await fetch(
-        CSV_URL +
-        "&cache=" +
-        Date.now(),
-        {
-          cache: "no-store",
-          redirect: "follow"
+    }).formatToParts(new Date());
+
+    const result = {};
+
+    parts.forEach(p => {
+        if (p.type !== "literal") {
+            result[p.type] = p.value;
         }
-      );
-    if (!response.ok) {
-      throw new Error(
-        "Google Sheets returned HTTP " +
-        response.status +
-        "."
-      );
-    }
-    const text =
-      await response.text();
-    if (!text || text.length < 5) {
-      throw new Error(
-        "Google Sheets returned an empty response."
-      );
-    }
-    /*
-      Detect if Google is returning
-      an HTML page instead of CSV.
-    */
-    if (
-      text
-        .toLowerCase()
-        .includes("<html") ||
-      text
-        .toLowerCase()
-        .includes("<!doctype")
-    ) {
-      throw new Error(
-        "Google returned a webpage instead of CSV data. Make sure the spreadsheet is published to the web."
-      );
-    }
-    const rows =
-      csvParse(text);
-    if (!rows.length) {
-      throw new Error(
-        "The published Google Sheet is empty."
-      );
-    }
-    /*
-      READ COLUMN HEADINGS
-    */
-    const headers =
-      rows[0].map(
-        heading =>
-          clean(heading)
-            .toLowerCase()
-            .replace(/\s+/g, " ")
-      );
-    function findColumn(...names) {
-      for (
-        const name of names
-      ) {
-        const index =
-          headers.indexOf(
-            name.toLowerCase()
-          );
-        if (index >= 0) {
-          return index;
-        }
-      }
-      return -1;
-    }
-    /*
-      COLUMN MAPPING
-    */
-    const columns = {
-      date:
-        findColumn(
-          "date"
-        ),
-      start:
-        findColumn(
-          "start time",
-          "start",
-          "opening time"
-        ),
-      end:
-        findColumn(
-          "end time",
-          "end",
-          "closing time"
-        ),
-      address:
-        findColumn(
-          "address",
-          "property address"
-        ),
-      suburb:
-        findColumn(
-          "suburb",
-          "location"
-        ),
-      price:
-        findColumn(
-          "price",
-          "price guide"
-        ),
-      beds:
-        findColumn(
-          "bedrooms",
-          "beds"
-        ),
-      baths:
-        findColumn(
-          "bathrooms",
-          "baths"
-        ),
-      rea:
-        findColumn(
-          "rea url",
-          "rea",
-          "realestate url"
-        ),
-      agent:
-        findColumn(
-          "agent",
-          "agent name"
-        )
-    };
-    /*
-      CHECK REQUIRED COLUMNS
-    */
-    const missing = [];
-    if (columns.date < 0)
-      missing.push("Date");
-    if (columns.start < 0)
-      missing.push("Start Time");
-    if (columns.end < 0)
-      missing.push("End Time");
-    if (columns.address < 0)
-      missing.push("Address");
-    if (missing.length) {
-      throw new Error(
-        "Missing required columns: " +
-        missing.join(", ") +
-        "."
-      );
-    }
-    /*
-      CONVERT ROWS TO EVENTS
-    */
-    events =
-      rows
-        .slice(1)
-        .map(row => {
-          const start =
-            parseTime(
-              clean(
-                row[columns.start]
-              )
-            );
-          const end =
-            parseTime(
-              clean(
-                row[columns.end]
-              )
-            );
-          return {
-            date:
-              parseDate(
-                clean(
-                  row[columns.date]
-                )
-              ),
-            start:
-              start,
-            end:
-              end,
-            address:
-              clean(
-                row[columns.address]
-              ),
-            suburb:
-              columns.suburb >= 0
-                ? clean(
-                    row[columns.suburb]
-                  )
-                : "",
-            price:
-              columns.price >= 0
-                ? clean(
-                    row[columns.price]
-                  )
-                : "",
-            beds:
-              columns.beds >= 0
-                ? clean(
-                    row[columns.beds]
-                  )
-                : "",
-            baths:
-              columns.baths >= 0
-                ? clean(
-                    row[columns.baths]
-                  )
-                : "",
-            rea:
-              columns.rea >= 0
-                ? clean(
-                    row[columns.rea]
-                  )
-                : "",
-            agent:
-              columns.agent >= 0
-                ? clean(
-                    row[columns.agent]
-                  )
-                : ""
-          };
-        })
-        .filter(event =>
-          event.date &&
-          event.start !== null &&
-          event.end !== null &&
-          event.address
-        );
-    lastSync =
-      new Date();
-    document
-      .getElementById("sync")
-      .textContent =
-        "Synced " +
-        lastSync.toLocaleTimeString(
-          "en-AU",
-          {
-            hour: "numeric",
-            minute: "2-digit"
-          }
-        ) +
-        " · " +
-        events.length +
-        " open homes";
-    render();
-  }
-  catch (error) {
-    console.error(error);
-    app.innerHTML = `
-      <div class="error">
-        <b>
-          Couldn't load the Google Sheet.
-        </b>
-        <br><br>
-        ${escapeHtml(error.message)}
-        <br><br>
-        <b>
-          Required columns:
-        </b>
-        <br>
-        • Date
-        <br>
-        • Start Time
-        <br>
-        • End Time
-        <br>
-        • Address
-        <br><br>
-        Make sure your Google Sheet is
-        published to the web as CSV.
-      </div>
-    `;
-    document
-      .getElementById("sync")
-      .textContent =
-        "Sync failed";
-  }
-}
-/* =========================================================
-   EXPIRY CHECK
-========================================================= */
-function isExpired(event) {
-  const today =
-    getMelbourneDate();
-  /*
-    Any previous date is expired.
-  */
-  if (
-    event.date < today
-  ) {
-    return true;
-  }
-  /*
-    Any future date is not expired.
-  */
-  if (
-    event.date > today
-  ) {
-    return false;
-  }
-  /*
-    Same day:
-    remove once end time is reached.
-  */
-  const currentMinutes =
-    getMelbourneMinutes();
-  return (
-    event.end <=
-    currentMinutes
-  );
-}
-/* =========================================================
-   EVENT STATUS
-========================================================= */
-function getStatus(event) {
-  const today =
-    getMelbourneDate();
-  if (
-    event.date !== today
-  ) {
-    return "UPCOMING";
-  }
-  const now =
-    getMelbourneMinutes();
-  if (
-    now >= event.start &&
-    now < event.end
-  ) {
-    return "OPEN NOW";
-  }
-  if (
-    now < event.start
-  ) {
-    return "NEXT OPEN";
-  }
-  return "PAST";
-}
-/* =========================================================
-   DATE LABEL
-========================================================= */
-function dateLabel(date) {
-  const parts =
-    date
-      .split("-")
-      .map(Number);
-  const d =
-    new Date(
-      parts[0],
-      parts[1] - 1,
-      parts[2],
-      12
-    );
-  return new Intl.DateTimeFormat(
-    "en-AU",
-    {
-      weekday: "short",
-      day: "numeric",
-      month: "short"
-    }
-  ).format(d);
-}
-/* =========================================================
-   FILTER EVENTS
-========================================================= */
-function getShownEvents() {
-  const today =
-    getMelbourneDate();
-  let list =
-    events.filter(
-      event =>
-        !isExpired(event)
-    );
-  if (
-    view === "today"
-  ) {
-    list =
-      list.filter(
-        event =>
-          event.date === today
-      );
-  }
-  else if (
-    view === "tomorrow"
-  ) {
-    const tomorrow =
-      addDays(today, 1);
-    list =
-      list.filter(
-        event =>
-          event.date === tomorrow
-      );
-  }
-  else if (
-    view === "week"
-  ) {
-    const weekEnd =
-      addDays(today, 7);
-    list =
-      list.filter(
-        event =>
-          event.date >= today &&
-          event.date <= weekEnd
-      );
-  }
-  return list.sort(
-    (a,b) => {
-      if (
-        a.date !== b.date
-      ) {
-        return a.date.localeCompare(
-          b.date
-        );
-      }
-      return (
-        a.start -
-        b.start
-      );
-    }
-  );
-}
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-function escapeHtml(value) {
-  return String(value || "")
-    .replace(
-      /[&<>"']/g,
-      character => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      })[character]
-    );
-}
-/* =========================================================
-   RENDER DASHBOARD
-========================================================= */
-function render() {
-  /*
-    Update tabs.
-  */
-  document
-    .querySelectorAll(
-      ".tabs button"
-    )
-    .forEach(button => {
-      button.classList.toggle(
-        "active",
-        button.dataset.view === view
-      );
     });
-  const list =
-    getShownEvents();
-  const app =
-    document.getElementById("app");
-  /*
-    Nothing available.
-  */
-  if (!list.length) {
-    app.innerHTML =
-      '<div class="empty">No open homes remaining for this view.</div>';
-    return;
-  }
-  let nextFound =
-    false;
-  let currentDate =
-    "";
-  let html =
-    "";
-  list.forEach(event => {
-    /*
-      Week view headings.
-    */
-    if (
-      view === "week" &&
-      event.date !== currentDate
-    ) {
-      currentDate =
-        event.date;
-      html += `
-        <div class="day-heading">
-          ${escapeHtml(
-            dateLabel(event.date)
-          )}
-        </div>
-      `;
-    }
-    const status =
-      getStatus(event);
-    let statusClass =
-      "";
-    if (
-      status === "OPEN NOW"
-    ) {
-      statusClass =
-        "now";
-    }
-    if (
-      status === "NEXT OPEN" &&
-      !nextFound
-    ) {
-      statusClass =
-        "next";
-      nextFound =
-        true;
-    }
-    const address =
-      event.suburb
-        ? event.address +
-          ", " +
-          event.suburb
-        : event.address;
-    const mapsUrl =
-      "https://www.google.com/maps/search/?api=1&query=" +
-      encodeURIComponent(
-        address
-      );
-    let reaUrl = "";
-    if (
-      event.rea &&
-      /^https?:\/\//i.test(
-        event.rea
-      )
-    ) {
-      reaUrl =
-        event.rea;
-    }
-    html += `
-      <article class="card">
-        <div class="time">
-          ${formatTime(
-            event.start
-          )}
-          –
-          ${formatTime(
-            event.end
-          )}
-        </div>
-        <div
-          class="status ${statusClass}"
-        >
-          ${status}
-          ·
-          ${escapeHtml(
-            dateLabel(event.date)
-          )}
-        </div>
-        <div class="addr">
-          ${escapeHtml(
-            address
-          )}
-        </div>
-        <div class="meta">
-          ${
-            event.price
-              ? `
-                <span class="price">
-                  ${escapeHtml(
-                    event.price
-                  )}
-                </span>
-              `
-              : ""
-          }
-          ${
-            event.beds
-              ? `
-                <span>
-                  🛏
-                  ${escapeHtml(
-                    event.beds
-                  )}
-                </span>
-              `
-              : ""
-          }
-          ${
-            event.baths
-              ? `
-                <span>
-                  🛁
-                  ${escapeHtml(
-                    event.baths
-                  )}
-                </span>
-              `
-              : ""
-          }
-          ${
-            event.agent
-              ? `
-                <span>
-                  👤
-                  ${escapeHtml(
-                    event.agent
-                  )}
-                </span>
-              `
-              : ""
-          }
-        </div>
-        <div class="actions">
-          <a
-            href="${mapsUrl}"
-            target="_blank"
-            rel="noopener">
-            Navigate
-          </a>
-          ${
-            reaUrl
-              ? `
-                <a
-                  class="rea"
-                  href="${escapeHtml(
-                    reaUrl
-                  )}"
-                  target="_blank"
-                  rel="noopener">
-                  View REA
-                </a>
-              `
-              : ""
-          }
-        </div>
-      </article>
-    `;
-  });
-  app.innerHTML =
-    html;
+
+    return {
+        year: Number(result.year),
+        month: Number(result.month),
+        day: Number(result.day),
+        hour: Number(result.hour),
+        minute: Number(result.minute),
+        second: Number(result.second)
+    };
 }
+
+
 /* =========================================================
-   LIVE CLOCK
+   CLOCK
 ========================================================= */
+
 function updateClock() {
-  const formatted =
-    new Intl.DateTimeFormat(
-      "en-AU",
-      {
-        timeZone: TIMEZONE,
-        weekday: "long",
-        day: "numeric",
-        month: "long",
+
+    const now = new Date();
+
+    const time = new Intl.DateTimeFormat("en-AU", {
+        timeZone: "Australia/Melbourne",
         hour: "numeric",
         minute: "2-digit",
         second: "2-digit",
         hour12: true
-      }
-    ).format(
-      new Date()
-    );
-  document
-    .getElementById("clock")
-    .textContent =
-      formatted +
-      " · Melbourne";
-  /*
-    Re-render so an open home
-    disappears immediately after
-    its end time.
-  */
-  if (events.length) {
-    render();
-  }
+    }).format(now);
+
+    const date = new Intl.DateTimeFormat("en-AU", {
+        timeZone: "Australia/Melbourne",
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    }).format(now);
+
+    document.getElementById("clockTime").textContent = time;
+    document.getElementById("clockDate").textContent = date;
 }
-/* =========================================================
-   TAB CONTROLS
-========================================================= */
-document
-  .querySelectorAll(
-    ".tabs button"
-  )
-  .forEach(button => {
-    button.onclick =
-      function() {
-        view =
-          this.dataset.view;
-        render();
-      };
-  });
-/* =========================================================
-   REFRESH BUTTON
-========================================================= */
-document
-  .getElementById("refresh")
-  .onclick =
-    loadCsv;
-/* =========================================================
-   GOOGLE SHEET BUTTON
-========================================================= */
-document
-  .getElementById("source")
-  .onclick =
-    function() {
-      window.open(
-        SHEET_URL,
-        "_blank"
-      );
-    };
-/* =========================================================
-   START APP
-========================================================= */
-loadCsv();
+
+setInterval(updateClock, 1000);
 updateClock();
+
+
+/* =========================================================
+   CSV PARSER
+========================================================= */
+
+function parseCSV(text) {
+
+    const rows = [];
+    let row = [];
+    let cell = "";
+    let insideQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"' && insideQuotes && next === '"') {
+            cell += '"';
+            i++;
+            continue;
+        }
+
+        if (char === '"') {
+            insideQuotes = !insideQuotes;
+            continue;
+        }
+
+        if (char === "," && !insideQuotes) {
+            row.push(cell.trim());
+            cell = "";
+            continue;
+        }
+
+        if ((char === "\n" || char === "\r") && !insideQuotes) {
+
+            if (char === "\r" && next === "\n") {
+                i++;
+            }
+
+            row.push(cell.trim());
+
+            if (row.some(value => value !== "")) {
+                rows.push(row);
+            }
+
+            row = [];
+            cell = "";
+            continue;
+        }
+
+        cell += char;
+    }
+
+    if (cell !== "" || row.length) {
+        row.push(cell.trim());
+
+        if (row.some(value => value !== "")) {
+            rows.push(row);
+        }
+    }
+
+    return rows;
+}
+
+
+/* =========================================================
+   NORMALISE HEADER
+========================================================= */
+
+function normaliseHeader(value) {
+
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+}
+
+
+/* =========================================================
+   PARSE DATE
+========================================================= */
+
+function parseDate(value) {
+
+    if (!value) return null;
+
+    value = String(value).trim();
+
+    /*
+       Handles:
+       2/9/2026
+       02/09/2026
+       2026-09-02
+    */
+
+    let match = value.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+
+    if (match) {
+
+        const day = Number(match[1]);
+        const month = Number(match[2]);
+        const year = Number(match[3]);
+
+        return {
+            day,
+            month,
+            year
+        };
+    }
+
+    match = value.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/);
+
+    if (match) {
+
+        return {
+            year: Number(match[1]),
+            month: Number(match[2]),
+            day: Number(match[3])
+        };
+    }
+
+    return null;
+}
+
+
+/* =========================================================
+   PARSE TIME
+========================================================= */
+
+function parseTime(value) {
+
+    if (!value) return null;
+
+    value = String(value)
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "");
+
+    /*
+       Handles:
+       10:00
+       10:00am
+       10:00pm
+       10am
+       14:30
+    */
+
+    let match = value.match(/^(\d{1,2})(?::(\d{2}))?(am|pm)?$/);
+
+    if (!match) return null;
+
+    let hour = Number(match[1]);
+    let minute = Number(match[2] || 0);
+    const modifier = match[3];
+
+    if (modifier === "pm" && hour !== 12) {
+        hour += 12;
+    }
+
+    if (modifier === "am" && hour === 12) {
+        hour = 0;
+    }
+
+    if (hour > 23 || minute > 59) {
+        return null;
+    }
+
+    return {
+        hour,
+        minute
+    };
+}
+
+
+/* =========================================================
+   MELBOURNE DATE/TIME COMPARISON
+========================================================= */
+
+function makeDateTime(dateObj, timeObj) {
+
+    if (!dateObj || !timeObj) return null;
+
+    /*
+       Convert Melbourne local date/time into a comparable
+       timestamp. This uses the Melbourne timezone rules.
+    */
+
+    const utcGuess = Date.UTC(
+        dateObj.year,
+        dateObj.month - 1,
+        dateObj.day,
+        timeObj.hour,
+        timeObj.minute
+    );
+
+    let date = new Date(utcGuess);
+
+    const formatter = new Intl.DateTimeFormat("en-AU", {
+        timeZone: "Australia/Melbourne",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+    });
+
+    /*
+       Iteratively correct for Melbourne's UTC offset.
+    */
+
+    for (let i = 0; i < 3; i++) {
+
+        const parts = {};
+
+        formatter.formatToParts(date).forEach(p => {
+            if (p.type !== "literal") {
+                parts[p.type] = Number(p.value);
+            }
+        });
+
+        const displayedUtc = Date.UTC(
+            parts.year,
+            parts.month - 1,
+            parts.day,
+            parts.hour,
+            parts.minute,
+            parts.second || 0
+        );
+
+        const targetUtc = Date.UTC(
+            dateObj.year,
+            dateObj.month - 1,
+            dateObj.day,
+            timeObj.hour,
+            timeObj.minute
+        );
+
+        const difference = targetUtc - displayedUtc;
+
+        if (difference === 0) break;
+
+        date = new Date(date.getTime() + difference);
+    }
+
+    return date;
+}
+
+
+/* =========================================================
+   FORMAT TIME
+========================================================= */
+
+function formatTime(time) {
+
+    if (!time) return "";
+
+    const d = new Date();
+
+    d.setHours(time.hour);
+    d.setMinutes(time.minute);
+    d.setSeconds(0);
+
+    return d.toLocaleTimeString("en-AU", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+    });
+}
+
+
+/* =========================================================
+   FORMAT PRICE
+========================================================= */
+
+function formatPrice(price) {
+
+    if (!price) return "";
+
+    const value = String(price).trim();
+
+    if (
+        value.toLowerCase().includes("$") ||
+        value.toLowerCase().includes("contact") ||
+        value.toLowerCase().includes("auction") ||
+        value.toLowerCase().includes("offers")
+    ) {
+        return value;
+    }
+
+    return value;
+}
+
+
+/* =========================================================
+   LOAD GOOGLE SHEET
+========================================================= */
+
+async function loadHomes() {
+
+    const status = document.getElementById("status");
+    const error = document.getElementById("error");
+
+    status.textContent = "Refreshing open homes...";
+    error.innerHTML = "";
+
+    try {
+
+        /*
+           Cache-busting prevents Safari/GitHub from serving
+           an old CSV response.
+        */
+
+        const url = CSV_URL + "&cacheBust=" + Date.now();
+
+        const response = await fetch(url, {
+            method: "GET",
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                "Google Sheet returned HTTP " + response.status
+            );
+        }
+
+        const text = await response.text();
+
+        if (!text || text.trim().length < 5) {
+            throw new Error("Google Sheet returned an empty response.");
+        }
+
+        /*
+           If Google returns an HTML error page rather than CSV,
+           detect it immediately.
+        */
+
+        if (
+            text.toLowerCase().includes("<html") ||
+            text.toLowerCase().includes("sorry, the file")
+        ) {
+            throw new Error(
+                "Google returned a webpage instead of the CSV feed."
+            );
+        }
+
+        const rows = parseCSV(text);
+
+        if (rows.length < 2) {
+            throw new Error(
+                "The Google Sheet loaded, but no open-home rows were found."
+            );
+        }
+
+        const headers = rows[0].map(normaliseHeader);
+
+        const requiredColumns = [
+            "date",
+            "start time",
+            "end time",
+            "address",
+            "suburb",
+            "price",
+            "bedrooms",
+            "bathrooms",
+            "rea url"
+        ];
+
+        const missing = requiredColumns.filter(
+            column => !headers.includes(column)
+        );
+
+        if (missing.length) {
+            throw new Error(
+                "Missing column(s): " + missing.join(", ")
+            );
+        }
+
+        const index = {};
+
+        headers.forEach((header, i) => {
+            index[header] = i;
+        });
+
+        homes = [];
+
+        for (let i = 1; i < rows.length; i++) {
+
+            const row = rows[i];
+
+            const date = parseDate(row[index["date"]]);
+            const startTime = parseTime(row[index["start time"]]);
+            const endTime = parseTime(row[index["end time"]]);
+
+            const address = String(
+                row[index["address"]] || ""
+            ).trim();
+
+            if (!date || !startTime || !endTime || !address) {
+                continue;
+            }
+
+            const startDateTime = makeDateTime(
+                date,
+                startTime
+            );
+
+            const endDateTime = makeDateTime(
+                date,
+                endTime
+            );
+
+            homes.push({
+                date,
+                startTime,
+                endTime,
+                startDateTime,
+                endDateTime,
+
+                address,
+
+                suburb: String(
+                    row[index["suburb"]] || ""
+                ).trim(),
+
+                price: formatPrice(
+                    row[index["price"]] || ""
+                ),
+
+                bedrooms: String(
+                    row[index["bedrooms"]] || ""
+                ).trim(),
+
+                bathrooms: String(
+                    row[index["bathrooms"]] || ""
+                ).trim(),
+
+                reaUrl: String(
+                    row[index["rea url"]] || ""
+                ).trim()
+            });
+        }
+
+        /*
+           Sort chronologically.
+        */
+
+        homes.sort(
+            (a, b) =>
+                a.startDateTime - b.startDateTime
+        );
+
+        status.textContent =
+            "✓ Synced " +
+            new Date().toLocaleTimeString("en-AU", {
+                hour: "numeric",
+                minute: "2-digit"
+            }) +
+            " • " +
+            homes.length +
+            " open homes";
+
+        render();
+
+    } catch (err) {
+
+        console.error(err);
+
+        status.textContent = "⚠ Sync failed";
+
+        error.innerHTML = `
+            <strong>Couldn't load the Google Sheet.</strong><br>
+            ${escapeHTML(err.message)}
+            <br><br>
+            <small>
+                Check that the Google Sheet is still published to the web.
+            </small>
+        `;
+
+        /*
+           If we already have homes loaded, keep them visible.
+        */
+
+        render();
+    }
+}
+
+
+/* =========================================================
+   TAB CONTROL
+========================================================= */
+
+function setTab(tab, button) {
+
+    currentTab = tab;
+
+    document.querySelectorAll(".tab")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    render();
+}
+
+
+/* =========================================================
+   FILTER HOMES
+========================================================= */
+
+function getFilteredHomes() {
+
+    const now = melbourneNow();
+
+    /*
+       Create today's Melbourne date at midnight.
+    */
+
+    const todayKey =
+        `${now.year}-${String(now.month).padStart(2,"0")}-${String(now.day).padStart(2,"0")}`;
+
+    const today = new Date(
+        now.year,
+        now.month - 1,
+        now.day
+    );
+
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const tomorrowKey =
+        `${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,"0")}-${String(tomorrow.getDate()).padStart(2,"0")}`;
+
+    const weekEnd = new Date(today);
+    weekEnd.setDate(
+        weekEnd.getDate() + 7
+    );
+
+    return homes.filter(home => {
+
+        /*
+           IMPORTANT:
+           An open home disappears once its END time passes.
+        */
+
+        if (
+            home.endDateTime &&
+            new Date() >= home.endDateTime
+        ) {
+            return false;
+        }
+
+        const key =
+            `${home.date.year}-${String(home.date.month).padStart(2,"0")}-${String(home.date.day).padStart(2,"0")}`;
+
+        if (currentTab === "today") {
+            return key === todayKey;
+        }
+
+        if (currentTab === "tomorrow") {
+            return key === tomorrowKey;
+        }
+
+        if (currentTab === "week") {
+
+            const homeDate = new Date(
+                home.date.year,
+                home.date.month - 1,
+                home.date.day
+            );
+
+            return (
+                homeDate >= today &&
+                homeDate < weekEnd
+            );
+        }
+
+        return false;
+    });
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render() {
+
+    const container =
+        document.getElementById("homes");
+
+    const count =
+        document.getElementById("count");
+
+    const title =
+        document.getElementById("sectionTitle");
+
+    const filtered =
+        getFilteredHomes();
+
+    if (currentTab === "today") {
+        title.textContent = "Today's Open Homes";
+    }
+
+    if (currentTab === "tomorrow") {
+        title.textContent = "Tomorrow's Open Homes";
+    }
+
+    if (currentTab === "week") {
+        title.textContent = "This Week's Open Homes";
+    }
+
+    count.textContent = filtered.length;
+
+    if (!filtered.length) {
+
+        container.innerHTML = `
+            <div class="empty">
+                <strong>No open homes</strong>
+                There are currently no open homes showing for this period.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        filtered.map(createCard).join("");
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+function createCard(home) {
+
+    const details = [];
+
+    if (home.bedrooms) {
+        details.push("🛏 " + escapeHTML(home.bedrooms));
+    }
+
+    if (home.bathrooms) {
+        details.push("🛁 " + escapeHTML(home.bathrooms));
+    }
+
+    const encodedAddress =
+        encodeURIComponent(
+            home.address +
+            (home.suburb ? ", " + home.suburb : "") +
+            ", VIC, Australia"
+        );
+
+    const mapsURL =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodedAddress;
+
+    const listingButton =
+        home.reaUrl
+            ? `
+                <a
+                    class="action-btn listing"
+                    href="${escapeAttribute(home.reaUrl)}"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    View Listing
+                </a>
+              `
+            : "";
+
+    return `
+        <article class="card">
+
+            <div class="time">
+                ${escapeHTML(formatTime(home.startTime))}
+            </div>
+
+            <div class="time-range">
+                Until ${escapeHTML(formatTime(home.endTime))}
+            </div>
+
+            <div class="address">
+                ${escapeHTML(home.address)}
+            </div>
+
+            ${
+                home.suburb
+                    ? `<div class="suburb">${escapeHTML(home.suburb)}</div>`
+                    : ""
+            }
+
+            ${
+                home.price
+                    ? `<div class="price">${escapeHTML(home.price)}</div>`
+                    : ""
+            }
+
+            ${
+                details.length
+                    ? `<div class="details">${details.join("")}</div>`
+                    : ""
+            }
+
+            <div class="buttons">
+
+                <a
+                    class="action-btn navigate"
+                    href="${mapsURL}"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Navigate
+                </a>
+
+                ${listingButton}
+
+            </div>
+
+        </article>
+    `;
+}
+
+
+/* =========================================================
+   SECURITY HELPERS
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHTML(value);
+}
+
+
+/* =========================================================
+   AUTO REFRESH
+========================================================= */
+
 /*
-  Update clock every second.
+   Refresh Google Sheet every 5 minutes.
 */
+
 setInterval(
-  updateClock,
-  1000
+    loadHomes,
+    5 * 60 * 1000
 );
+
+
 /*
-  Re-sync Google Sheet every
-  five minutes.
+   Re-render every 30 seconds.
+
+   This means an open home disappears automatically
+   when its inspection time finishes, without waiting
+   for a Google Sheet refresh.
 */
+
 setInterval(
-  loadCsv,
-  5 * 60 * 1000
+    render,
+    30 * 1000
 );
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+loadHomes();
+
 </script>
+
 </body>
 </html>
