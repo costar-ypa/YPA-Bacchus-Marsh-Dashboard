@@ -4,59 +4,112 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#071B3A">
-<meta name="description" content="YPA Bacchus Marsh Open Homes">
-<title>YPA Bacchus Marsh | Open Homes</title>
+<meta name="description" content="The YPA Bacchus Marsh Property Edit">
+<title>YPA Bacchus Marsh | The Property Edit</title>
 
 <style>
 :root{
   --navy:#071B3A;
-  --navy2:#0D2850;
+  --navy-light:#102A52;
   --gold:#F5C400;
-  --gold2:#FFD84A;
-  --cream:#F7F7F4;
+  --cream:#F7F5F0;
   --white:#FFFFFF;
-  --text:#172033;
-  --muted:#6D7480;
-  --border:#E6E8EC;
+  --ink:#121A26;
+  --muted:#707784;
+  --line:#E4E4E1;
   --green:#16845B;
-  --shadow:0 12px 35px rgba(7,27,58,.09);
+  --shadow:0 18px 50px rgba(7,27,58,.10);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
   background:var(--cream);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--ink);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
 }
 
-button,input{font:inherit}
+button,
+input{
+  font:inherit;
+}
 
-.header{
-  background:var(--navy);
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================
+   HEADER / COVER
+========================= */
+
+.cover{
+  min-height:620px;
+  background:
+    linear-gradient(
+      115deg,
+      rgba(7,27,58,.98) 0%,
+      rgba(7,27,58,.91) 52%,
+      rgba(7,27,58,.72) 100%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(245,196,0,.20),
+      transparent 30%
+    );
   color:white;
-  padding:22px 20px 34px;
   position:relative;
   overflow:hidden;
 }
 
-.header:after{
+.cover:before{
   content:"";
   position:absolute;
-  width:420px;
-  height:420px;
+  width:600px;
+  height:600px;
+  border:1px solid rgba(255,255,255,.08);
   border-radius:50%;
-  background:rgba(245,196,0,.08);
-  right:-180px;
-  top:-230px;
+  right:-220px;
+  top:-220px;
 }
 
-.header-inner{
-  max-width:1180px;
+.cover:after{
+  content:"";
+  position:absolute;
+  width:350px;
+  height:350px;
+  border:1px solid rgba(245,196,0,.15);
+  border-radius:50%;
+  right:-100px;
+  top:-90px;
+}
+
+.cover-inner{
+  max-width:1200px;
   margin:auto;
+  padding:28px 24px 55px;
   position:relative;
-  z-index:1;
+  z-index:2;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .brand{
@@ -66,494 +119,1076 @@ button,input{font:inherit}
 }
 
 .logo{
-  width:62px;
-  height:62px;
+  width:66px;
+  height:66px;
   background:white;
-  border-radius:10px;
+  border-radius:9px;
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
-  flex-shrink:0;
 }
 
 .logo img{
-  width:90%;
-  height:90%;
+  width:92%;
+  height:92%;
   object-fit:contain;
 }
 
-.logo-fallback{
+.logo-text{
+  display:none;
   color:var(--navy);
   font-weight:900;
   font-size:23px;
-  letter-spacing:-1px;
 }
 
-.brand small{
+.brand-text small{
   display:block;
-  color:rgba(255,255,255,.68);
-  font-size:12px;
+  color:rgba(255,255,255,.58);
   text-transform:uppercase;
-  letter-spacing:2px;
+  letter-spacing:2.5px;
+  font-size:10px;
   margin-bottom:5px;
 }
 
-.brand h1{
-  margin:0;
-  font-size:25px;
-  letter-spacing:-.6px;
+.brand-text strong{
+  font-size:22px;
+  letter-spacing:-.5px;
 }
 
-.hero{
-  max-width:1180px;
-  margin:30px auto 0;
+.issue{
+  color:rgba(255,255,255,.55);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:2px;
 }
 
-.hero-eyebrow{
+.cover-content{
+  max-width:850px;
+  margin-top:105px;
+}
+
+.kicker{
   color:var(--gold);
   text-transform:uppercase;
-  letter-spacing:2.5px;
+  letter-spacing:4px;
   font-size:11px;
   font-weight:800;
 }
 
-.hero h2{
-  margin:8px 0 8px;
-  font-size:36px;
-  line-height:1.05;
-  letter-spacing:-1.5px;
+.cover h1{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;
+  font-size:clamp(55px,9vw,105px);
+  line-height:.88;
+  letter-spacing:-5px;
+  margin:18px 0 25px;
 }
 
-.hero p{
-  margin:0;
-  color:rgba(255,255,255,.7);
-  font-size:14px;
+.cover-copy{
+  max-width:530px;
+  color:rgba(255,255,255,.72);
+  font-size:16px;
+  line-height:1.7;
 }
+
+.cover-line{
+  width:65px;
+  height:3px;
+  background:var(--gold);
+  margin:30px 0;
+}
+
+.cover-meta{
+  display:flex;
+  gap:35px;
+  flex-wrap:wrap;
+}
+
+.cover-meta strong{
+  display:block;
+  font-size:25px;
+}
+
+.cover-meta span{
+  display:block;
+  margin-top:3px;
+  color:rgba(255,255,255,.52);
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-size:9px;
+}
+
+/* =========================
+   MAIN
+========================= */
 
 .container{
-  max-width:1180px;
-  margin:-18px auto 50px;
-  padding:0 18px;
-  position:relative;
-  z-index:2;
+  max-width:1200px;
+  margin:auto;
+  padding:0 22px 80px;
 }
 
-.panel{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  padding:14px;
+/* =========================
+   FEATURE
+========================= */
+
+.section{
+  padding-top:65px;
 }
 
-.search{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:#F4F5F7;
-  border-radius:12px;
-  padding:0 15px;
-}
-
-.search span{
-  color:#8A919C;
-  font-size:18px;
-}
-
-.search input{
-  border:0;
-  outline:0;
-  background:transparent;
-  width:100%;
-  padding:13px 0;
-  color:var(--text);
-}
-
-.tabs{
-  display:flex;
-  gap:8px;
-  margin-top:12px;
-  overflow-x:auto;
-  padding-bottom:2px;
-}
-
-.tab{
-  border:1px solid var(--border);
-  background:white;
-  color:#555E6C;
-  padding:10px 15px;
-  border-radius:999px;
-  white-space:nowrap;
-  cursor:pointer;
-  font-size:13px;
-  font-weight:700;
-}
-
-.tab.active{
-  background:var(--navy);
-  color:white;
-  border-color:var(--navy);
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:12px;
-}
-
-.stat{
-  background:#F8F9FA;
-  border:1px solid #ECEEF1;
-  border-radius:12px;
-  padding:13px;
-}
-
-.stat strong{
-  display:block;
-  font-size:20px;
-  color:var(--navy);
-}
-
-.stat span{
-  color:var(--muted);
-  font-size:11px;
+.section-label{
+  color:var(--gold);
   text-transform:uppercase;
-  letter-spacing:1px;
+  letter-spacing:3px;
+  font-size:10px;
+  font-weight:900;
 }
 
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  margin:28px 2px 14px;
-}
-
-.section-head h3{
-  margin:0;
-  font-size:21px;
-  letter-spacing:-.5px;
-}
-
-.section-head p{
-  margin:4px 0 0;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.refresh{
-  border:0;
-  background:transparent;
+.section-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;
+  font-size:43px;
+  line-height:1;
+  margin:9px 0 24px;
   color:var(--navy);
-  font-size:13px;
-  font-weight:700;
-  cursor:pointer;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.card{
+.feature{
   background:white;
-  border:1px solid var(--border);
-  border-radius:18px;
+  border-radius:2px;
   overflow:hidden;
-  box-shadow:0 7px 25px rgba(7,27,58,.07);
-  transition:.2s ease;
+  box-shadow:var(--shadow);
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
 }
 
-.card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 14px 38px rgba(7,27,58,.12);
-}
-
-.photo{
-  height:205px;
-  background:linear-gradient(135deg,#E9EBEF,#D9DDE3);
+.feature-photo{
+  min-height:540px;
+  background:
+    linear-gradient(135deg,#D9DDE3,#EFF0F1);
   position:relative;
-  overflow:hidden;
 }
 
-.photo img{
+.feature-photo img{
   width:100%;
   height:100%;
   object-fit:cover;
+  position:absolute;
+  inset:0;
 }
 
-.photo-placeholder{
+.feature-placeholder{
   height:100%;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#8A919C;
-  font-weight:800;
+  color:#7A808A;
   font-size:13px;
   text-transform:uppercase;
-  letter-spacing:1px;
+  letter-spacing:2px;
 }
 
-.badge{
-  position:absolute;
-  left:12px;
-  top:12px;
-  padding:7px 10px;
-  border-radius:8px;
+.feature-info{
+  padding:55px 48px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.feature-tag{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:2.5px;
   font-size:10px;
   font-weight:900;
-  letter-spacing:1px;
+}
+
+.feature-address{
+  font-family:Georgia,"Times New Roman",serif;
+  color:var(--navy);
+  font-size:42px;
+  line-height:1.05;
+  margin:15px 0 5px;
+}
+
+.feature-suburb{
   text-transform:uppercase;
-  background:white;
-  color:var(--navy);
-  box-shadow:0 4px 15px rgba(0,0,0,.12);
-}
-
-.badge.live{
-  background:var(--green);
-  color:white;
-}
-
-.card-body{
-  padding:17px;
-}
-
-.time{
-  color:var(--navy);
-  font-weight:900;
-  font-size:21px;
-  letter-spacing:-.5px;
-}
-
-.time span{
-  font-size:12px;
-  font-weight:600;
+  letter-spacing:2px;
   color:var(--muted);
-}
-
-.address{
-  margin-top:8px;
-  font-size:17px;
+  font-size:11px;
   font-weight:800;
-  line-height:1.2;
 }
 
-.suburb{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:4px;
-}
-
-.price{
-  margin-top:13px;
-  font-size:15px;
-  font-weight:800;
+.feature-price{
   color:var(--navy);
+  font-weight:800;
+  font-size:19px;
+  margin-top:30px;
 }
 
-.features{
+.feature-description{
+  color:#606773;
+  line-height:1.7;
+  font-size:14px;
+  margin-top:22px;
+}
+
+.feature-stats{
   display:flex;
-  gap:15px;
-  margin-top:12px;
-  padding-top:12px;
-  border-top:1px solid var(--border);
-  color:#596271;
-  font-size:12px;
+  gap:20px;
+  padding:20px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  margin-top:25px;
 }
 
-.actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:15px;
+.feature-stats span{
+  font-size:11px;
+  color:#59616D;
+  font-weight:700;
+}
+
+.inspection{
+  margin-top:24px;
+}
+
+.inspection small{
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-size:9px;
+}
+
+.inspection strong{
+  display:block;
+  color:var(--navy);
+  font-size:17px;
+  margin-top:5px;
+}
+
+.buttons{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:28px;
 }
 
 .btn{
-  border:1px solid var(--border);
-  background:white;
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  padding:13px 18px;
+  border:1px solid var(--navy);
   color:var(--navy);
-  padding:11px 8px;
-  border-radius:10px;
-  font-size:12px;
-  font-weight:800;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
   cursor:pointer;
-  text-align:center;
-  text-decoration:none;
 }
 
 .btn.primary{
   background:var(--navy);
-  border-color:var(--navy);
   color:white;
 }
 
 .btn.gold{
   background:var(--gold);
   border-color:var(--gold);
-  color:var(--navy);
 }
 
-.empty{
-  text-align:center;
+/* =========================
+   EDIT GRID
+========================= */
+
+.toolbar{
   background:white;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:55px 20px;
+  padding:14px;
+  box-shadow:0 8px 30px rgba(7,27,58,.05);
+  margin-bottom:25px;
+}
+
+.search{
+  display:flex;
+  align-items:center;
+  background:#F3F3F1;
+  padding:0 14px;
+}
+
+.search span{
+  color:#777E88;
+  font-size:18px;
+}
+
+.search input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  padding:13px 10px;
+}
+
+.filters{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-top:12px;
+}
+
+.filter{
+  white-space:nowrap;
+  border:1px solid var(--line);
+  background:white;
+  padding:9px 15px;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.filter.active{
+  background:var(--navy);
+  color:white;
+  border-color:var(--navy);
+}
+
+.editor-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:25px;
+}
+
+.property{
+  background:white;
+  box-shadow:0 8px 30px rgba(7,27,58,.06);
+  overflow:hidden;
+}
+
+.property:nth-child(3n){
+  grid-column:span 2;
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+}
+
+.property-image{
+  height:310px;
+  background:#E3E5E8;
+  position:relative;
+}
+
+.property:nth-child(3n) .property-image{
+  height:100%;
+  min-height:350px;
+}
+
+.property-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.property-placeholder{
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#7E858E;
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.property-number{
+  position:absolute;
+  top:14px;
+  left:14px;
+  background:var(--navy);
+  color:white;
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:900;
+}
+
+.property-body{
+  padding:26px;
+}
+
+.property-time{
+  color:var(--gold);
+  text-transform:uppercase;
+  font-size:9px;
+  letter-spacing:1.5px;
+  font-weight:900;
+}
+
+.property-address{
+  color:var(--navy);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:30px;
+  line-height:1.05;
+  margin:9px 0 3px;
+}
+
+.property-suburb{
   color:var(--muted);
+  text-transform:uppercase;
+  font-size:9px;
+  letter-spacing:1.7px;
+  font-weight:800;
+}
+
+.property-price{
+  color:var(--navy);
+  font-size:15px;
+  font-weight:800;
+  margin-top:20px;
+}
+
+.property-features{
+  display:flex;
+  gap:15px;
+  margin-top:14px;
+  color:#606874;
+  font-size:11px;
+  padding-top:13px;
+  border-top:1px solid var(--line);
+}
+
+/* =========================
+   EDITORIAL
+========================= */
+
+.editorial{
+  margin-top:70px;
+  background:var(--navy);
+  color:white;
+  padding:55px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+}
+
+.editorial h2{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:42px;
+  font-weight:400;
+  margin:8px 0 15px;
+}
+
+.editorial p{
+  color:rgba(255,255,255,.66);
+  line-height:1.75;
+  font-size:14px;
+}
+
+.editorial-right{
+  border-left:1px solid rgba(255,255,255,.15);
+  padding-left:50px;
+}
+
+.editorial-right strong{
+  color:var(--gold);
+  display:block;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin-bottom:15px;
+}
+
+/* =========================
+   TEAM
+========================= */
+
+.team{
+  margin-top:70px;
+}
+
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.agent{
+  background:white;
+  padding:25px;
+  border:1px solid var(--line);
+}
+
+.agent-photo{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#E3E5E8;
+  margin-bottom:18px;
+}
+
+.agent-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.agent h3{
+  color:var(--navy);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:22px;
+  font-weight:400;
+  margin:0;
+}
+
+.agent p{
+  color:var(--muted);
+  font-size:11px;
+  margin:5px 0 16px;
+}
+
+.agent a{
+  display:block;
+  color:var(--navy);
+  font-size:12px;
+  font-weight:800;
+  margin-top:6px;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta{
+  margin-top:70px;
+  background:var(--gold);
+  padding:55px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.cta h2{
+  margin:0;
+  color:var(--navy);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:40px;
+  font-weight:400;
+}
+
+.cta p{
+  margin:8px 0 0;
+  color:rgba(7,27,58,.68);
+  font-size:13px;
+}
+
+.cta .btn{
+  background:var(--navy);
+  color:white;
+  border-color:var(--navy);
+  white-space:nowrap;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:40px 20px;
+}
+
+footer strong{
+  font-size:14px;
+}
+
+footer p{
+  color:rgba(255,255,255,.45);
+  font-size:10px;
+  line-height:1.6;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+  background:white;
+  padding:60px 20px;
+  text-align:center;
+  color:var(--muted);
+  grid-column:1/-1;
 }
 
 .empty strong{
+  color:var(--navy);
   display:block;
-  color:var(--navy);
   font-size:18px;
-  margin-bottom:5px;
+  margin-bottom:6px;
 }
 
-.footer{
-  text-align:center;
-  padding:30px 20px 45px;
-  color:#8A919C;
-  font-size:11px;
-}
-
-.footer strong{
-  color:var(--navy);
-}
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:850px){
-  .grid{grid-template-columns:repeat(2,1fr)}
+
+  .cover{
+    min-height:570px;
+  }
+
+  .issue{
+    display:none;
+  }
+
+  .cover-content{
+    margin-top:80px;
+  }
+
+  .feature{
+    grid-template-columns:1fr;
+  }
+
+  .feature-photo{
+    min-height:330px;
+  }
+
+  .feature-info{
+    padding:35px 25px;
+  }
+
+  .editor-grid{
+    grid-template-columns:1fr;
+  }
+
+  .property:nth-child(3n){
+    grid-column:span 1;
+    display:block;
+  }
+
+  .property:nth-child(3n) .property-image{
+    min-height:0;
+    height:310px;
+  }
+
+  .editorial{
+    grid-template-columns:1fr;
+    padding:35px 25px;
+    gap:30px;
+  }
+
+  .editorial-right{
+    border-left:0;
+    border-top:1px solid rgba(255,255,255,.15);
+    padding:25px 0 0;
+  }
+
+  .team-grid{
+    grid-template-columns:1fr;
+  }
+
+  .cta{
+    display:block;
+    padding:40px 25px;
+  }
+
+  .cta .btn{
+    margin-top:25px;
+  }
+
 }
 
-@media(max-width:620px){
-  .header{padding:18px 16px 30px}
-  .brand h1{font-size:21px}
-  .logo{width:53px;height:53px}
-  .hero h2{font-size:31px}
-  .container{padding:0 12px}
-  .grid{grid-template-columns:1fr}
-  .photo{height:215px}
-  .stats{gap:7px}
-  .stat{padding:11px 9px}
+@media(max-width:550px){
+
+  .cover-inner{
+    padding-left:18px;
+    padding-right:18px;
+  }
+
+  .logo{
+    width:55px;
+    height:55px;
+  }
+
+  .brand-text strong{
+    font-size:18px;
+  }
+
+  .cover h1{
+    letter-spacing:-3px;
+    font-size:62px;
+  }
+
+  .section{
+    padding-top:45px;
+  }
+
+  .section-title{
+    font-size:35px;
+  }
+
+  .feature-address{
+    font-size:34px;
+  }
+
+  .property-address{
+    font-size:27px;
+  }
+
+  .container{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-  <div class="header-inner">
+<!-- =========================
+     COVER
+========================= -->
 
-    <div class="brand">
-      <div class="logo">
-        <!-- Replace the src below with your official YPA logo URL if desired -->
-        <img
-          src="https://www.ypa.com.au/wp-content/uploads/2024/05/YPA-Logo.png"
-          alt="YPA"
-          onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block';"
-        >
-        <div id="logoFallback" class="logo-fallback" style="display:none;">YPA</div>
+<header class="cover">
+
+  <div class="cover-inner">
+
+    <div class="topbar">
+
+      <div class="brand">
+
+        <div class="logo">
+
+          <img
+            src="https://www.ypa.com.au/wp-content/uploads/2024/05/YPA-Logo.png"
+            alt="YPA"
+            onerror="
+              this.style.display='none';
+              document.getElementById('logoText').style.display='block';
+            "
+          >
+
+          <div id="logoText" class="logo-text">
+            YPA
+          </div>
+
+        </div>
+
+        <div class="brand-text">
+          <small>YPA Estate Agents</small>
+          <strong>Bacchus Marsh</strong>
+        </div>
+
       </div>
 
-      <div>
-        <small>YPA Estate Agents</small>
-        <h1>Bacchus Marsh</h1>
+      <div class="issue">
+        THE WEEKEND EDIT
       </div>
+
     </div>
 
-    <div class="hero">
-      <div class="hero-eyebrow">Your local property guide</div>
-      <h2>Open Homes</h2>
-      <p>Explore today's inspections across Bacchus Marsh and surrounding suburbs.</p>
+
+    <div class="cover-content">
+
+      <div class="kicker">
+        Property · Lifestyle · Local
+      </div>
+
+      <h1>
+        THE<br>
+        PROPERTY<br>
+        EDIT
+      </h1>
+
+      <div class="cover-line"></div>
+
+      <div class="cover-copy">
+        Your curated guide to the homes worth seeing,
+        the places worth knowing and the property stories
+        shaping Bacchus Marsh.
+      </div>
+
+      <div class="cover-meta">
+
+        <div>
+          <strong id="coverCount">—</strong>
+          <span>Open Homes</span>
+        </div>
+
+        <div>
+          <strong id="coverSuburbs">—</strong>
+          <span>Suburbs</span>
+        </div>
+
+        <div>
+          <strong id="coverNext">—</strong>
+          <span>Next Inspection</span>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
+
 </header>
+
 
 <main class="container">
 
-  <section class="panel">
 
-    <div class="search">
-      <span>⌕</span>
-      <input
-        id="search"
-        type="search"
-        placeholder="Search by suburb or address..."
-        autocomplete="off"
-      >
+  <!-- =========================
+       FEATURED PROPERTY
+  ========================= -->
+
+  <section class="section">
+
+    <div class="section-label">
+      Editor's Pick
     </div>
 
-    <div class="tabs">
-      <button class="tab active" data-filter="today">Today</button>
-      <button class="tab" data-filter="tomorrow">Tomorrow</button>
-      <button class="tab" data-filter="week">This Week</button>
-      <button class="tab" data-filter="all">All Upcoming</button>
-    </div>
+    <h2 class="section-title">
+      Featured Property
+    </h2>
 
-    <div class="stats">
-      <div class="stat">
-        <strong id="count">0</strong>
-        <span>Open Homes</span>
-      </div>
-
-      <div class="stat">
-        <strong id="nextTime">—</strong>
-        <span>Next Open</span>
-      </div>
-
-      <div class="stat">
-        <strong id="clock">—</strong>
-        <span>Melbourne</span>
+    <div id="featured">
+      <div class="empty">
+        <strong>Loading the Property Edit...</strong>
+        Please wait.
       </div>
     </div>
 
   </section>
 
-  <div class="section-head">
-    <div>
-      <h3 id="sectionTitle">Today's Open Homes</h3>
-      <p id="sectionSub">Live inspection information</p>
+
+  <!-- =========================
+       PROPERTY EDIT
+  ========================= -->
+
+  <section class="section">
+
+    <div class="section-label">
+      This Weekend
     </div>
 
-    <button class="refresh" onclick="loadHomes()">↻ Refresh</button>
-  </div>
+    <h2 class="section-title">
+      The Property Edit
+    </h2>
 
-  <section id="grid" class="grid"></section>
 
-  <div id="empty" class="empty" style="display:none;">
-    <strong>No open homes found</strong>
-    Try another day, suburb or address.
-  </div>
+    <div class="toolbar">
+
+      <div class="search">
+
+        <span>⌕</span>
+
+        <input
+          id="search"
+          type="search"
+          placeholder="Search suburb or address..."
+          autocomplete="off"
+        >
+
+      </div>
+
+
+      <div class="filters">
+
+        <button
+          class="filter active"
+          data-filter="all"
+        >
+          All Homes
+        </button>
+
+        <button
+          class="filter"
+          data-filter="today"
+        >
+          Today
+        </button>
+
+        <button
+          class="filter"
+          data-filter="tomorrow"
+        >
+          Tomorrow
+        </button>
+
+        <button
+          class="filter"
+          data-filter="week"
+        >
+          This Week
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div id="propertyGrid" class="editor-grid"></div>
+
+  </section>
+
+
+  <!-- =========================
+       EDITORIAL
+  ========================= -->
+
+  <section class="editorial">
+
+    <div>
+
+      <div class="section-label">
+        The Local Edit
+      </div>
+
+      <h2>
+        More than<br>
+        a property.
+      </h2>
+
+      <p>
+        Buying a home is about more than bedrooms,
+        bathrooms and a floorplan. It's about finding
+        the right street, the right community and the
+        right lifestyle.
+      </p>
+
+      <p>
+        Explore Bacchus Marsh and surrounding suburbs
+        with the local knowledge of the YPA team.
+      </p>
+
+    </div>
+
+
+    <div class="editorial-right">
+
+      <strong>
+        This Weekend
+      </strong>
+
+      <p>
+        Take the time to inspect the homes that catch
+        your eye, compare properties and speak with
+        the local YPA team about what you're looking for.
+      </p>
+
+      <p>
+        Can't make an inspection?
+        Contact the listing agent to arrange a private
+        appointment.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       TEAM
+  ========================= -->
+
+  <section class="team">
+
+    <div class="section-label">
+      The YPA Team
+    </div>
+
+    <h2 class="section-title">
+      Meet Your Local Agents
+    </h2>
+
+    <div id="teamGrid" class="team-grid"></div>
+
+  </section>
+
+
+  <!-- =========================
+       SELL CTA
+  ========================= -->
+
+  <section class="cta">
+
+    <div>
+
+      <h2>
+        Thinking of selling?
+      </h2>
+
+      <p>
+        Discover what your property could achieve
+        in today's market.
+      </p>
+
+    </div>
+
+    <a
+      class="btn"
+      href="mailto:crodriguez@ypa.com.au?subject=Property Appraisal"
+    >
+      Request an Appraisal
+    </a>
+
+  </section>
+
 
 </main>
 
-<footer class="footer">
-  <strong>YPA Estate Agents Bacchus Marsh</strong><br>
-  Open home information is subject to change. Please confirm inspection details before attending.
+
+<footer>
+
+  <strong>
+    YPA Estate Agents · Bacchus Marsh
+  </strong>
+
+  <p>
+    Open home information is subject to change.
+    Please confirm inspection details before attending.
+  </p>
+
 </footer>
+
 
 <script>
 
-/* ==========================================================
-   YOUR WORKING APPS SCRIPT CONNECTION
-   ========================================================== */
+/* =========================================================
+   YPA PROPERTY EDIT
+   Existing private Google Sheet → Apps Script connection
+========================================================= */
 
 const API_URL =
 'https://script.google.com/macros/s/AKfycbymGhL5QAEnkxA4LRiSvSKOFyCAJSDqmFGD3qB7MmYbQSw15YiOEIM_D4Zm1AR7XM-i/exec';
 
 
 let homes = [];
-let filter = 'today';
+let activeFilter = 'all';
 
+
+/* =========================================================
+   DATE / TIME
+========================================================= */
 
 function melbourneNow(){
+
   return new Date(
-    new Date().toLocaleString('en-US',{
-      timeZone:'Australia/Melbourne'
-    })
+    new Date().toLocaleString(
+      'en-US',
+      {
+        timeZone:'Australia/Melbourne'
+      }
+    )
   );
+
 }
 
 
@@ -563,20 +1198,34 @@ function parseDate(value){
 
   const v = String(value).trim();
 
-  // YYYY-MM-DD
   if(/^\d{4}-\d{2}-\d{2}$/.test(v)){
-    const [y,m,d] = v.split('-').map(Number);
-    return new Date(y,m-1,d);
+
+    const parts = v.split('-').map(Number);
+
+    return new Date(
+      parts[0],
+      parts[1]-1,
+      parts[2]
+    );
+
   }
 
-  // DD/MM/YYYY
   if(/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(v)){
-    const [d,m,y] = v.split('/').map(Number);
-    return new Date(y,m-1,d);
+
+    const parts = v.split('/').map(Number);
+
+    return new Date(
+      parts[2],
+      parts[1]-1,
+      parts[0]
+    );
+
   }
 
-  const date = new Date(v);
-  return isNaN(date) ? null : date;
+  const d = new Date(v);
+
+  return isNaN(d) ? null : d;
+
 }
 
 
@@ -589,18 +1238,30 @@ function parseTime(value){
     .toLowerCase()
     .replace(/\s+/g,'');
 
-  let match = v.match(/^(\d{1,2}):(\d{2})(am|pm)?$/);
+  const match =
+    v.match(/^(\d{1,2}):(\d{2})(am|pm)?$/);
 
   if(!match) return null;
 
   let hour = Number(match[1]);
-  let minute = Number(match[2]);
-  const ampm = match[3];
 
-  if(ampm === 'pm' && hour < 12) hour += 12;
-  if(ampm === 'am' && hour === 12) hour = 0;
+  const minute = Number(match[2]);
 
-  return {hour,minute};
+  const period = match[3];
+
+  if(period === 'pm' && hour < 12){
+    hour += 12;
+  }
+
+  if(period === 'am' && hour === 12){
+    hour = 0;
+  }
+
+  return {
+    hour,
+    minute
+  };
+
 }
 
 
@@ -611,380 +1272,415 @@ function dateTime(date,time){
 
   if(!d || !t) return null;
 
-  d.setHours(t.hour,t.minute,0,0);
+  d.setHours(
+    t.hour,
+    t.minute,
+    0,
+    0
+  );
 
   return d;
+
 }
 
 
-function normaliseHome(row){
+function startOfDay(date){
 
-  const get = (...keys) => {
+  const d = new Date(date);
 
-    for(const key of keys){
+  d.setHours(0,0,0,0);
 
-      if(row[key] !== undefined &&
-         row[key] !== null &&
-         String(row[key]).trim() !== ''){
+  return d;
 
-        return String(row[key]).trim();
-      }
-
-    }
-
-    return '';
-  };
-
-  return {
-
-    date:get('date','Date'),
-    startTime:get('start time','startTime','Start Time'),
-    endTime:get('end time','endTime','End Time'),
-    address:get('address','Address'),
-    suburb:get('suburb','Suburb'),
-    price:get('price','Price'),
-    bedrooms:get('bedrooms','Bedrooms'),
-    bathrooms:get('bathrooms','Bathrooms'),
-    reaUrl:get('rea url','rea_url','REA URL','reaUrl'),
-    agent:get('agent','Agent'),
-    photoUrl:get('photo url','photo_url','Photo URL','photoUrl')
-
-  };
-}
-
-
-async function loadHomes(){
-
-  const grid = document.getElementById('grid');
-
-  grid.innerHTML = `
-    <div class="empty" style="display:block;grid-column:1/-1;">
-      Loading open homes...
-    </div>
-  `;
-
-  try{
-
-    const response = await fetch(API_URL,{
-      cache:'no-store'
-    });
-
-    if(!response.ok){
-      throw new Error('Unable to connect to open home feed.');
-    }
-
-    const data = await response.json();
-
-    if(!Array.isArray(data)){
-      throw new Error(data.error || 'Invalid data received.');
-    }
-
-    homes = data
-      .map(normaliseHome)
-      .filter(h => h.address && h.date);
-
-    render();
-
-  }catch(error){
-
-    grid.innerHTML = `
-      <div class="empty" style="display:block;grid-column:1/-1;">
-        <strong>Unable to load open homes</strong>
-        Please refresh the page and try again.
-      </div>
-    `;
-
-    console.error(error);
-  }
-}
-
-
-function startOfDay(d){
-
-  const x = new Date(d);
-  x.setHours(0,0,0,0);
-  return x;
 }
 
 
 function sameDay(a,b){
 
-  return startOfDay(a).getTime() === startOfDay(b).getTime();
+  return (
+    startOfDay(a).getTime() ===
+    startOfDay(b).getTime()
+  );
 
 }
 
+
+/* =========================================================
+   NORMALISE SHEET DATA
+========================================================= */
+
+function normaliseHome(row){
+
+  function get(...keys){
+
+    for(const key of keys){
+
+      if(
+        row[key] !== undefined &&
+        row[key] !== null &&
+        String(row[key]).trim() !== ''
+      ){
+
+        return String(row[key]).trim();
+
+      }
+
+    }
+
+    return '';
+
+  }
+
+
+  return {
+
+    date:get('date','Date'),
+
+    startTime:get(
+      'start time',
+      'startTime',
+      'Start Time'
+    ),
+
+    endTime:get(
+      'end time',
+      'endTime',
+      'End Time'
+    ),
+
+    address:get(
+      'address',
+      'Address'
+    ),
+
+    suburb:get(
+      'suburb',
+      'Suburb'
+    ),
+
+    price:get(
+      'price',
+      'Price'
+    ),
+
+    bedrooms:get(
+      'bedrooms',
+      'Bedrooms'
+    ),
+
+    bathrooms:get(
+      'bathrooms',
+      'Bathrooms'
+    ),
+
+    reaUrl:get(
+      'rea url',
+      'rea_url',
+      'REA URL',
+      'reaUrl'
+    ),
+
+    agent:get(
+      'agent',
+      'Agent'
+    ),
+
+    photoUrl:get(
+      'photo url',
+      'photo_url',
+      'Photo URL',
+      'photoUrl'
+    ),
+
+    agentPhoto:get(
+      'agent photo',
+      'Agent Photo',
+      'agentPhoto'
+    ),
+
+    agentPhone:get(
+      'agent phone',
+      'Agent Phone',
+      'agentPhone'
+    ),
+
+    agentEmail:get(
+      'agent email',
+      'Agent Email',
+      'agentEmail'
+    )
+
+  };
+
+}
+
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+async function loadHomes(){
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          cache:'no-store'
+        }
+      );
+
+    if(!response.ok){
+
+      throw new Error(
+        'Unable to connect to the property feed.'
+      );
+
+    }
+
+    const data =
+      await response.json();
+
+    if(!Array.isArray(data)){
+
+      throw new Error(
+        data.error || 'Invalid data received.'
+      );
+
+    }
+
+    homes =
+      data
+        .map(normaliseHome)
+        .filter(
+          home =>
+            home.address &&
+            home.date
+        );
+
+    render();
+
+  }catch(error){
+
+    console.error(error);
+
+    document.getElementById(
+      'propertyGrid'
+    ).innerHTML = `
+
+      <div class="empty">
+
+        <strong>
+          Property information unavailable
+        </strong>
+
+        Please refresh the page.
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
 
 function filteredHomes(){
 
-  const now = melbourneNow();
-  const today = startOfDay(now);
+  const now =
+    melbourneNow();
 
-  let results = homes.filter(h => {
+  const today =
+    startOfDay(now);
 
-    const start = dateTime(h.date,h.startTime);
-    const end = dateTime(h.date,h.endTime || h.startTime);
+  let results =
+    homes.filter(home => {
 
-    if(!start) return false;
+      const start =
+        dateTime(
+          home.date,
+          home.startTime
+        );
 
-    // Automatically remove finished inspections.
-    if(end && end <= now) return false;
+      const end =
+        dateTime(
+          home.date,
+          home.endTime ||
+          home.startTime
+        );
 
-    if(filter === 'today'){
-      return sameDay(start,today);
-    }
+      if(!start) return false;
 
-    if(filter === 'tomorrow'){
-      const tomorrow = new Date(today);
-      tomorrow.setDate(tomorrow.getDate()+1);
-      return sameDay(start,tomorrow);
-    }
+      /*
+        Automatically remove properties
+        once the inspection has finished.
+      */
 
-    if(filter === 'week'){
+      if(
+        end &&
+        end <= now
+      ){
 
-      const weekEnd = new Date(today);
-      weekEnd.setDate(weekEnd.getDate()+7);
+        return false;
 
-      return start >= today && start < weekEnd;
-    }
+      }
 
-    if(filter === 'all'){
+
+      if(activeFilter === 'today'){
+
+        return sameDay(
+          start,
+          today
+        );
+
+      }
+
+
+      if(activeFilter === 'tomorrow'){
+
+        const tomorrow =
+          new Date(today);
+
+        tomorrow.setDate(
+          tomorrow.getDate()+1
+        );
+
+        return sameDay(
+          start,
+          tomorrow
+        );
+
+      }
+
+
+      if(activeFilter === 'week'){
+
+        const weekEnd =
+          new Date(today);
+
+        weekEnd.setDate(
+          weekEnd.getDate()+7
+        );
+
+        return (
+          start >= today &&
+          start < weekEnd
+        );
+
+      }
+
+
       return start >= now;
-    }
 
-    return true;
-  });
+    });
+
 
   const search =
-    document.getElementById('search').value
+    document.getElementById(
+      'search'
+    ).value
       .trim()
       .toLowerCase();
 
+
   if(search){
 
-    results = results.filter(h =>
+    results =
+      results.filter(home =>
 
-      `${h.address} ${h.suburb}`
-        .toLowerCase()
-        .includes(search)
+        (
+          home.address +
+          ' ' +
+          home.suburb
+        )
+          .toLowerCase()
+          .includes(search)
 
-    );
+      );
 
   }
 
-  results.sort((a,b)=>
 
-    dateTime(a.date,a.startTime) -
-    dateTime(b.date,b.startTime)
+  results.sort(
+    (a,b) =>
 
+      dateTime(
+        a.date,
+        a.startTime
+      ) -
+      dateTime(
+        b.date,
+        b.startTime
+      )
   );
 
+
   return results;
+
 }
 
+
+/* =========================================================
+   FORMATTING
+========================================================= */
 
 function formatTime(value){
 
-  const t = parseTime(value);
+  const t =
+    parseTime(value);
 
-  if(!t) return value || '';
+  if(!t){
 
-  let hour = t.hour;
-
-  const suffix = hour >= 12 ? 'PM' : 'AM';
-
-  hour = hour % 12 || 12;
-
-  return `${hour}:${String(t.minute).padStart(2,'0')} ${suffix}`;
-
-}
-
-
-function formatDate(date){
-
-  const d = parseDate(date);
-
-  if(!d) return date;
-
-  return d.toLocaleDateString('en-AU',{
-    weekday:'short',
-    day:'numeric',
-    month:'short'
-  });
-
-}
-
-
-function render(){
-
-  const results = filteredHomes();
-
-  document.getElementById('count').textContent = results.length;
-
-  const next = results[0];
-
-  document.getElementById('nextTime').textContent =
-    next ? formatTime(next.startTime) : '—';
-
-  const grid = document.getElementById('grid');
-  const empty = document.getElementById('empty');
-
-  grid.innerHTML = '';
-
-  if(!results.length){
-
-    empty.style.display = 'block';
-    return;
+    return value || '';
 
   }
 
-  empty.style.display = 'none';
+  let hour = t.hour;
 
-  results.forEach((home,index)=>{
+  const suffix =
+    hour >= 12
+      ? 'PM'
+      : 'AM';
 
-    const start = dateTime(home.date,home.startTime);
-    const end = dateTime(home.date,home.endTime);
+  hour =
+    hour % 12 || 12;
 
-    const now = melbourneNow();
+  return (
+    hour +
+    ':' +
+    String(t.minute)
+      .padStart(2,'0') +
+    ' ' +
+    suffix
+  );
 
-    const live =
-      start &&
-      end &&
-      now >= start &&
-      now <= end;
+}
 
-    const nextOpen =
-      !live &&
-      index === 0;
 
-    const card = document.createElement('article');
+function formatDate(value){
 
-    card.className = 'card';
+  const d =
+    parseDate(value);
 
-    const photo = home.photoUrl
-      ? `
-        <div class="photo">
-          <img
-            src="${escapeHtml(home.photoUrl)}"
-            alt="${escapeHtml(home.address)}"
-            loading="lazy"
-            onerror="this.parentElement.innerHTML='<div class=&quot;photo-placeholder&quot;>YPA Bacchus Marsh</div>'"
-          >
-          ${
-            live
-              ? '<div class="badge live">Live Now</div>'
-              : nextOpen
-                ? '<div class="badge">Next Open</div>'
-                : ''
-          }
-        </div>
-      `
-      : `
-        <div class="photo">
-          <div class="photo-placeholder">YPA Bacchus Marsh</div>
-          ${
-            live
-              ? '<div class="badge live">Live Now</div>'
-              : nextOpen
-                ? '<div class="badge">Next Open</div>'
-                : ''
-          }
-        </div>
-      `;
+  if(!d){
 
-    const mapsUrl =
-      'https://www.google.com/maps/search/?api=1&query=' +
-      encodeURIComponent(
-        `${home.address}, ${home.suburb}, VIC`
-      );
+    return value || '';
 
-    card.innerHTML = `
+  }
 
-      ${photo}
-
-      <div class="card-body">
-
-        <div class="time">
-          ${formatTime(home.startTime)}
-          <span>– ${formatTime(home.endTime)}</span>
-        </div>
-
-        <div class="address">
-          ${escapeHtml(home.address)}
-        </div>
-
-        <div class="suburb">
-          ${escapeHtml(home.suburb)}
-        </div>
-
-        ${
-          home.price
-            ? `<div class="price">${escapeHtml(home.price)}</div>`
-            : ''
-        }
-
-        <div class="features">
-
-          ${
-            home.bedrooms
-              ? `<span>🛏 ${escapeHtml(home.bedrooms)}</span>`
-              : ''
-          }
-
-          ${
-            home.bathrooms
-              ? `<span>♧ ${escapeHtml(home.bathrooms)}</span>`
-              : ''
-          }
-
-          ${
-            home.agent
-              ? `<span>Agent: ${escapeHtml(home.agent)}</span>`
-              : ''
-          }
-
-        </div>
-
-        <div class="actions">
-
-          <a
-            class="btn"
-            href="${mapsUrl}"
-            target="_blank"
-            rel="noopener"
-          >
-            Directions
-          </a>
-
-          ${
-            home.reaUrl
-              ? `
-                <a
-                  class="btn primary"
-                  href="${escapeHtml(home.reaUrl)}"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  View Property
-                </a>
-              `
-              : `
-                <button
-                  class="btn gold"
-                  onclick="shareHome(${JSON.stringify(home).replace(/"/g,'&quot;')})"
-                >
-                  Share
-                </button>
-              `
-          }
-
-        </div>
-
-      </div>
-    `;
-
-    grid.appendChild(card);
-
-  });
+  return d.toLocaleDateString(
+    'en-AU',
+    {
+      weekday:'long',
+      day:'numeric',
+      month:'long'
+    }
+  );
 
 }
 
@@ -1001,111 +1697,672 @@ function escapeHtml(value){
 }
 
 
-async function shareHome(home){
+/* =========================================================
+   PHOTO
+========================================================= */
 
-  const text =
-    `${home.address}, ${home.suburb}\n` +
-    `${formatTime(home.startTime)} – ${formatTime(home.endTime)}\n` +
-    (home.reaUrl || location.href);
+function photoHTML(
+  url,
+  address
+){
 
-  if(navigator.share){
+  if(url){
 
-    try{
+    return `
 
-      await navigator.share({
-        title:'YPA Open Home',
-        text
+      <img
+        src="${escapeHtml(url)}"
+        alt="${escapeHtml(address)}"
+        loading="lazy"
+        onerror="
+          this.style.display='none';
+          this.nextElementSibling.style.display='flex';
+        "
+      >
+
+      <div
+        class="property-placeholder"
+        style="display:none"
+      >
+        YPA Bacchus Marsh
+      </div>
+
+    `;
+
+  }
+
+
+  return `
+
+    <div class="property-placeholder">
+      YPA Bacchus Marsh
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   FEATURED
+========================================================= */
+
+function renderFeatured(results){
+
+  const container =
+    document.getElementById(
+      'featured'
+    );
+
+
+  if(!results.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <strong>
+          No upcoming open homes
+        </strong>
+
+        Check back soon for the
+        next Property Edit.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const home =
+    results[0];
+
+
+  const mapsUrl =
+    'https://www.google.com/maps/search/?api=1&query=' +
+    encodeURIComponent(
+      home.address +
+      ', ' +
+      home.suburb +
+      ', VIC'
+    );
+
+
+  container.innerHTML = `
+
+    <article class="feature">
+
+      <div class="feature-photo">
+
+        ${photoHTML(
+          home.photoUrl,
+          home.address
+        )}
+
+      </div>
+
+
+      <div class="feature-info">
+
+        <div class="feature-tag">
+          Featured Property
+        </div>
+
+        <div class="feature-address">
+          ${escapeHtml(home.address)}
+        </div>
+
+        <div class="feature-suburb">
+          ${escapeHtml(home.suburb)}
+        </div>
+
+
+        ${
+          home.price
+            ? `
+              <div class="feature-price">
+                ${escapeHtml(home.price)}
+              </div>
+            `
+            : ''
+        }
+
+
+        <div class="feature-description">
+
+          Discover this property at
+          ${escapeHtml(home.address)},
+          ${escapeHtml(home.suburb)}.
+
+          Contact the YPA team for further
+          information or to arrange a private
+          inspection.
+
+        </div>
+
+
+        <div class="feature-stats">
+
+          ${
+            home.bedrooms
+              ? `<span>BED ${escapeHtml(home.bedrooms)}</span>`
+              : ''
+          }
+
+          ${
+            home.bathrooms
+              ? `<span>BATH ${escapeHtml(home.bathrooms)}</span>`
+              : ''
+          }
+
+        </div>
+
+
+        <div class="inspection">
+
+          <small>
+            Inspection
+          </small>
+
+          <strong>
+            ${formatDate(home.date)}
+          </strong>
+
+          <strong>
+            ${formatTime(home.startTime)}
+            –
+            ${formatTime(home.endTime)}
+          </strong>
+
+        </div>
+
+
+        <div class="buttons">
+
+          ${
+            home.reaUrl
+              ? `
+                <a
+                  class="btn primary"
+                  href="${escapeHtml(home.reaUrl)}"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  View Property
+                </a>
+              `
+              : ''
+          }
+
+          <a
+            class="btn"
+            href="${mapsUrl}"
+            target="_blank"
+            rel="noopener"
+          >
+            Directions
+          </a>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================================
+   PROPERTY GRID
+========================================================= */
+
+function renderGrid(results){
+
+  const grid =
+    document.getElementById(
+      'propertyGrid'
+    );
+
+
+  if(!results.length){
+
+    grid.innerHTML = `
+
+      <div class="empty">
+
+        <strong>
+          No properties found
+        </strong>
+
+        Try another day or search.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  grid.innerHTML = '';
+
+
+  results.forEach(
+    (home,index) => {
+
+      const mapsUrl =
+        'https://www.google.com/maps/search/?api=1&query=' +
+        encodeURIComponent(
+          home.address +
+          ', ' +
+          home.suburb +
+          ', VIC'
+        );
+
+
+      const property =
+        document.createElement(
+          'article'
+        );
+
+      property.className =
+        'property';
+
+
+      property.innerHTML = `
+
+        <div class="property-image">
+
+          ${photoHTML(
+            home.photoUrl,
+            home.address
+          )}
+
+          <div class="property-number">
+            ${String(index+1).padStart(2,'0')}
+          </div>
+
+        </div>
+
+
+        <div class="property-body">
+
+          <div class="property-time">
+
+            ${formatTime(home.startTime)}
+            –
+            ${formatTime(home.endTime)}
+
+          </div>
+
+
+          <div class="property-address">
+
+            ${escapeHtml(home.address)}
+
+          </div>
+
+
+          <div class="property-suburb">
+
+            ${escapeHtml(home.suburb)}
+
+          </div>
+
+
+          ${
+            home.price
+              ? `
+                <div class="property-price">
+                  ${escapeHtml(home.price)}
+                </div>
+              `
+              : ''
+          }
+
+
+          <div class="property-features">
+
+            ${
+              home.bedrooms
+                ? `<span>BED ${escapeHtml(home.bedrooms)}</span>`
+                : ''
+            }
+
+            ${
+              home.bathrooms
+                ? `<span>BATH ${escapeHtml(home.bathrooms)}</span>`
+                : ''
+            }
+
+          </div>
+
+
+          <div class="buttons">
+
+            ${
+              home.reaUrl
+                ? `
+                  <a
+                    class="btn primary"
+                    href="${escapeHtml(home.reaUrl)}"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    View Property
+                  </a>
+                `
+                : ''
+            }
+
+            <a
+              class="btn"
+              href="${mapsUrl}"
+              target="_blank"
+              rel="noopener"
+            >
+              Directions
+            </a>
+
+          </div>
+
+        </div>
+
+      `;
+
+
+      grid.appendChild(property);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   TEAM
+========================================================= */
+
+function renderTeam(results){
+
+  const grid =
+    document.getElementById(
+      'teamGrid'
+    );
+
+
+  const agents = [];
+
+
+  results.forEach(home => {
+
+    if(
+      home.agent &&
+      !agents.some(
+        a => a.name === home.agent
+      )
+    ){
+
+      agents.push({
+
+        name:home.agent,
+
+        photo:home.agentPhoto,
+
+        phone:home.agentPhone,
+
+        email:home.agentEmail
+
       });
 
-    }catch(e){}
+    }
+
+  });
+
+
+  /*
+    If agent information isn't in the sheet yet,
+    don't show an empty team section.
+  */
+
+  if(!agents.length){
+
+    document
+      .querySelector('.team')
+      .style.display = 'none';
+
+    return;
+
+  }
+
+
+  document
+    .querySelector('.team')
+    .style.display = 'block';
+
+
+  grid.innerHTML = '';
+
+
+  agents.slice(0,6).forEach(agent => {
+
+    const card =
+      document.createElement(
+        'div'
+      );
+
+    card.className =
+      'agent';
+
+
+    card.innerHTML = `
+
+      <div class="agent-photo">
+
+        ${
+          agent.photo
+            ? `
+              <img
+                src="${escapeHtml(agent.photo)}"
+                alt="${escapeHtml(agent.name)}"
+              >
+            `
+            : ''
+        }
+
+      </div>
+
+
+      <h3>
+        ${escapeHtml(agent.name)}
+      </h3>
+
+
+      <p>
+        YPA Estate Agents · Bacchus Marsh
+      </p>
+
+
+      ${
+        agent.phone
+          ? `
+            <a href="tel:${escapeHtml(agent.phone)}">
+              ${escapeHtml(agent.phone)}
+            </a>
+          `
+          : ''
+      }
+
+
+      ${
+        agent.email
+          ? `
+            <a href="mailto:${escapeHtml(agent.email)}">
+              ${escapeHtml(agent.email)}
+            </a>
+          `
+          : ''
+      }
+
+    `;
+
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================================
+   COVER STATISTICS
+========================================================= */
+
+function updateCover(results){
+
+  document.getElementById(
+    'coverCount'
+  ).textContent =
+    results.length;
+
+
+  const suburbs =
+    new Set(
+      results.map(
+        h => h.suburb
+      )
+    );
+
+
+  document.getElementById(
+    'coverSuburbs'
+  ).textContent =
+    suburbs.size;
+
+
+  if(results.length){
+
+    document.getElementById(
+      'coverNext'
+    ).textContent =
+      formatTime(
+        results[0].startTime
+      );
 
   }else{
 
-    try{
-
-      await navigator.clipboard.writeText(text);
-
-      alert('Open home details copied.');
-
-    }catch(e){
-
-      alert(text);
-
-    }
+    document.getElementById(
+      'coverNext'
+    ).textContent =
+      '—';
 
   }
 
 }
 
 
-/* Tabs */
+/* =========================================================
+   RENDER EVERYTHING
+========================================================= */
 
-document.querySelectorAll('.tab').forEach(button=>{
+function render(){
 
-  button.addEventListener('click',()=>{
-
-    document
-      .querySelectorAll('.tab')
-      .forEach(b=>b.classList.remove('active'));
-
-    button.classList.add('active');
-
-    filter = button.dataset.filter;
-
-    const titles = {
-      today:"Today's Open Homes",
-      tomorrow:"Tomorrow's Open Homes",
-      week:"This Week's Open Homes",
-      all:"All Upcoming Open Homes"
-    };
-
-    document.getElementById('sectionTitle').textContent =
-      titles[filter];
-
-    render();
-
-  });
-
-});
+  const results =
+    filteredHomes();
 
 
-/* Search */
+  updateCover(results);
 
-document.getElementById('search')
-  .addEventListener('input',render);
+  renderFeatured(results);
 
+  renderGrid(results);
 
-/* Melbourne clock */
-
-function updateClock(){
-
-  const now = new Date();
-
-  document.getElementById('clock').textContent =
-    new Intl.DateTimeFormat('en-AU',{
-      timeZone:'Australia/Melbourne',
-      hour:'numeric',
-      minute:'2-digit'
-    }).format(now);
+  renderTeam(results);
 
 }
 
-setInterval(updateClock,1000);
 
-updateClock();
+/* =========================================================
+   FILTER BUTTONS
+========================================================= */
+
+document
+  .querySelectorAll('.filter')
+  .forEach(button => {
+
+    button.addEventListener(
+      'click',
+      () => {
+
+        document
+          .querySelectorAll('.filter')
+          .forEach(
+            b =>
+              b.classList.remove(
+                'active'
+              )
+          );
 
 
-/* Refresh every 5 minutes */
-
-setInterval(loadHomes,300000);
-
-
-/* Remove expired homes automatically */
-
-setInterval(render,30000);
+        button.classList.add(
+          'active'
+        );
 
 
-/* Initial load */
+        activeFilter =
+          button.dataset.filter;
+
+
+        render();
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+document
+  .getElementById('search')
+  .addEventListener(
+    'input',
+    render
+  );
+
+
+/* =========================================================
+   AUTO REFRESH
+========================================================= */
+
+setInterval(
+  loadHomes,
+  300000
+);
+
+
+/*
+  Re-render every 30 seconds so
+  expired inspections disappear.
+*/
+
+setInterval(
+  render,
+  30000
+);
+
+
+/* =========================================================
+   START
+========================================================= */
 
 loadHomes();
 
