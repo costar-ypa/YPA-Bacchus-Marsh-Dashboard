@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071b3a">
+<link rel="manifest" href="manifest.webmanifest">
+<title>YPA Open Home Dashboard</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f6f8;color:#10213d}.top{background:#071b3a;color:#fff;padding:22px 18px 16px;position:sticky;top:0;z-index:3}.brand{font-weight:800;letter-spacing:.08em;font-size:12px}.title{font-size:27px;font-weight:800;margin:5px 0}.clock{font-size:13px;opacity:.82}.bar{display:flex;gap:8px;margin-top:13px}.bar button{border:0;border-radius:10px;padding:9px 12px;font-weight:800}.refresh{background:#f5c400;color:#071b3a}.source{background:#ffffff20;color:#fff}.tabs{display:flex;gap:8px;padding:11px 14px;overflow:auto;background:#fff;position:sticky;top:133px;z-index:2;border-bottom:1px solid #e8ebef}.tabs button{border:0;border-radius:999px;padding:10px 16px;background:#e9edf2;font-weight:700;white-space:nowrap}.tabs button.active{background:#f5c400;color:#071b3a}.wrap{max-width:760px;margin:auto;padding:12px}.card{background:#fff;border-radius:18px;padding:17px;margin:12px 0;box-shadow:0 3px 15px #0000000d}.time{font-size:23px;font-weight:800}.status{font-size:12px;font-weight:800;margin:5px 0 12px}.now{color:#d71920}.next{color:#087443}.meta{display:flex;gap:12px;flex-wrap:wrap;color:#526174;font-size:14px}.addr{font-size:18px;font-weight:750;margin:5px 0 12px}.price{font-weight:800;color:#10213d}.actions{display:flex;gap:8px;margin-top:14px}.actions a{flex:1;text-align:center;text-decoration:none;border-radius:10px;padding:11px;background:#071b3a;color:#fff;font-weight:700}.actions a.rea{background:#e9edf2;color:#071b3a}.empty{text-align:center;padding:55px 20px;color:#687587}.note{font-size:12px;color:#687587;padding:10px 2px 20px}.error{background:#fff1f1;color:#a40000;padding:14px;border-radius:14px;margin:12px 0;font-size:14px}.loading{text-align:center;padding:35px;color:#687587}.sync{font-size:11px;opacity:.7;margin-top:7px}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="brand">YPA BACCHUS MARSH</div>
+<div class="title">Open Home Dashboard</div>
+<div id="clock" class="clock"></div>
+<div class="bar"><button class="refresh" id="refresh">↻ Refresh</button><button class="source" id="source">Google Sheet</button></div>
+<div id="sync" class="sync">Loading open homes…</div>
+</header>
+<nav class="tabs"><button class="active" data-view="today">Today</button><button data-view="tomorrow">Tomorrow</button><button data-view="week">This Week</button></nav>
+<main class="wrap"><div id="app"><div class="loading">Loading open homes…</div></div><div class="note">Data is pulled from your published Google Sheet. Open homes automatically disappear after their scheduled end time. REA links are taken from the <b>REA URL</b> column when supplied.</div></main>
+<script>
+const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vSuLVcmvHjwZcvZ4VMprmhHdkG-F5983q7Wo8GuzUq0UW0VSQ0WhFnzHnlqcphwpGOVvvffjMaYGLY4/pub?output=csv';
+const TZ='Australia/Melbourne';
+let events=[];let view='today';let lastSync=null;
+
+function melParts(){const p=new Intl.DateTimeFormat('en-AU',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(new Date()).reduce((o,x)=>(o[x.type]=x.value,o),{});return p}
+function nowParts(){const p=melParts();return{date:`${p.year}-${p.month}-${p.day}`,time:`${p.hour}:${p.minute}`,second:p.second}}
+function mins(s){if(!s)return 0;let m=s.toUpperCase().trim().replace(/\s+/g,'');let h=0,mi=0;const am=/AM$/.test(m),pm=/PM$/.test(m);m=m.replace(/AM|PM/g,'');const a=m.split(':');h=parseInt(a[0],10);mi=parseInt(a[1]||'0',10);if(pm&&h<12)h+=12;if(am&&h===12)h=0;return h*60+mi}
+function time24(s){const n=mins(s);return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+function parseDate(s){s=(s||'').trim();if(!s)return '';let m=s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})$/);if(m)return `${m[3]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`;m=s.match(/^(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})$/);if(m)return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;const d=new Date(s);return isNaN(d)?'':d.toISOString().slice(0,10)}
+function csvParse(text){const rows=[];let row=[],cell='',q=false;for(let i=0;i<text.length;i++){const c=text[i];if(q){if(c==='"'&&text[i+1]==='"'){cell+='"';i++}else if(c==='"')q=false;else cell+=c}else{if(c==='"')q=true;else if(c===','){row.push(cell);cell=''}else if(c==='\n'){row.push(cell);rows.push(row);row=[];cell=''}else if(c!=='\r')cell+=c}}row.push(cell);if(row.length>1||row[0])rows.push(row);return rows}
+function clean(v){return (v||'').trim()}
+function loadCsv(){return fetch(CSV_URL+'&_='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('Google Sheet could not be loaded.');return r.text()}).then(text=>{const rows=csvParse(text);if(!rows.length)throw new Error('The published Google Sheet is empty.');const headers=rows[0].map(h=>clean(h).toLowerCase());const idx=n=>headers.indexOf(n.toLowerCase());const I={date:idx('date'),start:idx('start time'),end:idx('end time'),address:idx('address'),suburb:idx('suburb'),price:idx('price'),beds:idx('bedrooms'),baths:idx('bathrooms'),rea:idx('rea url'),agent:idx('agent')};if(I.date<0||I.start<0||I.end<0||I.address<0)throw new Error('Missing required columns. Row 1 must include Date, Start Time, End Time and Address.');events=rows.slice(1).map(r=>({date:parseDate(r[I.date]),start:time24(r[I.start]),end:time24(r[I.end]),address:clean(r[I.address]),suburb:I.suburb>=0?clean(r[I.suburb]):'',price:I.price>=0?clean(r[I.price]):'',beds:I.beds>=0?clean(r[I.beds]):'',baths:I.baths>=0?clean(r[I.baths]):'',rea:I.rea>=0?clean(r[I.rea]):'',agent:I.agent>=0?clean(r[I.agent]):''})).filter(e=>e.date&&e.start&&e.end&&e.address);lastSync=new Date();document.getElementById('sync').textContent='Synced '+lastSync.toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'})+' · '+events.length+' open homes';render()}).catch(err=>{document.getElementById('app').innerHTML='<div class="error"><b>Couldn’t load the Google Sheet.</b><br>'+err.message+'<br><br>Make sure the Sheet is still published to the web as CSV.</div>';document.getElementById('sync').textContent='Sync failed';console.error(err)})}
+function expired(e){const p=nowParts();return e.date<p.date||(e.date===p.date&&mins(e.end)<=mins(p.time))}
+function status(e){const p=nowParts();if(e.date!==p.date)return 'UPCOMING';const n=mins(p.time),a=mins(e.start),b=mins(e.end);if(n>=a&&n<b)return 'OPEN NOW';if(n<a)return 'NEXT OPEN';return 'PAST'}
+function shiftDate(n){const p=nowParts();const d=new Date(p.date+'T12:00:00+10:00');d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function shown(){let a=events.filter(e=>!expired(e));const today=nowParts().date;if(view==='today')a=a.filter(e=>e.date===today);else if(view==='tomorrow')a=a.filter(e=>e.date===shiftDate(1));else if(view==='week'){const end=shiftDate(7);a=a.filter(e=>e.date>=today&&e.date<=end)}return a.sort((x,y)=>(x.date+x.start).localeCompare(y.date+y.start))}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function dateLabel(date){const d=new Date(date+'T12:00:00');return new Intl.DateTimeFormat('en-AU',{timeZone:TZ,weekday:'short',day:'numeric',month:'short'}).format(d)}
+function render(){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));const a=shown();const app=document.getElementById('app');if(!a.length){app.innerHTML='<div class="empty">No open homes remaining for this view.</div>';return}let next=true;app.innerHTML=a.map(e=>{const st=status(e);const cls=st==='OPEN NOW'?'now':(st==='NEXT OPEN'&&next?'next':'');if(st==='NEXT OPEN')next=false;const address=e.suburb?`${e.address}, ${e.suburb}`:e.address;const q=encodeURIComponent(address);const rea=e.rea&&/^https?:\/\//i.test(e.rea)?e.rea:'';return `<article class="card"><div class="time">${esc(e.start)} – ${esc(e.end)}</div><div class="status ${cls}">${st} · ${dateLabel(e.date)}</div><div class="addr">${esc(address)}</div><div class="meta">${e.price?`<span class="price">${esc(e.price)}</span>`:''}${e.beds?`<span>🛏 ${esc(e.beds)}</span>`:''}${e.baths?`<span>🛁 ${esc(e.baths)}</span>`:''}</div><div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">Navigate</a>${rea?`<a class="rea" href="${esc(rea)}" target="_blank" rel="noopener">View REA</a>`:''}</div></article>`}).join('')}
+function tick(){const p=nowParts();document.getElementById('clock').textContent=new Intl.DateTimeFormat('en-AU',{timeZone:TZ,weekday:'long',day:'numeric',month:'long',hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true}).format(new Date())+' · Melbourne';if(events.length)render()}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{view=b.dataset.view;render()});document.getElementById('refresh').onclick=loadCsv;document.getElementById('source').onclick=()=>window.open(CSV_URL,'_blank');
+loadCsv();tick();setInterval(tick,1000);setInterval(loadCsv,5*60*1000);
+</script>
+</body>
+</html>
