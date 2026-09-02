@@ -1,48 +1,1335 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#071b3a">
-<link rel="manifest" href="manifest.webmanifest">
 <title>YPA Open Home Dashboard</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f6f8;color:#10213d}.top{background:#071b3a;color:#fff;padding:22px 18px 16px;position:sticky;top:0;z-index:3}.brand{font-weight:800;letter-spacing:.08em;font-size:12px}.title{font-size:27px;font-weight:800;margin:5px 0}.clock{font-size:13px;opacity:.82}.bar{display:flex;gap:8px;margin-top:13px}.bar button{border:0;border-radius:10px;padding:9px 12px;font-weight:800}.refresh{background:#f5c400;color:#071b3a}.source{background:#ffffff20;color:#fff}.tabs{display:flex;gap:8px;padding:11px 14px;overflow:auto;background:#fff;position:sticky;top:133px;z-index:2;border-bottom:1px solid #e8ebef}.tabs button{border:0;border-radius:999px;padding:10px 16px;background:#e9edf2;font-weight:700;white-space:nowrap}.tabs button.active{background:#f5c400;color:#071b3a}.wrap{max-width:760px;margin:auto;padding:12px}.card{background:#fff;border-radius:18px;padding:17px;margin:12px 0;box-shadow:0 3px 15px #0000000d}.time{font-size:23px;font-weight:800}.status{font-size:12px;font-weight:800;margin:5px 0 12px}.now{color:#d71920}.next{color:#087443}.meta{display:flex;gap:12px;flex-wrap:wrap;color:#526174;font-size:14px}.addr{font-size:18px;font-weight:750;margin:5px 0 12px}.price{font-weight:800;color:#10213d}.actions{display:flex;gap:8px;margin-top:14px}.actions a{flex:1;text-align:center;text-decoration:none;border-radius:10px;padding:11px;background:#071b3a;color:#fff;font-weight:700}.actions a.rea{background:#e9edf2;color:#071b3a}.empty{text-align:center;padding:55px 20px;color:#687587}.note{font-size:12px;color:#687587;padding:10px 2px 20px}.error{background:#fff1f1;color:#a40000;padding:14px;border-radius:14px;margin:12px 0;font-size:14px}.loading{text-align:center;padding:35px;color:#687587}.sync{font-size:11px;opacity:.7;margin-top:7px}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  background: #f4f6f8;
+  color: #10213d;
+}
+/* =========================
+   HEADER
+========================= */
+.top {
+  background: #071b3a;
+  color: #fff;
+  padding:
+    calc(22px + env(safe-area-inset-top))
+    18px
+    16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.brand {
+  font-weight: 800;
+  letter-spacing: .08em;
+  font-size: 12px;
+}
+.title {
+  font-size: 27px;
+  font-weight: 800;
+  margin: 5px 0;
+}
+.clock {
+  font-size: 13px;
+  opacity: .82;
+}
+.bar {
+  display: flex;
+  gap: 8px;
+  margin-top: 13px;
+}
+.bar button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 14px;
+}
+.refresh {
+  background: #f5c400;
+  color: #071b3a;
+}
+.source {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+.sync {
+  font-size: 11px;
+  opacity: .7;
+  margin-top: 7px;
+}
+/* =========================
+   TABS
+========================= */
+.tabs {
+  display: flex;
+  gap: 8px;
+  padding: 11px 14px;
+  overflow-x: auto;
+  background: #fff;
+  position: sticky;
+  top: 154px;
+  z-index: 9;
+  border-bottom: 1px solid #e8ebef;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+.tabs button {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 17px;
+  background: #e9edf2;
+  color: #10213d;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 14px;
+}
+.tabs button.active {
+  background: #f5c400;
+  color: #071b3a;
+}
+/* =========================
+   CONTENT
+========================= */
+.wrap {
+  max-width: 760px;
+  margin: auto;
+  padding: 12px;
+}
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 17px;
+  margin: 12px 0;
+  box-shadow: 0 3px 15px rgba(0,0,0,.05);
+}
+.time {
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+.status {
+  font-size: 12px;
+  font-weight: 800;
+  margin: 5px 0 12px;
+}
+.status.now {
+  color: #d71920;
+}
+.status.next {
+  color: #087443;
+}
+.meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: #526174;
+  font-size: 14px;
+}
+.addr {
+  font-size: 18px;
+  font-weight: 750;
+  margin: 5px 0 12px;
+}
+.price {
+  font-weight: 800;
+  color: #10213d;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.actions a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 11px;
+  background: #071b3a;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+.actions a.rea {
+  background: #e9edf2;
+  color: #071b3a;
+}
+.day-heading {
+  font-size: 13px;
+  font-weight: 800;
+  color: #687587;
+  margin: 20px 4px 6px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.empty {
+  text-align: center;
+  padding: 55px 20px;
+  color: #687587;
+  background: #fff;
+  border-radius: 18px;
+  margin-top: 12px;
+}
+.loading {
+  text-align: center;
+  padding: 45px 20px;
+  color: #687587;
+}
+.error {
+  background: #fff1f1;
+  color: #a40000;
+  padding: 16px;
+  border-radius: 14px;
+  margin: 12px 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.note {
+  font-size: 12px;
+  color: #687587;
+  padding: 10px 2px 30px;
+  line-height: 1.5;
+}
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 600px) {
+  .title {
+    font-size: 25px;
+  }
+  .tabs {
+    top: 151px;
+  }
+  .card {
+    padding: 16px;
+  }
+  .time {
+    font-size: 21px;
+  }
+  .addr {
+    font-size: 17px;
+  }
+  .actions a {
+    padding: 12px 8px;
+  }
+}
+/* =========================
+   DESKTOP
+========================= */
+@media (min-width: 900px) {
+  .wrap {
+    padding-top: 20px;
+  }
+  .card {
+    transition:
+      transform .15s ease,
+      box-shadow .15s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+  }
+}
 </style>
 </head>
 <body>
 <header class="top">
-<div class="brand">YPA BACCHUS MARSH</div>
-<div class="title">Open Home Dashboard</div>
-<div id="clock" class="clock"></div>
-<div class="bar"><button class="refresh" id="refresh">↻ Refresh</button><button class="source" id="source">Google Sheet</button></div>
-<div id="sync" class="sync">Loading open homes…</div>
+  <div class="brand">
+    YPA BACCHUS MARSH
+  </div>
+  <div class="title">
+    Open Home Dashboard
+  </div>
+  <div id="clock" class="clock">
+    Loading time…
+  </div>
+  <div class="bar">
+<button
+  class="refresh"
+  id="refresh">
+  ↻ Refresh
+</button>
+<button
+  class="source"
+  id="source">
+  Google Sheet
+</button>
+  </div>
+  <div
+    id="sync"
+    class="sync">
+    Loading open homes…
+  </div>
 </header>
-<nav class="tabs"><button class="active" data-view="today">Today</button><button data-view="tomorrow">Tomorrow</button><button data-view="week">This Week</button></nav>
-<main class="wrap"><div id="app"><div class="loading">Loading open homes…</div></div><div class="note">Data is pulled from your published Google Sheet. Open homes automatically disappear after their scheduled end time. REA links are taken from the <b>REA URL</b> column when supplied.</div></main>
-<script>
-const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vSuLVcmvHjwZcvZ4VMprmhHdkG-F5983q7Wo8GuzUq0UW0VSQ0WhFnzHnlqcphwpGOVvvffjMaYGLY4/pub?output=csv';
-const TZ='Australia/Melbourne';
-let events=[];let view='today';let lastSync=null;
+<nav class="tabs">
 
-function melParts(){const p=new Intl.DateTimeFormat('en-AU',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(new Date()).reduce((o,x)=>(o[x.type]=x.value,o),{});return p}
-function nowParts(){const p=melParts();return{date:`${p.year}-${p.month}-${p.day}`,time:`${p.hour}:${p.minute}`,second:p.second}}
-function mins(s){if(!s)return 0;let m=s.toUpperCase().trim().replace(/\s+/g,'');let h=0,mi=0;const am=/AM$/.test(m),pm=/PM$/.test(m);m=m.replace(/AM|PM/g,'');const a=m.split(':');h=parseInt(a[0],10);mi=parseInt(a[1]||'0',10);if(pm&&h<12)h+=12;if(am&&h===12)h=0;return h*60+mi}
-function time24(s){const n=mins(s);return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
-function parseDate(s){s=(s||'').trim();if(!s)return '';let m=s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})$/);if(m)return `${m[3]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`;m=s.match(/^(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})$/);if(m)return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;const d=new Date(s);return isNaN(d)?'':d.toISOString().slice(0,10)}
-function csvParse(text){const rows=[];let row=[],cell='',q=false;for(let i=0;i<text.length;i++){const c=text[i];if(q){if(c==='"'&&text[i+1]==='"'){cell+='"';i++}else if(c==='"')q=false;else cell+=c}else{if(c==='"')q=true;else if(c===','){row.push(cell);cell=''}else if(c==='\n'){row.push(cell);rows.push(row);row=[];cell=''}else if(c!=='\r')cell+=c}}row.push(cell);if(row.length>1||row[0])rows.push(row);return rows}
-function clean(v){return (v||'').trim()}
-function loadCsv(){return fetch(CSV_URL+'&_='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('Google Sheet could not be loaded.');return r.text()}).then(text=>{const rows=csvParse(text);if(!rows.length)throw new Error('The published Google Sheet is empty.');const headers=rows[0].map(h=>clean(h).toLowerCase());const idx=n=>headers.indexOf(n.toLowerCase());const I={date:idx('date'),start:idx('start time'),end:idx('end time'),address:idx('address'),suburb:idx('suburb'),price:idx('price'),beds:idx('bedrooms'),baths:idx('bathrooms'),rea:idx('rea url'),agent:idx('agent')};if(I.date<0||I.start<0||I.end<0||I.address<0)throw new Error('Missing required columns. Row 1 must include Date, Start Time, End Time and Address.');events=rows.slice(1).map(r=>({date:parseDate(r[I.date]),start:time24(r[I.start]),end:time24(r[I.end]),address:clean(r[I.address]),suburb:I.suburb>=0?clean(r[I.suburb]):'',price:I.price>=0?clean(r[I.price]):'',beds:I.beds>=0?clean(r[I.beds]):'',baths:I.baths>=0?clean(r[I.baths]):'',rea:I.rea>=0?clean(r[I.rea]):'',agent:I.agent>=0?clean(r[I.agent]):''})).filter(e=>e.date&&e.start&&e.end&&e.address);lastSync=new Date();document.getElementById('sync').textContent='Synced '+lastSync.toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'})+' · '+events.length+' open homes';render()}).catch(err=>{document.getElementById('app').innerHTML='<div class="error"><b>Couldn’t load the Google Sheet.</b><br>'+err.message+'<br><br>Make sure the Sheet is still published to the web as CSV.</div>';document.getElementById('sync').textContent='Sync failed';console.error(err)})}
-function expired(e){const p=nowParts();return e.date<p.date||(e.date===p.date&&mins(e.end)<=mins(p.time))}
-function status(e){const p=nowParts();if(e.date!==p.date)return 'UPCOMING';const n=mins(p.time),a=mins(e.start),b=mins(e.end);if(n>=a&&n<b)return 'OPEN NOW';if(n<a)return 'NEXT OPEN';return 'PAST'}
-function shiftDate(n){const p=nowParts();const d=new Date(p.date+'T12:00:00+10:00');d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
-function shown(){let a=events.filter(e=>!expired(e));const today=nowParts().date;if(view==='today')a=a.filter(e=>e.date===today);else if(view==='tomorrow')a=a.filter(e=>e.date===shiftDate(1));else if(view==='week'){const end=shiftDate(7);a=a.filter(e=>e.date>=today&&e.date<=end)}return a.sort((x,y)=>(x.date+x.start).localeCompare(y.date+y.start))}
-function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function dateLabel(date){const d=new Date(date+'T12:00:00');return new Intl.DateTimeFormat('en-AU',{timeZone:TZ,weekday:'short',day:'numeric',month:'short'}).format(d)}
-function render(){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));const a=shown();const app=document.getElementById('app');if(!a.length){app.innerHTML='<div class="empty">No open homes remaining for this view.</div>';return}let next=true;app.innerHTML=a.map(e=>{const st=status(e);const cls=st==='OPEN NOW'?'now':(st==='NEXT OPEN'&&next?'next':'');if(st==='NEXT OPEN')next=false;const address=e.suburb?`${e.address}, ${e.suburb}`:e.address;const q=encodeURIComponent(address);const rea=e.rea&&/^https?:\/\//i.test(e.rea)?e.rea:'';return `<article class="card"><div class="time">${esc(e.start)} – ${esc(e.end)}</div><div class="status ${cls}">${st} · ${dateLabel(e.date)}</div><div class="addr">${esc(address)}</div><div class="meta">${e.price?`<span class="price">${esc(e.price)}</span>`:''}${e.beds?`<span>🛏 ${esc(e.beds)}</span>`:''}${e.baths?`<span>🛁 ${esc(e.baths)}</span>`:''}</div><div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">Navigate</a>${rea?`<a class="rea" href="${esc(rea)}" target="_blank" rel="noopener">View REA</a>`:''}</div></article>`}).join('')}
-function tick(){const p=nowParts();document.getElementById('clock').textContent=new Intl.DateTimeFormat('en-AU',{timeZone:TZ,weekday:'long',day:'numeric',month:'long',hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true}).format(new Date())+' · Melbourne';if(events.length)render()}
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{view=b.dataset.view;render()});document.getElementById('refresh').onclick=loadCsv;document.getElementById('source').onclick=()=>window.open(CSV_URL,'_blank');
-loadCsv();tick();setInterval(tick,1000);setInterval(loadCsv,5*60*1000);
+Today
+Tomorrow
+This Week
+</nav>
+<main class="wrap">
+  <div id="app">
+<div class="loading">
+  Loading open homes…
+</div>
+  </div>
+  <div class="note">
+Data is pulled from your published Google Sheet.
+Open homes automatically disappear after their scheduled
+end time.
+  </div>
+</main>
+<script>
+/* =========================================================
+   GOOGLE SHEET SETTINGS
+========================================================= */
+const CSV_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSuLVcmvHjwZcvZ4VMprmhHdkG-F5983q7Wo8GuzUq0UW0VSQ0WhFnzHnlqcphwpGOVvvffjMaYGLY4/pub?output=csv";
+/*
+   This is what opens when you press
+   "Google Sheet".
+*/
+const SHEET_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSuLVcmvHjwZcvZ4VMprmhHdkG-F5983q7Wo8GuzUq0UW0VSQ0WhFnzHnlqcphwpGOVvvffjMaYGLY4/pubhtml";
+const TIMEZONE =
+"Australia/Melbourne";
+let events = [];
+let view = "today";
+let lastSync = null;
+/* =========================================================
+   GET MELBOURNE DATE
+========================================================= */
+function getMelbourneDate() {
+  const parts =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone: TIMEZONE,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }
+    ).formatToParts(new Date());
+  const result = {};
+  parts.forEach(part => {
+    if (part.type !== "literal") {
+      result[part.type] =
+        part.value;
+    }
+  });
+  return (
+    result.year +
+    "-" +
+    result.month +
+    "-" +
+    result.day
+  );
+}
+/* =========================================================
+   ADD DAYS
+========================================================= */
+function addDays(dateString, amount) {
+  const parts =
+    dateString
+      .split("-")
+      .map(Number);
+  const date =
+    new Date(
+      Date.UTC(
+        parts[0],
+        parts[1] - 1,
+        parts[2]
+      )
+    );
+  date.setUTCDate(
+    date.getUTCDate() + amount
+  );
+  return date
+    .toISOString()
+    .slice(0, 10);
+}
+/* =========================================================
+   GET MELBOURNE TIME
+========================================================= */
+function getMelbourneMinutes() {
+  const parts =
+    new Intl.DateTimeFormat(
+      "en-AU",
+      {
+        timeZone: TIMEZONE,
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      }
+    ).formatToParts(new Date());
+  let hour = 0;
+  let minute = 0;
+  parts.forEach(part => {
+    if (part.type === "hour") {
+      hour =
+        Number(part.value);
+    }
+    if (part.type === "minute") {
+      minute =
+        Number(part.value);
+    }
+  });
+  return (
+    hour * 60 +
+    minute
+  );
+}
+/* =========================================================
+   PARSE TIME
+========================================================= */
+function parseTime(value) {
+  if (!value) return null;
+  let s =
+    String(value)
+      .trim()
+      .toUpperCase()
+      .replace(/\s+/g, "");
+  /*
+    Supported examples:
+    9:00 AM
+    9:00AM
+    09:00
+    14:30
+    2 PM
+    2:30 PM
+  */
+  const match =
+    s.match(
+      /^(\d{1,2})(?::(\d{1,2}))?(AM|PM)?$/
+    );
+  if (!match) {
+    return null;
+  }
+  let hour =
+    Number(match[1]);
+  const minute =
+    Number(match[2] || 0);
+  const modifier =
+    match[3];
+  if (minute > 59) {
+    return null;
+  }
+  if (
+    modifier === "PM" &&
+    hour < 12
+  ) {
+    hour += 12;
+  }
+  if (
+    modifier === "AM" &&
+    hour === 12
+  ) {
+    hour = 0;
+  }
+  if (hour > 23) {
+    return null;
+  }
+  return (
+    hour * 60 +
+    minute
+  );
+}
+/* =========================================================
+   FORMAT TIME
+========================================================= */
+function formatTime(minutes) {
+  if (
+    minutes === null ||
+    minutes === undefined
+  ) {
+    return "";
+  }
+  const hour24 =
+    Math.floor(minutes / 60);
+  const minute =
+    minutes % 60;
+  const suffix =
+    hour24 >= 12
+      ? "PM"
+      : "AM";
+  let hour =
+    hour24 % 12;
+  if (hour === 0) {
+    hour = 12;
+  }
+  return (
+    hour +
+    ":" +
+    String(minute).padStart(2, "0") +
+    " " +
+    suffix
+  );
+}
+/* =========================================================
+   PARSE DATE
+========================================================= */
+function parseDate(value) {
+  if (!value) {
+    return "";
+  }
+  let s =
+    String(value)
+      .trim()
+      .replace(/^\uFEFF/, "")
+      .replace(/\s+/g, " ");
+  /*
+    DD/MM/YYYY
+  */
+  let match =
+    s.match(
+      /^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})$/
+    );
+  if (match) {
+    return (
+      match[3] +
+      "-" +
+      String(match[2]).padStart(2, "0") +
+      "-" +
+      String(match[1]).padStart(2, "0")
+    );
+  }
+  /*
+    YYYY-MM-DD
+  */
+  match =
+    s.match(
+      /^(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})$/
+    );
+  if (match) {
+    return (
+      match[1] +
+      "-" +
+      String(match[2]).padStart(2, "0") +
+      "-" +
+      String(match[3]).padStart(2, "0")
+    );
+  }
+  return "";
+}
+/* =========================================================
+   CSV PARSER
+========================================================= */
+function csvParse(text) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let quoted = false;
+  for (
+    let i = 0;
+    i < text.length;
+    i++
+  ) {
+    const char =
+      text[i];
+    if (quoted) {
+      if (
+        char === '"' &&
+        text[i + 1] === '"'
+      ) {
+        cell += '"';
+        i++;
+      }
+      else if (
+        char === '"'
+      ) {
+        quoted = false;
+      }
+      else {
+        cell += char;
+      }
+    }
+    else {
+      if (char === '"') {
+        quoted = true;
+      }
+      else if (char === ",") {
+        row.push(cell);
+        cell = "";
+      }
+      else if (char === "\n") {
+        row.push(cell);
+        rows.push(row);
+        row = [];
+        cell = "";
+      }
+      else if (char !== "\r") {
+        cell += char;
+      }
+    }
+  }
+  if (
+    cell !== "" ||
+    row.length
+  ) {
+    row.push(cell);
+    rows.push(row);
+  }
+  return rows;
+}
+/* =========================================================
+   CLEAN VALUE
+========================================================= */
+function clean(value) {
+  return String(value || "")
+    .replace(/^\uFEFF/, "")
+    .trim();
+}
+/* =========================================================
+   LOAD GOOGLE SHEET
+========================================================= */
+async function loadCsv() {
+  const app =
+    document.getElementById("app");
+  app.innerHTML =
+    '<div class="loading">Refreshing open homes…</div>';
+  try {
+    const response =
+      await fetch(
+        CSV_URL +
+        "&cache=" +
+        Date.now(),
+        {
+          cache: "no-store",
+          redirect: "follow"
+        }
+      );
+    if (!response.ok) {
+      throw new Error(
+        "Google Sheets returned HTTP " +
+        response.status +
+        "."
+      );
+    }
+    const text =
+      await response.text();
+    if (!text || text.length < 5) {
+      throw new Error(
+        "Google Sheets returned an empty response."
+      );
+    }
+    /*
+      Detect if Google is returning
+      an HTML page instead of CSV.
+    */
+    if (
+      text
+        .toLowerCase()
+        .includes("<html") ||
+      text
+        .toLowerCase()
+        .includes("<!doctype")
+    ) {
+      throw new Error(
+        "Google returned a webpage instead of CSV data. Make sure the spreadsheet is published to the web."
+      );
+    }
+    const rows =
+      csvParse(text);
+    if (!rows.length) {
+      throw new Error(
+        "The published Google Sheet is empty."
+      );
+    }
+    /*
+      READ COLUMN HEADINGS
+    */
+    const headers =
+      rows[0].map(
+        heading =>
+          clean(heading)
+            .toLowerCase()
+            .replace(/\s+/g, " ")
+      );
+    function findColumn(...names) {
+      for (
+        const name of names
+      ) {
+        const index =
+          headers.indexOf(
+            name.toLowerCase()
+          );
+        if (index >= 0) {
+          return index;
+        }
+      }
+      return -1;
+    }
+    /*
+      COLUMN MAPPING
+    */
+    const columns = {
+      date:
+        findColumn(
+          "date"
+        ),
+      start:
+        findColumn(
+          "start time",
+          "start",
+          "opening time"
+        ),
+      end:
+        findColumn(
+          "end time",
+          "end",
+          "closing time"
+        ),
+      address:
+        findColumn(
+          "address",
+          "property address"
+        ),
+      suburb:
+        findColumn(
+          "suburb",
+          "location"
+        ),
+      price:
+        findColumn(
+          "price",
+          "price guide"
+        ),
+      beds:
+        findColumn(
+          "bedrooms",
+          "beds"
+        ),
+      baths:
+        findColumn(
+          "bathrooms",
+          "baths"
+        ),
+      rea:
+        findColumn(
+          "rea url",
+          "rea",
+          "realestate url"
+        ),
+      agent:
+        findColumn(
+          "agent",
+          "agent name"
+        )
+    };
+    /*
+      CHECK REQUIRED COLUMNS
+    */
+    const missing = [];
+    if (columns.date < 0)
+      missing.push("Date");
+    if (columns.start < 0)
+      missing.push("Start Time");
+    if (columns.end < 0)
+      missing.push("End Time");
+    if (columns.address < 0)
+      missing.push("Address");
+    if (missing.length) {
+      throw new Error(
+        "Missing required columns: " +
+        missing.join(", ") +
+        "."
+      );
+    }
+    /*
+      CONVERT ROWS TO EVENTS
+    */
+    events =
+      rows
+        .slice(1)
+        .map(row => {
+          const start =
+            parseTime(
+              clean(
+                row[columns.start]
+              )
+            );
+          const end =
+            parseTime(
+              clean(
+                row[columns.end]
+              )
+            );
+          return {
+            date:
+              parseDate(
+                clean(
+                  row[columns.date]
+                )
+              ),
+            start:
+              start,
+            end:
+              end,
+            address:
+              clean(
+                row[columns.address]
+              ),
+            suburb:
+              columns.suburb >= 0
+                ? clean(
+                    row[columns.suburb]
+                  )
+                : "",
+            price:
+              columns.price >= 0
+                ? clean(
+                    row[columns.price]
+                  )
+                : "",
+            beds:
+              columns.beds >= 0
+                ? clean(
+                    row[columns.beds]
+                  )
+                : "",
+            baths:
+              columns.baths >= 0
+                ? clean(
+                    row[columns.baths]
+                  )
+                : "",
+            rea:
+              columns.rea >= 0
+                ? clean(
+                    row[columns.rea]
+                  )
+                : "",
+            agent:
+              columns.agent >= 0
+                ? clean(
+                    row[columns.agent]
+                  )
+                : ""
+          };
+        })
+        .filter(event =>
+          event.date &&
+          event.start !== null &&
+          event.end !== null &&
+          event.address
+        );
+    lastSync =
+      new Date();
+    document
+      .getElementById("sync")
+      .textContent =
+        "Synced " +
+        lastSync.toLocaleTimeString(
+          "en-AU",
+          {
+            hour: "numeric",
+            minute: "2-digit"
+          }
+        ) +
+        " · " +
+        events.length +
+        " open homes";
+    render();
+  }
+  catch (error) {
+    console.error(error);
+    app.innerHTML = `
+      <div class="error">
+        <b>
+          Couldn't load the Google Sheet.
+        </b>
+        <br><br>
+        ${escapeHtml(error.message)}
+        <br><br>
+        <b>
+          Required columns:
+        </b>
+        <br>
+        • Date
+        <br>
+        • Start Time
+        <br>
+        • End Time
+        <br>
+        • Address
+        <br><br>
+        Make sure your Google Sheet is
+        published to the web as CSV.
+      </div>
+    `;
+    document
+      .getElementById("sync")
+      .textContent =
+        "Sync failed";
+  }
+}
+/* =========================================================
+   EXPIRY CHECK
+========================================================= */
+function isExpired(event) {
+  const today =
+    getMelbourneDate();
+  /*
+    Any previous date is expired.
+  */
+  if (
+    event.date < today
+  ) {
+    return true;
+  }
+  /*
+    Any future date is not expired.
+  */
+  if (
+    event.date > today
+  ) {
+    return false;
+  }
+  /*
+    Same day:
+    remove once end time is reached.
+  */
+  const currentMinutes =
+    getMelbourneMinutes();
+  return (
+    event.end <=
+    currentMinutes
+  );
+}
+/* =========================================================
+   EVENT STATUS
+========================================================= */
+function getStatus(event) {
+  const today =
+    getMelbourneDate();
+  if (
+    event.date !== today
+  ) {
+    return "UPCOMING";
+  }
+  const now =
+    getMelbourneMinutes();
+  if (
+    now >= event.start &&
+    now < event.end
+  ) {
+    return "OPEN NOW";
+  }
+  if (
+    now < event.start
+  ) {
+    return "NEXT OPEN";
+  }
+  return "PAST";
+}
+/* =========================================================
+   DATE LABEL
+========================================================= */
+function dateLabel(date) {
+  const parts =
+    date
+      .split("-")
+      .map(Number);
+  const d =
+    new Date(
+      parts[0],
+      parts[1] - 1,
+      parts[2],
+      12
+    );
+  return new Intl.DateTimeFormat(
+    "en-AU",
+    {
+      weekday: "short",
+      day: "numeric",
+      month: "short"
+    }
+  ).format(d);
+}
+/* =========================================================
+   FILTER EVENTS
+========================================================= */
+function getShownEvents() {
+  const today =
+    getMelbourneDate();
+  let list =
+    events.filter(
+      event =>
+        !isExpired(event)
+    );
+  if (
+    view === "today"
+  ) {
+    list =
+      list.filter(
+        event =>
+          event.date === today
+      );
+  }
+  else if (
+    view === "tomorrow"
+  ) {
+    const tomorrow =
+      addDays(today, 1);
+    list =
+      list.filter(
+        event =>
+          event.date === tomorrow
+      );
+  }
+  else if (
+    view === "week"
+  ) {
+    const weekEnd =
+      addDays(today, 7);
+    list =
+      list.filter(
+        event =>
+          event.date >= today &&
+          event.date <= weekEnd
+      );
+  }
+  return list.sort(
+    (a,b) => {
+      if (
+        a.date !== b.date
+      ) {
+        return a.date.localeCompare(
+          b.date
+        );
+      }
+      return (
+        a.start -
+        b.start
+      );
+    }
+  );
+}
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(
+      /[&<>"']/g,
+      character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[character]
+    );
+}
+/* =========================================================
+   RENDER DASHBOARD
+========================================================= */
+function render() {
+  /*
+    Update tabs.
+  */
+  document
+    .querySelectorAll(
+      ".tabs button"
+    )
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.view === view
+      );
+    });
+  const list =
+    getShownEvents();
+  const app =
+    document.getElementById("app");
+  /*
+    Nothing available.
+  */
+  if (!list.length) {
+    app.innerHTML =
+      '<div class="empty">No open homes remaining for this view.</div>';
+    return;
+  }
+  let nextFound =
+    false;
+  let currentDate =
+    "";
+  let html =
+    "";
+  list.forEach(event => {
+    /*
+      Week view headings.
+    */
+    if (
+      view === "week" &&
+      event.date !== currentDate
+    ) {
+      currentDate =
+        event.date;
+      html += `
+        <div class="day-heading">
+          ${escapeHtml(
+            dateLabel(event.date)
+          )}
+        </div>
+      `;
+    }
+    const status =
+      getStatus(event);
+    let statusClass =
+      "";
+    if (
+      status === "OPEN NOW"
+    ) {
+      statusClass =
+        "now";
+    }
+    if (
+      status === "NEXT OPEN" &&
+      !nextFound
+    ) {
+      statusClass =
+        "next";
+      nextFound =
+        true;
+    }
+    const address =
+      event.suburb
+        ? event.address +
+          ", " +
+          event.suburb
+        : event.address;
+    const mapsUrl =
+      "https://www.google.com/maps/search/?api=1&query=" +
+      encodeURIComponent(
+        address
+      );
+    let reaUrl = "";
+    if (
+      event.rea &&
+      /^https?:\/\//i.test(
+        event.rea
+      )
+    ) {
+      reaUrl =
+        event.rea;
+    }
+    html += `
+      <article class="card">
+        <div class="time">
+          ${formatTime(
+            event.start
+          )}
+          –
+          ${formatTime(
+            event.end
+          )}
+        </div>
+        <div
+          class="status ${statusClass}"
+        >
+          ${status}
+          ·
+          ${escapeHtml(
+            dateLabel(event.date)
+          )}
+        </div>
+        <div class="addr">
+          ${escapeHtml(
+            address
+          )}
+        </div>
+        <div class="meta">
+          ${
+            event.price
+              ? `
+                <span class="price">
+                  ${escapeHtml(
+                    event.price
+                  )}
+                </span>
+              `
+              : ""
+          }
+          ${
+            event.beds
+              ? `
+                <span>
+                  🛏
+                  ${escapeHtml(
+                    event.beds
+                  )}
+                </span>
+              `
+              : ""
+          }
+          ${
+            event.baths
+              ? `
+                <span>
+                  🛁
+                  ${escapeHtml(
+                    event.baths
+                  )}
+                </span>
+              `
+              : ""
+          }
+          ${
+            event.agent
+              ? `
+                <span>
+                  👤
+                  ${escapeHtml(
+                    event.agent
+                  )}
+                </span>
+              `
+              : ""
+          }
+        </div>
+        <div class="actions">
+          <a
+            href="${mapsUrl}"
+            target="_blank"
+            rel="noopener">
+            Navigate
+          </a>
+          ${
+            reaUrl
+              ? `
+                <a
+                  class="rea"
+                  href="${escapeHtml(
+                    reaUrl
+                  )}"
+                  target="_blank"
+                  rel="noopener">
+                  View REA
+                </a>
+              `
+              : ""
+          }
+        </div>
+      </article>
+    `;
+  });
+  app.innerHTML =
+    html;
+}
+/* =========================================================
+   LIVE CLOCK
+========================================================= */
+function updateClock() {
+  const formatted =
+    new Intl.DateTimeFormat(
+      "en-AU",
+      {
+        timeZone: TIMEZONE,
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+      }
+    ).format(
+      new Date()
+    );
+  document
+    .getElementById("clock")
+    .textContent =
+      formatted +
+      " · Melbourne";
+  /*
+    Re-render so an open home
+    disappears immediately after
+    its end time.
+  */
+  if (events.length) {
+    render();
+  }
+}
+/* =========================================================
+   TAB CONTROLS
+========================================================= */
+document
+  .querySelectorAll(
+    ".tabs button"
+  )
+  .forEach(button => {
+    button.onclick =
+      function() {
+        view =
+          this.dataset.view;
+        render();
+      };
+  });
+/* =========================================================
+   REFRESH BUTTON
+========================================================= */
+document
+  .getElementById("refresh")
+  .onclick =
+    loadCsv;
+/* =========================================================
+   GOOGLE SHEET BUTTON
+========================================================= */
+document
+  .getElementById("source")
+  .onclick =
+    function() {
+      window.open(
+        SHEET_URL,
+        "_blank"
+      );
+    };
+/* =========================================================
+   START APP
+========================================================= */
+loadCsv();
+updateClock();
+/*
+  Update clock every second.
+*/
+setInterval(
+  updateClock,
+  1000
+);
+/*
+  Re-sync Google Sheet every
+  five minutes.
+*/
+setInterval(
+  loadCsv,
+  5 * 60 * 1000
+);
 </script>
 </body>
 </html>
