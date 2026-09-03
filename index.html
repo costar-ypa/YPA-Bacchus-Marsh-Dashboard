@@ -3681,13 +3681,30 @@ function render(){
 
 
     visible.forEach(
-    h =>
-        initialiseCardCarousel(h)
-);
+  /* =========================================================
+   INITIALISE ALL PROPERTY CAROUSELS
+========================================================= */
 
-startMasterCarousel();
+if(masterCarouselTimer){
+    clearInterval(masterCarouselTimer);
+    masterCarouselTimer = null;
+}
 
+Promise.all(
+    visible.map(
+        h => initialiseCardCarousel(h)
+    )
+).then(() => {
 
+    /*
+       Start ONE master clock only after
+       all property photos have loaded.
+       This keeps every card perfectly synchronised.
+    */
+
+    startMasterCarousel();
+
+});
 /* =========================================================
    COUNTS
 ========================================================= */
@@ -3737,16 +3754,16 @@ function updateCounts(){
 
 async function initialiseCardCarousel(h){
 
-    const id =
-        normaliseId(h.id);
+   async function initialiseCardCarousel(h){
+
+    const id = normaliseId(h.id);
 
     cardCarousels[id] = {
         photos: [],
         index: 0
     };
 
-    const photos =
-        await getLocalPhotos(h);
+    const photos = await getLocalPhotos(h);
 
     if(!cardCarousels[id]){
         return;
@@ -3762,85 +3779,18 @@ async function initialiseCardCarousel(h){
             ];
 
     updateCardCarousel(h);
-
 }
+
 
 
     if(
         cardCarousels[id].photos.length > 1
     ){
 
-        cardCarousels[id].timer =
-            setInterval(
-                () =>
-                    rotateCardCarousel(
-                        id,
-                        1
-                    ),
-                3500
-            );
-
-
-        const photoElement =
-            $(`photo-${id}`);
-
-
-        if(photoElement){
-
-            photoElement.addEventListener(
-                "mouseenter",
-                () => {
-
-                    if(cardCarousels[id]){
-
-                        clearInterval(
-                            cardCarousels[id].timer
-                        );
-
-                    }
-
-                }
-            );
-
-
-            photoElement.addEventListener(
-                "mouseleave",
-                () => {
-
-                    if(!cardCarousels[id]){
-                        return;
-                    }
-
-                    clearInterval(
-                        cardCarousels[id].timer
-                    );
-
-                    cardCarousels[id].timer =
-                        setInterval(
-                            () =>
-                                rotateCardCarousel(
-                                    id,
-                                    1
-                                ),
-                            3500
-                        );
-
-                }
-            );
-
-        }
-
-    }
-
-}
-
-
+      
 function rotateCardCarousel(
-    id,
-    direction=1
-){
-/* =========================================================
-   SYNCHRONISED PROPERTY CAROUSEL CLOCK
+  /* =========================================================
+   SYNCHRONISED PROPERTY CAROUSEL
 ========================================================= */
 
 let masterCarouselTimer = null;
@@ -3849,78 +3799,74 @@ function startMasterCarousel(){
 
     if(masterCarouselTimer){
         clearInterval(masterCarouselTimer);
+        masterCarouselTimer = null;
     }
 
-    masterCarouselTimer =
-        setInterval(() => {
+    masterCarouselTimer = setInterval(() => {
 
-            Object.keys(cardCarousels)
-                .forEach(id => {
+        Object.keys(cardCarousels).forEach(id => {
 
-                    const carousel =
-                        cardCarousels[id];
+            const carousel = cardCarousels[id];
 
-                    if(
-                        !carousel ||
-                        !carousel.photos ||
-                        carousel.photos.length <= 1
-                    ){
-                        return;
-                    }
+            if(
+                !carousel ||
+                !carousel.photos ||
+                carousel.photos.length <= 1
+            ){
+                return;
+            }
 
-                    carousel.index =
-                        (
-                            carousel.index +
-                            1
-                        ) %
-                        carousel.photos.length;
+            carousel.index =
+                (
+                    (carousel.index || 0) + 1
+                ) %
+                carousel.photos.length;
 
-                    const property =
-                        homes.find(
-                            h =>
-                                normaliseId(h.id) ===
-                                normaliseId(id)
-                        );
+            const property =
+                homes.find(
+                    h =>
+                        normaliseId(h.id) ===
+                        normaliseId(id)
+                );
 
-                    if(property){
+            if(property){
+                updateCardCarousel(property);
+            }
 
-                        updateCardCarousel(
-                            property
-                        );
+        });
 
-                    }
-
-                });
-
-        }, 3500);
-
+    }, 3500);
 }
-    id =
-        normaliseId(id);
 
 
-    const carousel =
-        cardCarousels[id];
+/* =========================================================
+   PREVIOUS / NEXT PHOTO
+========================================================= */
 
+function rotateCardCarousel(
+    id,
+    direction = 1
+){
+
+    id = normaliseId(id);
+
+    const carousel = cardCarousels[id];
 
     if(
         !carousel ||
+        !carousel.photos ||
         !carousel.photos.length
     ){
-
         return;
-
     }
-
 
     carousel.index =
         (
-            carousel.index +
+            (carousel.index || 0) +
             direction +
             carousel.photos.length
         ) %
         carousel.photos.length;
-
 
     const property =
         homes.find(
@@ -3928,17 +3874,59 @@ function startMasterCarousel(){
                 normaliseId(h.id) === id
         );
 
-
     if(property){
-
-        updateCardCarousel(
-            property
-        );
-
+        updateCardCarousel(property);
     }
 
 }
 
+
+/* =========================================================
+   SET SPECIFIC CAROUSEL PHOTO
+========================================================= */
+
+function setCardCarouselPhoto(
+    id,
+    index
+){
+
+    id = normaliseId(id);
+
+    const carousel = cardCarousels[id];
+
+    if(
+        !carousel ||
+        !carousel.photos ||
+        !carousel.photos.length
+    ){
+        return;
+    }
+
+    if(
+        index < 0 ||
+        index >= carousel.photos.length
+    ){
+        return;
+    }
+
+    carousel.index = index;
+
+    const property =
+        homes.find(
+            h =>
+                normaliseId(h.id) === id
+        );
+
+    if(property){
+        updateCardCarousel(property);
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE PROPERTY CARD CAROUSEL
+========================================================= */
 
 function updateCardCarousel(h){
 
@@ -3946,11 +3934,9 @@ function updateCardCarousel(h){
         return;
     }
 
-    const id =
-        normaliseId(h.id);
+    const id = normaliseId(h.id);
 
-    const carousel =
-        cardCarousels[id];
+    const carousel = cardCarousels[id];
 
     if(
         !carousel ||
@@ -3969,14 +3955,9 @@ function updateCardCarousel(h){
         return;
     }
 
-    const img =
-        $(`img-${id}`);
-
-    const count =
-        $(`count-${id}`);
-
-    const dots =
-        $(`dots-${id}`);
+    const img = $(`img-${id}`);
+    const count = $(`count-${id}`);
+    const dots = $(`dots-${id}`);
 
     carousel.index =
         Math.max(
@@ -3988,31 +3969,19 @@ function updateCardCarousel(h){
         );
 
     const currentPhoto =
-        carousel.photos[
-            carousel.index
-        ];
-
-    /* ================================
-       UPDATE MAIN PHOTO
-    ================================= */
+        carousel.photos[carousel.index];
 
     if(
         img &&
         currentPhoto
     ){
 
-        img.src =
-            currentPhoto;
+        img.src = currentPhoto;
 
         img.dataset.carouselIndex =
             carousel.index;
 
     }
-
-
-    /* ================================
-       UPDATE COUNTER
-    ================================= */
 
     if(count){
 
@@ -4021,17 +3990,12 @@ function updateCardCarousel(h){
 
     }
 
-
-    /* ================================
-       UPDATE DOTS
-    ================================= */
-
     if(dots){
 
         dots.innerHTML =
             carousel.photos
                 .map(
-                    (_,index) => `
+                    (_, index) => `
                         <button
                             type="button"
                             class="card-dot ${
@@ -4056,57 +4020,6 @@ function updateCardCarousel(h){
     }
 
 }
-
-
-/* =========================================================
-   SET SPECIFIC CAROUSEL PHOTO
-========================================================= */
-
-function setCardCarouselPhoto(
-    id,
-    index
-){
-
-    id =
-        normaliseId(id);
-
-    const carousel =
-        cardCarousels[id];
-
-    if(
-        !carousel ||
-        !carousel.photos ||
-        !carousel.photos.length
-    ){
-        return;
-    }
-
-    if(
-        index < 0 ||
-        index >= carousel.photos.length
-    ){
-        return;
-    }
-
-    carousel.index =
-        index;
-
-    const property =
-        homes.find(
-            h =>
-                normaliseId(h.id) === id
-        );
-
-    if(property){
-
-        updateCardCarousel(
-            property
-        );
-
-    }
-
-}
-
 
 /* =========================================================
    PREVIOUS / NEXT PHOTO
