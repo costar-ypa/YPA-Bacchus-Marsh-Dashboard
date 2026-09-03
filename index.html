@@ -3316,13 +3316,14 @@ async function buildGithubImageIndex(force=false){
 /* =========================================================
    GET PROPERTY PHOTOS
 ========================================================= */
-
 async function getLocalPhotos(h){
 
     const wantedFolder =
         photoFolder(h)
             .replace(/^\/+|\/+$/g,"")
-            .trim();
+            .replace(/^images\//i,"")
+            .trim()
+            .toLowerCase();
 
     if(!wantedFolder){
         console.error("No photo folder found for:", h);
@@ -3331,80 +3332,53 @@ async function getLocalPhotos(h){
 
     try{
 
-        /*
-         * Go directly to the property's image folder.
-         * This avoids relying on the GitHub repository root
-         * folder listing.
-         */
-
         const folderUrl =
-            "https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard/contents/images/" +
+            "https://api.github.com/repos/" +
+            "costar-ypa/YPA-Bacchus-Marsh-Dashboard/" +
+            "contents/images/" +
             encodeURIComponent(wantedFolder);
 
-        const response =
-            await fetch(folderUrl, {
-                cache:"no-store"
-            });
+        const response = await fetch(folderUrl,{
+            cache:"no-store"
+        });
 
         if(!response.ok){
-
             console.error(
-                "Could not load image folder:",
+                "GitHub image folder not found:",
                 wantedFolder,
                 response.status
             );
-
             return [];
         }
 
-        const files =
-            await response.json();
+        const files = await response.json();
 
         if(!Array.isArray(files)){
-            console.error(
-                "GitHub did not return an image list:",
-                wantedFolder
-            );
             return [];
         }
 
-        const photos =
-            files
-                .filter(file =>
-                    file.type === "file" &&
-                    /\.(jpg|jpeg|png|webp|gif|avif)$/i
-                        .test(file.name)
+        return files
+            .filter(file =>
+                file.type === "file" &&
+                /\.(jpg|jpeg|png|webp|gif|avif)$/i.test(file.name)
+            )
+            .sort((a,b) =>
+                a.name.localeCompare(
+                    b.name,
+                    undefined,
+                    {
+                        numeric:true,
+                        sensitivity:"base"
+                    }
                 )
-                .sort((a,b) =>
-                    a.name.localeCompare(
-                        b.name,
-                        undefined,
-                        {
-                            numeric:true,
-                            sensitivity:"base"
-                        }
-                    )
-                )
-                .map(file => {
-
-                    return (
-                        "https://costar-ypa.github.io/" +
-                        "YPA-Bacchus-Marsh-Dashboard/" +
-                        "images/" +
-                        encodeURIComponent(wantedFolder) +
-                        "/" +
-                        encodeURIComponent(file.name)
-                    );
-
-                });
-
-        console.log(
-            "Photos loaded:",
-            wantedFolder,
-            photos
-        );
-
-        return photos;
+            )
+            .map(file =>
+                "https://costar-ypa.github.io/" +
+                "YPA-Bacchus-Marsh-Dashboard/images/" +
+                encodeURIComponent(wantedFolder) +
+                "/" +
+                encodeURIComponent(file.name)
+            );
 
     }catch(error){
 
@@ -3415,10 +3389,7 @@ async function getLocalPhotos(h){
 
         return [];
     }
-
-
-
-
+}
 /* =========================================================
    PROPERTY CARD
 ========================================================= */
