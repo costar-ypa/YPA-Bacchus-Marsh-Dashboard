@@ -3320,42 +3320,90 @@ async function buildGithubImageIndex(force=false){
 
 async function getLocalPhotos(h){
 
-    const folder =
-        photoFolder(h);
+  const wantedFolder =
+    photoFolder(h).toLowerCase();
 
+  try{
+
+    // Get all property folders
+    const folderResponse =
+      await fetch(GITHUB_API);
+
+    if(!folderResponse.ok){
+      console.error(
+        "Could not load GitHub image folders"
+      );
+      return [];
+    }
+
+    const folders =
+      await folderResponse.json();
+
+    // Find the correct folder, ignoring capitalisation
+    const folder =
+      folders.find(item =>
+        item.type === "dir" &&
+        item.name.toLowerCase() === wantedFolder
+      );
 
     if(!folder){
-        return [];
+      console.error(
+        "Image folder not found:",
+        wantedFolder
+      );
+      return [];
     }
 
+    // Load the files inside the property folder
+    const fileResponse =
+      await fetch(folder.url);
 
-    const index =
-        await buildGithubImageIndex();
-
-
-    if(!index){
-        return [];
+    if(!fileResponse.ok){
+      console.error(
+        "Could not load property images:",
+        folder.name
+      );
+      return [];
     }
 
+    const files =
+      await fileResponse.json();
 
-    const wanted =
-        folder
-            .trim()
-            .toLowerCase();
-
-
-    /*
-       Exact folder match.
-    */
-
-    if(index.has(wanted)){
-
-        return index
-            .get(wanted)
-            .map(item => item.pagesUrl);
-
+    if(!Array.isArray(files)){
+      return [];
     }
 
+    return files
+      .filter(file =>
+        file.type === "file" &&
+        /\.(jpg|jpeg|png|webp|gif|avif)$/i
+          .test(file.name)
+      )
+      .sort((a,b) =>
+        a.name.localeCompare(
+          b.name,
+          undefined,
+          {
+            numeric:true,
+            sensitivity:"base"
+          }
+        )
+      )
+      .map(file =>
+        file.download_url
+      );
+
+  }catch(error){
+
+    console.error(
+      "Photo loading error:",
+      error
+    );
+
+    return [];
+
+  }
+}
 
     /*
        Address-only fallback.
