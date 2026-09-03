@@ -3681,11 +3681,11 @@ function render(){
 
 
     visible.forEach(
-        h =>
-            initialiseCardCarousel(h)
-    );
+    h =>
+        initialiseCardCarousel(h)
+);
 
-}
+startMasterCarousel();
 
 
 /* =========================================================
@@ -3740,26 +3740,17 @@ async function initialiseCardCarousel(h){
     const id =
         normaliseId(h.id);
 
-
     cardCarousels[id] = {
-
-        photos:[],
-
-        index:0,
-
-        timer:null
-
+        photos: [],
+        index: 0
     };
-
 
     const photos =
         await getLocalPhotos(h);
 
-
     if(!cardCarousels[id]){
         return;
     }
-
 
     cardCarousels[id].photos =
         photos.length
@@ -3770,8 +3761,9 @@ async function initialiseCardCarousel(h){
                 )
             ];
 
-
     updateCardCarousel(h);
+
+}
 
 
     if(
@@ -3847,7 +3839,62 @@ function rotateCardCarousel(
     id,
     direction=1
 ){
+/* =========================================================
+   SYNCHRONISED PROPERTY CAROUSEL CLOCK
+========================================================= */
 
+let masterCarouselTimer = null;
+
+function startMasterCarousel(){
+
+    if(masterCarouselTimer){
+        clearInterval(masterCarouselTimer);
+    }
+
+    masterCarouselTimer =
+        setInterval(() => {
+
+            Object.keys(cardCarousels)
+                .forEach(id => {
+
+                    const carousel =
+                        cardCarousels[id];
+
+                    if(
+                        !carousel ||
+                        !carousel.photos ||
+                        carousel.photos.length <= 1
+                    ){
+                        return;
+                    }
+
+                    carousel.index =
+                        (
+                            carousel.index +
+                            1
+                        ) %
+                        carousel.photos.length;
+
+                    const property =
+                        homes.find(
+                            h =>
+                                normaliseId(h.id) ===
+                                normaliseId(id)
+                        );
+
+                    if(property){
+
+                        updateCardCarousel(
+                            property
+                        );
+
+                    }
+
+                });
+
+        }, 3500);
+
+}
     id =
         normaliseId(id);
 
