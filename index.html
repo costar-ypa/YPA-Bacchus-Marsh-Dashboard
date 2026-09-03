@@ -2131,14 +2131,18 @@ img{
 
 
 <script>
-
+    
 /* =========================================================
    CONFIGURATION
 ========================================================= */
 
 const API_URL = "https://script.google.com/macros/s/AKfycbymGhL5QAEnkxA4LRiSvSKOFyCAJSDqmFGD3qB7MmYbQSw15YiOEIM_D4Zm1AR7XM-i/exec";
 
-const GITHUB_API = "https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard/contents/images/";
+const GITHUB_API =
+    "https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard";
+
+const GITHUB_PAGES_BASE =
+    "https://costar-ypa.github.io/YPA-Bacchus-Marsh-Dashboard";
 
 
 /* =========================================================
@@ -2149,9 +2153,7 @@ let homes = [];
 let filter = "all";
 let searchText = "";
 
-let weekendIds = JSON.parse(
-    localStorage.getItem("ypaWeekend") || "[]"
-);
+let weekendIds = loadWeekendIds();
 
 let cardCarousels = {};
 
@@ -2160,9 +2162,11 @@ let currentPhotos = [];
 let currentPhotoIndex = 0;
 let modalTimer = null;
 
+let githubImageIndex = null;
+
 
 /* =========================================================
-   HELPERS
+   BASIC HELPERS
 ========================================================= */
 
 function $(id){
@@ -2185,7 +2189,7 @@ function esc(value){
 }
 
 
-function field(obj, names, fallback=""){
+function field(obj,names,fallback=""){
 
     for(const name of names){
 
@@ -2203,6 +2207,75 @@ function field(obj, names, fallback=""){
     return fallback;
 }
 
+
+/* =========================================================
+   WEEKEND ID NORMALISATION
+========================================================= */
+
+function normaliseId(value){
+
+    if(value === undefined || value === null){
+        return "";
+    }
+
+    return String(value).trim();
+}
+
+
+function loadWeekendIds(){
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem("ypaWeekend") || "[]"
+            );
+
+        if(!Array.isArray(saved)){
+            return [];
+        }
+
+        return saved
+            .map(normaliseId)
+            .filter(Boolean);
+
+    }catch(error){
+
+        console.warn(
+            "Unable to read saved weekend:",
+            error
+        );
+
+        return [];
+    }
+}
+
+
+function saveWeekendIds(){
+
+    weekendIds =
+        weekendIds
+            .map(normaliseId)
+            .filter(Boolean);
+
+    localStorage.setItem(
+        "ypaWeekend",
+        JSON.stringify(weekendIds)
+    );
+}
+
+
+function isWeekendSaved(id){
+
+    return weekendIds.includes(
+        normaliseId(id)
+    );
+}
+
+
+/* =========================================================
+   SLUGGING / IMAGE FOLDERS
+========================================================= */
 
 function slugify(value){
 
@@ -2230,13 +2303,20 @@ function photoFolder(h){
     );
 
     if(manual){
-        return String(manual).replace(/^\/|\/$/g,"");
+
+        return String(manual)
+            .replace(/^\/|\/$/g,"")
+            .trim();
+
     }
 
     return slugify(
-        [h.address,h.suburb]
-            .filter(Boolean)
-            .join(" ")
+        [
+            h.address,
+            h.suburb
+        ]
+        .filter(Boolean)
+        .join(" ")
     );
 }
 
@@ -2256,7 +2336,7 @@ function placeholder(text="YPA BACCHUS MARSH"){
                 font-size="34"
                 letter-spacing="5"
             >
-                ${text}
+                ${esc(text)}
             </text>
         </svg>
     `;
@@ -2284,7 +2364,7 @@ function parseDate(value){
 
     let d = new Date(str);
 
-    if(!isNaN(d)){
+    if(!isNaN(d.getTime())){
         return d;
     }
 
@@ -2294,17 +2374,21 @@ function parseDate(value){
 
     if(match){
 
-        let day = parseInt(match[1]);
-        let month = parseInt(match[2]) - 1;
-        let year = parseInt(match[3]);
+        let day = parseInt(match[1],10);
+        let month = parseInt(match[2],10) - 1;
+        let year = parseInt(match[3],10);
 
         if(year < 100){
             year += 2000;
         }
 
-        d = new Date(year,month,day);
+        d = new Date(
+            year,
+            month,
+            day
+        );
 
-        if(!isNaN(d)){
+        if(!isNaN(d.getTime())){
             return d;
         }
     }
@@ -2329,9 +2413,11 @@ function parseTime(value){
         return null;
     }
 
-    let hour = parseInt(match[1]);
-    let minute = parseInt(match[2] || "0");
-    const ampm = (match[3] || "").toLowerCase();
+    let hour = parseInt(match[1],10);
+    let minute = parseInt(match[2] || "0",10);
+
+    const ampm =
+        (match[3] || "").toLowerCase();
 
     if(ampm === "pm" && hour < 12){
         hour += 12;
@@ -2350,25 +2436,37 @@ function parseTime(value){
 
 function dateTime(dateValue,timeValue){
 
-    const date = parseDate(dateValue);
+    const date =
+        parseDate(dateValue);
 
     if(!date){
         return null;
     }
 
-    const result = new Date(date);
+    const result =
+        new Date(date);
 
-    const time = parseTime(timeValue);
+    const time =
+        parseTime(timeValue);
 
     if(time){
+
         result.setHours(
             time.hour,
             time.minute,
             0,
             0
         );
+
     }else{
-        result.setHours(0,0,0,0);
+
+        result.setHours(
+            0,
+            0,
+            0,
+            0
+        );
+
     }
 
     return result;
@@ -2381,11 +2479,11 @@ function dateKey(date){
         return "";
     }
 
-    const y = date.getFullYear();
-    const m = String(date.getMonth()+1).padStart(2,"0");
-    const d = String(date.getDate()).padStart(2,"0");
-
-    return `${y}-${m}-${d}`;
+    return [
+        date.getFullYear(),
+        String(date.getMonth()+1).padStart(2,"0"),
+        String(date.getDate()).padStart(2,"0")
+    ].join("-");
 }
 
 
@@ -2400,7 +2498,9 @@ function tomorrowKey(){
 
     const d = new Date();
 
-    d.setDate(d.getDate()+1);
+    d.setDate(
+        d.getDate()+1
+    );
 
     return dateKey(d);
 
@@ -2442,13 +2542,14 @@ function formatTime(h){
 
 function formatTimeRange(h){
 
-    const start = formatTime(h);
+    const start =
+        formatTime(h);
 
-    if(!h.end){
+    if(!h.endDt){
         return start;
     }
 
-    return `${start} – ${h.end.toLocaleTimeString(
+    return `${start} – ${h.endDt.toLocaleTimeString(
         "en-AU",
         {
             hour:"numeric",
@@ -2459,7 +2560,7 @@ function formatTimeRange(h){
 
 
 /* =========================================================
-   NORMALISE GOOGLE SHEET DATA
+   NORMALISE GOOGLE SHEET
 ========================================================= */
 
 function normalise(raw,index){
@@ -2639,24 +2740,56 @@ function normalise(raw,index){
         ]
     );
 
-    const dt = dateTime(date,start);
-    const endDt = dateTime(date,end);
+    const dt =
+        dateTime(
+            date,
+            start
+        );
+
+    const endDt =
+        dateTime(
+            date,
+            end
+        );
+
+
+    /*
+       IMPORTANT:
+       Every property now gets a STRING ID.
+       This fixes the My Weekend issue where
+       numeric Sheet IDs and string button IDs
+       were being compared differently.
+    */
+
+    const suppliedId =
+        field(
+            raw,
+            [
+                "id",
+                "ID",
+                "property id",
+                "Property ID"
+            ]
+        );
+
+
+    const generatedId =
+        `${slugify(address)}-${slugify(suburb)}`;
+
+
+    const id =
+        normaliseId(
+            suppliedId ||
+            generatedId ||
+            `property-${index}`
+        );
+
 
     return {
 
         ...raw,
 
-        id:
-            field(
-                raw,
-                [
-                    "id",
-                    "ID",
-                    "property id",
-                    "Property ID"
-                ]
-            ) ||
-            `${slugify(address)}-${slugify(suburb)}-${index}`,
+        id,
 
         date,
         start,
@@ -2694,7 +2827,10 @@ function normalise(raw,index){
 
 function matches(h){
 
-    const query = searchText.trim().toLowerCase();
+    const query =
+        searchText
+            .trim()
+            .toLowerCase();
 
     if(query){
 
@@ -2714,11 +2850,13 @@ function matches(h){
         }
     }
 
+
     if(filter === "today"){
 
         return dateKey(h.dt) === todayKey();
 
     }
+
 
     if(filter === "tomorrow"){
 
@@ -2726,11 +2864,14 @@ function matches(h){
 
     }
 
+
     if(filter === "week"){
 
-        const now = new Date();
+        const now =
+            new Date();
 
-        const weekEnd = new Date();
+        const weekEnd =
+            new Date();
 
         weekEnd.setDate(
             now.getDate()+7
@@ -2741,70 +2882,353 @@ function matches(h){
             h.dt >= now &&
             h.dt <= weekEnd
         );
+
     }
+
 
     return true;
 }
 
 
 /* =========================================================
-   GITHUB PHOTOS
+   GITHUB IMAGE INDEX
+========================================================= */
+
+/*
+   Instead of asking GitHub for every property's folder
+   separately, this builds ONE image index.
+
+   Your structure:
+
+   images/
+       45-main-street-bacchus-marsh/
+           IMG_XXXX.JPG
+           IMG_XXXX_2.JPG
+           IMG_XXXX_3.JPG
+
+   This is much more reliable and dramatically reduces
+   GitHub API calls.
+*/
+
+async function buildGithubImageIndex(){
+
+    if(githubImageIndex){
+        return githubImageIndex;
+    }
+
+
+    try{
+
+        console.log(
+            "Loading YPA property photography..."
+        );
+
+
+        /*
+           First try the Git Trees API.
+           This gives us every file under /images/
+           in one request.
+        */
+
+        const repoResponse =
+            await fetch(
+                `${GITHUB_API}/git/trees/main?recursive=1`
+            );
+
+
+        if(!repoResponse.ok){
+
+            throw new Error(
+                `GitHub image index HTTP ${repoResponse.status}`
+            );
+
+        }
+
+
+        const data =
+            await repoResponse.json();
+
+
+        const tree =
+            Array.isArray(data.tree)
+                ? data.tree
+                : [];
+
+
+        const index = {};
+
+
+        tree.forEach(item => {
+
+            if(
+                !item ||
+                item.type !== "blob" ||
+                !item.path
+            ){
+                return;
+            }
+
+
+            const path =
+                String(item.path);
+
+
+            if(
+                !path.toLowerCase().startsWith("images/")
+            ){
+                return;
+            }
+
+
+            const relative =
+                path.substring(7);
+
+
+            const parts =
+                relative.split("/");
+
+
+            if(parts.length < 2){
+                return;
+            }
+
+
+            const folder =
+                parts[0];
+
+
+            const filename =
+                parts[parts.length - 1];
+
+
+            const lower =
+                filename.toLowerCase();
+
+
+            const isImage =
+                lower.endsWith(".jpg") ||
+                lower.endsWith(".jpeg") ||
+                lower.endsWith(".png") ||
+                lower.endsWith(".webp");
+
+
+            if(!isImage){
+                return;
+            }
+
+
+            if(!index[folder]){
+                index[folder] = [];
+            }
+
+
+            const encodedPath =
+                path
+                    .split("/")
+                    .map(
+                        segment =>
+                            encodeURIComponent(segment)
+                    )
+                    .join("/");
+
+
+            index[folder].push({
+
+                name:filename,
+
+                url:
+                    `${GITHUB_PAGES_BASE}/${encodedPath}`
+
+            });
+
+        });
+
+
+        /*
+           Natural sort photo filenames.
+        */
+
+        Object.keys(index)
+            .forEach(folder => {
+
+                index[folder].sort(
+                    (a,b) =>
+                        a.name.localeCompare(
+                            b.name,
+                            undefined,
+                            {
+                                numeric:true,
+                                sensitivity:"base"
+                            }
+                        )
+                );
+
+            });
+
+
+        githubImageIndex =
+            index;
+
+
+        console.log(
+            "Property image folders loaded:",
+            Object.keys(index).length
+        );
+
+
+        return githubImageIndex;
+
+
+    }catch(error){
+
+        console.warn(
+            "GitHub image index failed. Trying folder API fallback.",
+            error
+        );
+
+
+        githubImageIndex = {};
+
+        return githubImageIndex;
+
+    }
+}
+
+
+/* =========================================================
+   GET PROPERTY PHOTOS
 ========================================================= */
 
 async function getLocalPhotos(h){
 
-    const folder = photoFolder(h);
+    const folder =
+        photoFolder(h);
+
 
     if(!folder){
         return [];
     }
 
+
+    /*
+       Try the cached tree first.
+    */
+
+    const index =
+        await buildGithubImageIndex();
+
+
+    if(
+        index &&
+        index[folder] &&
+        index[folder].length
+    ){
+
+        return index[folder]
+            .map(item => item.url);
+
+    }
+
+
+    /*
+       Fallback:
+       Directly request the property's folder.
+
+       This also makes the system tolerant of an image
+       being uploaded while the dashboard is already open.
+    */
+
     try{
 
-        const response = await fetch(
-            GITHUB_API +
-            encodeURIComponent(folder)
-        );
+        const response =
+            await fetch(
+                `${GITHUB_API}/contents/images/${encodeURIComponent(folder)}?ref=main`
+            );
+
 
         if(!response.ok){
             return [];
         }
 
-        const data = await response.json();
+
+        const data =
+            await response.json();
+
 
         if(!Array.isArray(data)){
             return [];
         }
 
-        const photos = data
-            .filter(item => {
 
-                const name =
-                    String(item.name || "").toLowerCase();
+        const photos =
+            data
+                .filter(item => {
 
-                return (
-                    name.endsWith(".jpg") ||
-                    name.endsWith(".jpeg") ||
-                    name.endsWith(".png") ||
-                    name.endsWith(".webp")
-                );
-            })
-            .sort((a,b) =>
-                String(a.name).localeCompare(
-                    String(b.name),
-                    undefined,
-                    {
-                        numeric:true,
-                        sensitivity:"base"
-                    }
+                    const name =
+                        String(
+                            item.name || ""
+                        ).toLowerCase();
+
+                    return (
+                        name.endsWith(".jpg") ||
+                        name.endsWith(".jpeg") ||
+                        name.endsWith(".png") ||
+                        name.endsWith(".webp")
+                    );
+
+                })
+                .sort(
+                    (a,b) =>
+                        String(a.name).localeCompare(
+                            String(b.name),
+                            undefined,
+                            {
+                                numeric:true,
+                                sensitivity:"base"
+                            }
+                        )
                 )
-            )
-            .map(item =>
-                item.download_url || item.html_url
-            )
-            .filter(Boolean);
+                .map(item => {
+
+                    const path =
+                        String(
+                            item.path || ""
+                        );
+
+                    const encodedPath =
+                        path
+                            .split("/")
+                            .map(
+                                segment =>
+                                    encodeURIComponent(segment)
+                            )
+                            .join("/");
+
+                    return (
+                        `${GITHUB_PAGES_BASE}/${encodedPath}`
+                    );
+
+                })
+                .filter(Boolean);
+
+
+        if(photos.length){
+
+            if(!githubImageIndex){
+                githubImageIndex = {};
+            }
+
+            githubImageIndex[folder] =
+                photos.map(url => ({
+                    name:url.split("/").pop(),
+                    url
+                }));
+
+        }
+
 
         return photos;
+
 
     }catch(error){
 
@@ -2815,6 +3239,7 @@ async function getLocalPhotos(h){
         );
 
         return [];
+
     }
 }
 
@@ -2826,15 +3251,20 @@ async function getLocalPhotos(h){
 function propertyCardHTML(h){
 
     const saved =
-        weekendIds.includes(h.id);
+        isWeekendSaved(h.id);
+
 
     const image =
-        placeholder(h.suburb || "YPA");
+        placeholder(
+            h.suburb || "YPA"
+        );
+
 
     const label =
         h.dt
             ? formatDate(h)
             : "PROPERTY";
+
 
     return `
 
@@ -2855,9 +3285,11 @@ function propertyCardHTML(h){
                     loading="lazy"
                 >
 
+
                 <div class="card-label">
                     ${esc(label)}
                 </div>
+
 
                 <div
                     class="card-count"
@@ -2865,6 +3297,7 @@ function propertyCardHTML(h){
                 >
                     1 / 1
                 </div>
+
 
                 <button
                     class="card-arrow left"
@@ -2874,6 +3307,7 @@ function propertyCardHTML(h){
                     ‹
                 </button>
 
+
                 <button
                     class="card-arrow right"
                     onclick="event.stopPropagation(); rotateCardCarousel('${esc(h.id)}',1)"
@@ -2881,6 +3315,7 @@ function propertyCardHTML(h){
                 >
                     ›
                 </button>
+
 
                 <div
                     class="card-dots"
@@ -2893,66 +3328,92 @@ function propertyCardHTML(h){
             <div class="card-content">
 
                 <div class="card-suburb">
-                    ${esc(h.suburb || "Bacchus Marsh")}
+                    ${esc(
+                        h.suburb ||
+                        "Bacchus Marsh"
+                    )}
                 </div>
 
+
                 <div class="card-address">
-                    ${esc(h.address || "Property")}
+                    ${esc(
+                        h.address ||
+                        "Property"
+                    )}
                 </div>
+
 
                 ${
                     h.price
                     ?
-                    `<div class="card-price">
+                    `
+                    <div class="card-price">
                         ${esc(h.price)}
-                    </div>`
+                    </div>
+                    `
                     :
                     ""
                 }
 
+
                 ${
                     h.headline
                     ?
-                    `<div class="card-headline">
+                    `
+                    <div class="card-headline">
                         ${esc(h.headline)}
-                    </div>`
+                    </div>
+                    `
                     :
                     ""
                 }
+
 
                 <div class="card-stats">
 
                     ${
                         h.beds
                         ?
-                        `<div class="card-stat">
-                            <strong>${esc(h.beds)}</strong> Beds
-                        </div>`
+                        `
+                        <div class="card-stat">
+                            <strong>${esc(h.beds)}</strong>
+                            Beds
+                        </div>
+                        `
                         :
                         ""
                     }
+
 
                     ${
                         h.baths
                         ?
-                        `<div class="card-stat">
-                            <strong>${esc(h.baths)}</strong> Baths
-                        </div>`
+                        `
+                        <div class="card-stat">
+                            <strong>${esc(h.baths)}</strong>
+                            Baths
+                        </div>
+                        `
                         :
                         ""
                     }
 
+
                     ${
                         h.cars
                         ?
-                        `<div class="card-stat">
-                            <strong>${esc(h.cars)}</strong> Cars
-                        </div>`
+                        `
+                        <div class="card-stat">
+                            <strong>${esc(h.cars)}</strong>
+                            Cars
+                        </div>
+                        `
                         :
                         ""
                     }
 
                 </div>
+
 
                 <div class="card-actions">
 
@@ -2962,6 +3423,7 @@ function propertyCardHTML(h){
                     >
                         View Property
                     </button>
+
 
                     <button
                         class="card-save-btn ${saved ? "saved" : ""}"
@@ -2977,7 +3439,9 @@ function propertyCardHTML(h){
             </div>
 
         </article>
+
     `;
+
 }
 
 
@@ -2987,16 +3451,44 @@ function propertyCardHTML(h){
 
 function render(){
 
-    homes.sort((a,b) => {
+    /*
+       Clear old carousel timers before rebuilding cards.
+    */
 
-        const aTime =
-            a.dt ? a.dt.getTime() : Infinity;
+    Object.keys(cardCarousels)
+        .forEach(id => {
 
-        const bTime =
-            b.dt ? b.dt.getTime() : Infinity;
+            if(cardCarousels[id].timer){
 
-        return aTime - bTime;
-    });
+                clearInterval(
+                    cardCarousels[id].timer
+                );
+
+            }
+
+        });
+
+
+    cardCarousels = {};
+
+
+    homes.sort(
+        (a,b) => {
+
+            const aTime =
+                a.dt
+                    ? a.dt.getTime()
+                    : Infinity;
+
+            const bTime =
+                b.dt
+                    ? b.dt.getTime()
+                    : Infinity;
+
+            return aTime - bTime;
+
+        }
+    );
 
 
     const visible =
@@ -3010,6 +3502,7 @@ function render(){
     if(!visible.length){
 
         grid.innerHTML = `
+
             <div class="no-results">
 
                 <strong>
@@ -3021,6 +3514,7 @@ function render(){
                 </span>
 
             </div>
+
         `;
 
     }else{
@@ -3039,9 +3533,12 @@ function render(){
 
     renderAgents();
 
+
     visible.forEach(
-        initialiseCardCarousel
+        h =>
+            initialiseCardCarousel(h)
     );
+
 }
 
 
@@ -3051,27 +3548,40 @@ function render(){
 
 function updateCounts(){
 
-    const suburbs = new Set(
-        homes
-            .map(h => h.suburb)
-            .filter(Boolean)
-            .map(s => String(s).trim().toLowerCase())
-    );
+    const suburbs =
+        new Set(
+            homes
+                .map(h => h.suburb)
+                .filter(Boolean)
+                .map(
+                    s =>
+                        String(s)
+                            .trim()
+                            .toLowerCase()
+                )
+        );
+
 
     const inspections =
-        homes.filter(h => h.dt).length;
+        homes.filter(
+            h => h.dt
+        ).length;
 
 
     $("propertyCount").textContent =
         homes.length;
 
+
     $("suburbCount").textContent =
         suburbs.size;
+
 
     $("inspectionCount").textContent =
         inspections;
 
+
     updateWeekendCounts();
+
 }
 
 
@@ -3081,42 +3591,66 @@ function updateCounts(){
 
 async function initialiseCardCarousel(h){
 
-    const id = h.id;
+    const id =
+        normaliseId(h.id);
 
-    if(cardCarousels[id]){
-        return;
-    }
 
     cardCarousels[id] = {
+
         photos:[],
+
         index:0,
+
         timer:null
+
     };
+
 
     const photos =
         await getLocalPhotos(h);
+
+
+    /*
+       The property may have disappeared from the
+       current render while photos were loading.
+    */
 
     if(!cardCarousels[id]){
         return;
     }
 
+
     cardCarousels[id].photos =
         photos.length
             ? photos
-            : [placeholder(h.suburb || "YPA")];
+            : [
+                placeholder(
+                    h.suburb || "YPA"
+                )
+            ];
+
 
     updateCardCarousel(h);
 
-    if(cardCarousels[id].photos.length > 1){
+
+    if(
+        cardCarousels[id].photos.length > 1
+    ){
 
         cardCarousels[id].timer =
             setInterval(
-                () => rotateCardCarousel(id,1),
+                () =>
+                    rotateCardCarousel(
+                        id,
+                        1
+                    ),
                 3500
             );
 
+
         const photoElement =
             $(`photo-${id}`);
+
 
         if(photoElement){
 
@@ -3124,16 +3658,25 @@ async function initialiseCardCarousel(h){
                 "mouseenter",
                 () => {
 
-                    clearInterval(
-                        cardCarousels[id].timer
-                    );
+                    if(cardCarousels[id]){
+
+                        clearInterval(
+                            cardCarousels[id].timer
+                        );
+
+                    }
 
                 }
             );
 
+
             photoElement.addEventListener(
                 "mouseleave",
                 () => {
+
+                    if(!cardCarousels[id]){
+                        return;
+                    }
 
                     clearInterval(
                         cardCarousels[id].timer
@@ -3141,7 +3684,11 @@ async function initialiseCardCarousel(h){
 
                     cardCarousels[id].timer =
                         setInterval(
-                            () => rotateCardCarousel(id,1),
+                            () =>
+                                rotateCardCarousel(
+                                    id,
+                                    1
+                                ),
                             3500
                         );
 
@@ -3151,13 +3698,22 @@ async function initialiseCardCarousel(h){
         }
 
     }
+
 }
 
 
-function rotateCardCarousel(id,direction=1){
+function rotateCardCarousel(
+    id,
+    direction=1
+){
+
+    id =
+        normaliseId(id);
+
 
     const carousel =
         cardCarousels[id];
+
 
     if(
         !carousel ||
@@ -3165,6 +3721,7 @@ function rotateCardCarousel(id,direction=1){
     ){
         return;
     }
+
 
     carousel.index =
         (
@@ -3174,9 +3731,18 @@ function rotateCardCarousel(id,direction=1){
         ) %
         carousel.photos.length;
 
-    updateCardCarousel(
-        homes.find(h => h.id === id)
-    );
+
+    const property =
+        homes.find(
+            h =>
+                normaliseId(h.id) === id
+        );
+
+
+    if(property){
+        updateCardCarousel(property);
+    }
+
 }
 
 
@@ -3186,21 +3752,30 @@ function updateCardCarousel(h){
         return;
     }
 
+
+    const id =
+        normaliseId(h.id);
+
+
     const carousel =
-        cardCarousels[h.id];
+        cardCarousels[id];
+
 
     if(!carousel){
         return;
     }
 
+
     const img =
-        $(`img-${h.id}`);
+        $(`img-${id}`);
+
 
     const count =
-        $(`count-${h.id}`);
+        $(`count-${id}`);
+
 
     const dots =
-        $(`dots-${h.id}`);
+        $(`dots-${id}`);
 
 
     if(img){
@@ -3211,7 +3786,48 @@ function updateCardCarousel(h){
             ];
 
         img.alt =
-            h.address || "Property";
+            h.address ||
+            "Property";
+
+        /*
+           If an individual image fails,
+           move to the next image rather than
+           leaving a broken-image icon.
+        */
+
+        img.onerror = function(){
+
+            if(
+                carousel.photos.length > 1
+            ){
+
+                carousel.photos.splice(
+                    carousel.index,
+                    1
+                );
+
+                if(
+                    carousel.index >=
+                    carousel.photos.length
+                ){
+
+                    carousel.index =
+                        0;
+
+                }
+
+                updateCardCarousel(h);
+
+            }else{
+
+                this.src =
+                    placeholder(
+                        h.suburb || "YPA"
+                    );
+
+            }
+
+        };
 
     }
 
@@ -3230,11 +3846,20 @@ function updateCardCarousel(h){
             carousel.photos
                 .map(
                     (_,i) =>
-                        `<span class="card-dot ${i === carousel.index ? "active" : ""}"></span>`
+                        `
+                        <span
+                            class="card-dot ${
+                                i === carousel.index
+                                    ? "active"
+                                    : ""
+                            }"
+                        ></span>
+                        `
                 )
                 .join("");
 
     }
+
 }
 
 
@@ -3244,89 +3869,120 @@ function updateCardCarousel(h){
 
 async function openProperty(id){
 
+    const normalId =
+        normaliseId(id);
+
+
     const property =
         homes.find(
-            h => String(h.id) === String(id)
+            h =>
+                normaliseId(h.id) === normalId
         );
+
 
     if(!property){
         return;
     }
 
-    currentProperty = property;
 
-    currentPhotos =
-        await getLocalPhotos(property);
+    currentProperty =
+        property;
 
-    if(!currentPhotos.length){
-
-        currentPhotos = [
-            placeholder(
-                property.suburb ||
-                "YPA BACCHUS MARSH"
-            )
-        ];
-
-    }
-
-    currentPhotoIndex = 0;
 
     $("modalKicker").textContent =
         `${property.suburb || "BACCHUS MARSH"} · ${formatDate(property)}`;
+
 
     $("modalTitle").textContent =
         property.headline ||
         property.address ||
         "Property";
 
+
     $("modalAddress").textContent =
         property.address || "";
+
 
     $("modalPrice").textContent =
         property.price || "";
 
+
     $("modalDescription").innerHTML =
         property.description
-            ? esc(property.description).replace(/\n/g,"<br>")
-            : "Contact YPA Bacchus Marsh for further property information.";
+            ? esc(
+                property.description
+            ).replace(
+                /\n/g,
+                "<br>"
+            )
+            :
+            "Contact YPA Bacchus Marsh for further property information.";
+
 
     $("modalBeds").textContent =
         property.beds || "—";
 
+
     $("modalBaths").textContent =
         property.baths || "—";
+
 
     $("modalCars").textContent =
         property.cars || "—";
 
 
-    const agentHTML = property.agent
+    const agentHTML =
+        property.agent
         ?
         `
+
             ${
                 property.agentPhoto
                 ?
-                `<img
+                `
+                <img
                     src="${esc(property.agentPhoto)}"
                     alt="${esc(property.agent)}"
                     onerror="this.style.display='none'"
-                >`
+                >
+                `
                 :
                 ""
             }
 
             <div>
-                <strong>${esc(property.agent)}</strong>
-                <span>${esc(property.agentPhone || "YPA Bacchus Marsh")}</span>
+
+                <strong>
+                    ${esc(property.agent)}
+                </strong>
+
+                <span>
+                    ${esc(
+                        property.agentPhone ||
+                        "YPA Bacchus Marsh"
+                    )}
+                </span>
+
             </div>
+
         `
         :
         `
+
             <div>
-                <strong>YPA Bacchus Marsh</strong>
-                <span>Local Property Team</span>
+
+                <strong>
+                    YPA Bacchus Marsh
+                </strong>
+
+                <span>
+                    Local Property Team
+                </span>
+
             </div>
+
         `;
+
 
     $("modalAgent").innerHTML =
         agentHTML;
@@ -3340,20 +3996,82 @@ async function openProperty(id){
 
     updateModalWeekendButton();
 
+
+    $("propertyModal").classList.add(
+        "open"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    /*
+       Load photography after opening the modal.
+    */
+
+    $("modalMainImage").src =
+        placeholder(
+            property.suburb ||
+            "YPA BACCHUS MARSH"
+        );
+
+
+    $("modalDots").innerHTML =
+        "";
+
+
+    currentPhotos = [];
+
+
+    clearInterval(
+        modalTimer
+    );
+
+
+    currentPhotos =
+        await getLocalPhotos(
+            property
+        );
+
+
+    if(!currentProperty){
+        return;
+    }
+
+
+    if(
+        currentProperty.id !==
+        property.id
+    ){
+        return;
+    }
+
+
+    if(!currentPhotos.length){
+
+        currentPhotos = [
+            placeholder(
+                property.suburb ||
+                "YPA BACCHUS MARSH"
+            )
+        ];
+
+    }
+
+
+    currentPhotoIndex = 0;
+
+
     updateCarousel();
 
-    $("propertyModal").classList.add("open");
-
-    document.body.style.overflow = "hidden";
-
-
-    clearInterval(modalTimer);
 
     if(currentPhotos.length > 1){
 
         modalTimer =
             setInterval(
-                () => nextPhoto(),
+                () =>
+                    nextPhoto(),
                 4000
             );
 
@@ -3364,21 +4082,31 @@ async function openProperty(id){
 
 function closeProperty(){
 
-    $("propertyModal").classList.remove("open");
-
-    document.body.style.overflow = "";
-
-    clearInterval(modalTimer);
-
-    currentProperty = null;
-
-    currentPhotos = [];
-}
+    $("propertyModal")
+        .classList
+        .remove("open");
 
 
-function carouselHTML(){
+    document.body.style.overflow =
+        "";
 
-    return "";
+
+    clearInterval(
+        modalTimer
+    );
+
+
+    currentProperty =
+        null;
+
+
+    currentPhotos =
+        [];
+
+
+    currentPhotoIndex =
+        0;
+
 }
 
 
@@ -3388,16 +4116,61 @@ function updateCarousel(){
         return;
     }
 
+
     const image =
         $("modalMainImage");
 
+
     image.src =
-        currentPhotos[currentPhotoIndex];
+        currentPhotos[
+            currentPhotoIndex
+        ];
+
 
     image.alt =
         currentProperty
             ? currentProperty.address
             : "Property";
+
+
+    image.onerror =
+        function(){
+
+            if(
+                currentPhotos.length > 1
+            ){
+
+                currentPhotos.splice(
+                    currentPhotoIndex,
+                    1
+                );
+
+
+                if(
+                    currentPhotoIndex >=
+                    currentPhotos.length
+                ){
+
+                    currentPhotoIndex =
+                        0;
+
+                }
+
+
+                updateCarousel();
+
+            }else{
+
+                this.src =
+                    placeholder(
+                        currentProperty
+                            ? currentProperty.suburb
+                            : "YPA"
+                    );
+
+            }
+
+        };
 
 
     $("modalDots").innerHTML =
@@ -3406,12 +4179,17 @@ function updateCarousel(){
                 (_,i) =>
                     `
                     <span
-                        class="modal-dot ${i === currentPhotoIndex ? "active" : ""}"
+                        class="modal-dot ${
+                            i === currentPhotoIndex
+                                ? "active"
+                                : ""
+                        }"
                         onclick="goPhoto(${i})"
                     ></span>
                     `
             )
             .join("");
+
 }
 
 
@@ -3421,13 +4199,16 @@ function nextPhoto(){
         return;
     }
 
+
     currentPhotoIndex =
         (
             currentPhotoIndex + 1
         ) %
         currentPhotos.length;
 
+
     updateCarousel();
+
 }
 
 
@@ -3437,6 +4218,7 @@ function previousPhoto(){
         return;
     }
 
+
     currentPhotoIndex =
         (
             currentPhotoIndex - 1 +
@@ -3444,7 +4226,9 @@ function previousPhoto(){
         ) %
         currentPhotos.length;
 
+
     updateCarousel();
+
 }
 
 
@@ -3457,9 +4241,13 @@ function goPhoto(index){
         return;
     }
 
-    currentPhotoIndex = index;
+
+    currentPhotoIndex =
+        index;
+
 
     updateCarousel();
+
 }
 
 
@@ -3469,6 +4257,7 @@ function goPhoto(index){
 
 let touchStartX = 0;
 
+
 $("modalMainImage").addEventListener(
     "touchstart",
     event => {
@@ -3477,8 +4266,11 @@ $("modalMainImage").addEventListener(
             event.changedTouches[0].screenX;
 
     },
-    {passive:true}
+    {
+        passive:true
+    }
 );
+
 
 $("modalMainImage").addEventListener(
     "touchend",
@@ -3487,84 +4279,132 @@ $("modalMainImage").addEventListener(
         const touchEndX =
             event.changedTouches[0].screenX;
 
-        const difference =
-            touchStartX - touchEndX;
 
-        if(Math.abs(difference) < 45){
+        const difference =
+            touchStartX -
+            touchEndX;
+
+
+        if(
+            Math.abs(difference) < 45
+        ){
             return;
         }
 
+
         if(difference > 0){
+
             nextPhoto();
+
         }else{
+
             previousPhoto();
+
         }
 
     },
-    {passive:true}
+    {
+        passive:true
+    }
 );
 
 
 /* =========================================================
-   WEEKEND
+   MY WEEKEND
 ========================================================= */
 
 function toggleWeekend(id){
 
+    const normalId =
+        normaliseId(id);
+
+
+    if(!normalId){
+        return;
+    }
+
+
     const index =
-        weekendIds.indexOf(id);
+        weekendIds.indexOf(
+            normalId
+        );
+
 
     if(index === -1){
 
-        weekendIds.push(id);
+        weekendIds.push(
+            normalId
+        );
 
     }else{
 
-        weekendIds.splice(index,1);
+        weekendIds.splice(
+            index,
+            1
+        );
 
     }
 
-    localStorage.setItem(
-        "ypaWeekend",
-        JSON.stringify(weekendIds)
-    );
+
+    saveWeekendIds();
+
 
     updateWeekendCounts();
 
+
     renderWeekendDashboard();
 
-    updateSaveButton(id);
+
+    updateSaveButton(
+        normalId
+    );
+
 
     if(
         currentProperty &&
-        currentProperty.id === id
+        normaliseId(currentProperty.id) ===
+        normalId
     ){
 
         updateModalWeekendButton();
 
     }
+
 }
 
 
 function updateSaveButton(id){
 
+    const normalId =
+        normaliseId(id);
+
+
     const button =
-        $(`save-${id}`);
+        $(`save-${normalId}`);
+
 
     if(!button){
         return;
     }
 
+
     const saved =
-        weekendIds.includes(id);
+        isWeekendSaved(
+            normalId
+        );
+
 
     button.classList.toggle(
         "saved",
         saved
     );
 
+
     button.textContent =
-        saved ? "✓" : "+";
+        saved
+            ? "✓"
+            : "+";
+
 }
 
 
@@ -3573,17 +4413,83 @@ function updateWeekendCounts(){
     const count =
         weekendIds.length;
 
-    $("weekendCountHeader").textContent =
-        count;
 
-    $("weekendCountFloating").textContent =
-        count;
+    if($("weekendCountHeader")){
 
-    $("weekendCountHero").textContent =
-        count;
+        $("weekendCountHeader")
+            .textContent =
+            count;
 
-    $("weekendSummaryCount").textContent =
-        count;
+    }
+
+
+    if($("weekendCountFloating")){
+
+        $("weekendCountFloating")
+            .textContent =
+            count;
+
+    }
+
+
+    if($("weekendCountHero")){
+
+        $("weekendCountHero")
+            .textContent =
+            count;
+
+    }
+
+
+    if($("weekendSummaryCount")){
+
+        $("weekendSummaryCount")
+            .textContent =
+            count;
+
+    }
+
+}
+
+
+function getSelectedWeekend(){
+
+    return weekendIds
+        .map(
+            savedId => {
+
+                const id =
+                    normaliseId(
+                        savedId
+                    );
+
+                return homes.find(
+                    h =>
+                        normaliseId(h.id) ===
+                        id
+                );
+
+            }
+        )
+        .filter(Boolean)
+        .sort(
+            (a,b) => {
+
+                const aTime =
+                    a.dt
+                        ? a.dt.getTime()
+                        : Infinity;
+
+                const bTime =
+                    b.dt
+                        ? b.dt.getTime()
+                        : Infinity;
+
+                return aTime - bTime;
+
+            }
+        );
+
 }
 
 
@@ -3592,29 +4498,20 @@ function renderWeekendDashboard(){
     const dashboard =
         $("weekendDashboard");
 
+
     if(!dashboard){
         return;
     }
 
+
     const selected =
-        weekendIds
-            .map(
-                id =>
-                    homes.find(
-                        h => h.id === id
-                    )
-            )
-            .filter(Boolean)
-            .sort(
-                (a,b) =>
-                    (a.dt || 0) -
-                    (b.dt || 0)
-            );
+        getSelectedWeekend();
 
 
     if(!selected.length){
 
         dashboard.innerHTML = `
+
             <div class="weekend-empty">
 
                 <strong>
@@ -3626,30 +4523,43 @@ function renderWeekendDashboard(){
                 </span>
 
             </div>
+
         `;
 
         return;
+
     }
 
 
     dashboard.innerHTML =
         selected
             .map(
-                (h,index) =>
+                h =>
                     `
+
                     <div class="weekend-item">
 
                         <div class="weekend-time">
-                            ${esc(formatTimeRange(h))}
+                            ${esc(
+                                formatTimeRange(h)
+                            )}
                         </div>
+
 
                         <div class="weekend-suburb">
-                            ${esc(h.suburb || "")}
+                            ${esc(
+                                h.suburb || ""
+                            )}
                         </div>
 
+
                         <div class="weekend-address">
-                            ${esc(h.address || "Property")}
+                            ${esc(
+                                h.address ||
+                                "Property"
+                            )}
                         </div>
+
 
                         <button
                             class="weekend-remove"
@@ -3659,11 +4569,17 @@ function renderWeekendDashboard(){
                         </button>
 
                     </div>
+
                     `
             )
             .join("");
+
 }
 
+
+/* =========================================================
+   MODAL WEEKEND BUTTON
+========================================================= */
 
 function updateModalWeekendButton(){
 
@@ -3671,23 +4587,33 @@ function updateModalWeekendButton(){
         return;
     }
 
+
     const saved =
-        weekendIds.includes(
+        isWeekendSaved(
             currentProperty.id
         );
 
+
     const button =
         $("modalWeekendBtn");
+
+
+    if(!button){
+        return;
+    }
+
 
     button.textContent =
         saved
             ? "✓ Saved To My Weekend"
             : "+ Add To My Weekend";
 
+
     button.classList.toggle(
         "saved",
         saved
     );
+
 }
 
 
@@ -3697,11 +4623,14 @@ function toggleCurrentWeekend(){
         return;
     }
 
+
     toggleWeekend(
         currentProperty.id
     );
 
+
     updateModalWeekendButton();
+
 }
 
 
@@ -3711,19 +4640,70 @@ function toggleCurrentWeekend(){
 
 function openWeekend(){
 
+    /*
+       ALWAYS rebuild the drawer before opening it.
+       This fixes the issue where the drawer opened
+       with stale/empty content.
+    */
+
     renderWeekend();
 
-    $("weekendDrawer").classList.add("open");
 
-    document.body.style.overflow = "hidden";
+    const drawer =
+        $("weekendDrawer");
+
+
+    if(!drawer){
+        return;
+    }
+
+
+    drawer.classList.add(
+        "open"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    updateWeekendCounts();
+
 }
 
 
 function closeWeekend(){
 
-    $("weekendDrawer").classList.remove("open");
+    const drawer =
+        $("weekendDrawer");
 
-    document.body.style.overflow = "";
+
+    if(!drawer){
+        return;
+    }
+
+
+    drawer.classList.remove(
+        "open"
+    );
+
+
+    /*
+       Only restore scrolling if the property modal
+       isn't also open.
+    */
+
+    if(
+        !$("propertyModal")
+            .classList
+            .contains("open")
+    ){
+
+        document.body.style.overflow =
+            "";
+
+    }
+
 }
 
 
@@ -3732,25 +4712,20 @@ function renderWeekend(){
     const container =
         $("drawerItinerary");
 
+
+    if(!container){
+        return;
+    }
+
+
     const selected =
-        weekendIds
-            .map(
-                id =>
-                    homes.find(
-                        h => h.id === id
-                    )
-            )
-            .filter(Boolean)
-            .sort(
-                (a,b) =>
-                    (a.dt || 0) -
-                    (b.dt || 0)
-            );
+        getSelectedWeekend();
 
 
     if(!selected.length){
 
         container.innerHTML = `
+
             <div class="weekend-empty">
 
                 <strong>
@@ -3762,9 +4737,11 @@ function renderWeekend(){
                 </span>
 
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -3773,29 +4750,42 @@ function renderWeekend(){
             .map(
                 (h,index) =>
                     `
+
                     <div class="drawer-item">
 
                         <div class="drawer-number">
                             ${index + 1}
                         </div>
 
+
                         <div>
 
                             <div class="drawer-time">
-                                ${esc(formatTimeRange(h))}
+                                ${esc(
+                                    formatTimeRange(h)
+                                )}
                             </div>
+
 
                             <div class="drawer-address">
-                                ${esc(h.address || "Property")}
+                                ${esc(
+                                    h.address ||
+                                    "Property"
+                                )}
                             </div>
 
+
                             <div class="drawer-suburb">
-                                ${esc(h.suburb || "")}
+                                ${esc(
+                                    h.suburb ||
+                                    ""
+                                )}
                             </div>
+
 
                             <button
                                 class="drawer-remove"
-                                onclick="toggleWeekend('${esc(h.id)}'); renderWeekend();"
+                                onclick="removeWeekendProperty('${esc(h.id)}')"
                             >
                                 Remove
                             </button>
@@ -3803,11 +4793,69 @@ function renderWeekend(){
                         </div>
 
                     </div>
+
                     `
             )
             .join("");
+
 }
 
+
+function removeWeekendProperty(id){
+
+    const normalId =
+        normaliseId(id);
+
+
+    const index =
+        weekendIds.indexOf(
+            normalId
+        );
+
+
+    if(index !== -1){
+
+        weekendIds.splice(
+            index,
+            1
+        );
+
+    }
+
+
+    saveWeekendIds();
+
+
+    updateWeekendCounts();
+
+
+    renderWeekend();
+
+
+    renderWeekendDashboard();
+
+
+    updateSaveButton(
+        normalId
+    );
+
+
+    if(
+        currentProperty &&
+        normaliseId(currentProperty.id) ===
+        normalId
+    ){
+
+        updateModalWeekendButton();
+
+    }
+
+}
+
+
+/* =========================================================
+   GOOGLE MAPS
+========================================================= */
 
 function mapsUrl(h){
 
@@ -3821,10 +4869,12 @@ function mapsUrl(h){
         .filter(Boolean)
         .join(", ");
 
+
     return (
         "https://www.google.com/maps/search/?api=1&query=" +
         encodeURIComponent(query)
     );
+
 }
 
 
@@ -3834,10 +4884,12 @@ function openCurrentDirections(){
         return;
     }
 
+
     window.open(
         mapsUrl(currentProperty),
         "_blank"
     );
+
 }
 
 
@@ -3850,29 +4902,19 @@ function openCurrentListing(){
         return;
     }
 
+
     window.open(
         currentProperty.listing,
         "_blank"
     );
+
 }
 
 
 function openRoute(){
 
     const selected =
-        weekendIds
-            .map(
-                id =>
-                    homes.find(
-                        h => h.id === id
-                    )
-            )
-            .filter(Boolean)
-            .sort(
-                (a,b) =>
-                    (a.dt || 0) -
-                    (b.dt || 0)
-            );
+        getSelectedWeekend();
 
 
     if(!selected.length){
@@ -3898,13 +4940,17 @@ function openRoute(){
     let url =
         "https://www.google.com/maps/dir/?api=1";
 
+
     if(locations.length){
 
         url +=
             "&destination=" +
             encodeURIComponent(
-                locations[locations.length - 1]
+                locations[
+                    locations.length - 1
+                ]
             );
+
     }
 
 
@@ -3925,6 +4971,7 @@ function openRoute(){
         url,
         "_blank"
     );
+
 }
 
 
@@ -3937,6 +4984,12 @@ function renderAgents(){
     const container =
         $("agents");
 
+
+    if(!container){
+        return;
+    }
+
+
     const agentMap =
         new Map();
 
@@ -3947,10 +5000,12 @@ function renderAgents(){
             return;
         }
 
+
         const key =
             String(h.agent)
                 .trim()
                 .toLowerCase();
+
 
         if(!agentMap.has(key)){
 
@@ -3973,9 +5028,11 @@ function renderAgents(){
     if(!agents.length){
 
         container.innerHTML = `
+
             <div class="agent">
 
                 <div>
+
                     <div class="agent-name">
                         YPA Bacchus Marsh
                     </div>
@@ -3987,12 +5044,15 @@ function renderAgents(){
                     <div class="agent-contact">
                         crodriguez@ypa.com.au
                     </div>
+
                 </div>
 
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -4001,20 +5061,26 @@ function renderAgents(){
             .map(
                 h =>
                     `
+
                     <div class="agent">
 
                         ${
                             h.agentPhoto
                             ?
-                            `<img
+                            `
+                            <img
                                 class="agent-photo"
                                 src="${esc(h.agentPhoto)}"
                                 alt="${esc(h.agent)}"
                                 onerror="this.style.display='none'"
-                            >`
+                            >
+                            `
                             :
-                            `<div class="agent-photo"></div>`
+                            `
+                            <div class="agent-photo"></div>
+                            `
                         }
+
 
                         <div>
 
@@ -4022,16 +5088,22 @@ function renderAgents(){
                                 ${esc(h.agent)}
                             </div>
 
+
                             <div class="agent-role">
                                 YPA Bacchus Marsh
                             </div>
 
+
                             ${
                                 h.agentPhone
                                 ?
-                                `<div class="agent-contact">
-                                    ${esc(h.agentPhone)}
-                                </div>`
+                                `
+                                <div class="agent-contact">
+                                    ${esc(
+                                        h.agentPhone
+                                    )}
+                                </div>
+                                `
                                 :
                                 ""
                             }
@@ -4039,9 +5111,11 @@ function renderAgents(){
                         </div>
 
                     </div>
+
                     `
             )
             .join("");
+
 }
 
 
@@ -4063,7 +5137,7 @@ $("searchInput").addEventListener(
 
 
 /* =========================================================
-   FILTER BUTTONS
+   FILTERS
 ========================================================= */
 
 document
@@ -4078,14 +5152,21 @@ document
                     .querySelectorAll(".filter-btn")
                     .forEach(
                         b =>
-                            b.classList.remove("active")
+                            b.classList.remove(
+                                "active"
+                            )
                     );
 
-                button.classList.add("active");
+
+                button.classList.add(
+                    "active"
+                );
+
 
                 filter =
                     button.dataset.filter ||
                     "all";
+
 
                 render();
 
@@ -4128,6 +5209,7 @@ document.addEventListener(
             return;
         }
 
+
         if(
             $("propertyModal")
                 .classList
@@ -4137,6 +5219,7 @@ document.addEventListener(
             closeProperty();
 
         }
+
 
         if(
             $("weekendDrawer")
@@ -4161,12 +5244,15 @@ async function load(){
     const grid =
         $("propertyGrid");
 
+
     try{
 
         grid.innerHTML = `
+
             <div class="loading">
                 Loading this weekend's properties...
             </div>
+
         `;
 
 
@@ -4175,8 +5261,8 @@ async function load(){
                 API_URL +
                 (
                     API_URL.includes("?")
-                    ? "&"
-                    : "?"
+                        ? "&"
+                        : "?"
                 ) +
                 "_=" +
                 Date.now()
@@ -4208,21 +5294,24 @@ async function load(){
             Array.isArray(data.events)
         ){
 
-            rows = data.events;
+            rows =
+                data.events;
 
         }else if(
             data &&
             Array.isArray(data.data)
         ){
 
-            rows = data.data;
+            rows =
+                data.data;
 
         }else if(
             data &&
             Array.isArray(data.rows)
         ){
 
-            rows = data.rows;
+            rows =
+                data.rows;
 
         }
 
@@ -4243,7 +5332,51 @@ async function load(){
                 );
 
 
+        /*
+           Remove old saved IDs that no longer exist.
+           This prevents old properties from breaking
+           the My Weekend interface.
+        */
+
+        const validIds =
+            new Set(
+                homes.map(
+                    h =>
+                        normaliseId(
+                            h.id
+                        )
+                )
+            );
+
+
+        weekendIds =
+            weekendIds.filter(
+                id =>
+                    validIds.has(
+                        normaliseId(id)
+                    )
+            );
+
+
+        saveWeekendIds();
+
+
         render();
+
+
+        /*
+           Warm the GitHub image index in the background.
+           The page doesn't have to wait for it.
+        */
+
+        buildGithubImageIndex()
+            .catch(
+                error =>
+                    console.warn(
+                        "Photo index warm-up failed:",
+                        error
+                    )
+            );
 
 
     }catch(error){
@@ -4293,20 +5426,19 @@ $("weekendDate").textContent =
 
 updateWeekendCounts();
 
+
 load();
 
 
 /*
-    Refresh Google Sheet data every 5 minutes.
-    No HTML editing is required when your weekly
-    property information changes.
+   Refresh Google Sheet data every 5 minutes.
 */
 
 setInterval(
     load,
     300000
 );
-
+    
 </script>
 
 </body>
