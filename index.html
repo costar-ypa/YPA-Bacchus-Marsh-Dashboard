@@ -3895,35 +3895,41 @@ function rotateCardCarousel(
 
 function updateCardCarousel(h){
 
-  function updateCardCarousel(h){
-
     if(!h){
         return;
     }
 
-    const id = normaliseId(h.id);
-    const carousel = cardCarousels[id];
+    const id =
+        normaliseId(h.id);
 
-    if(!carousel || !carousel.photos || !carousel.photos.length){
+    const carousel =
+        cardCarousels[id];
+
+    if(
+        !carousel ||
+        !carousel.photos ||
+        !carousel.photos.length
+    ){
         return;
     }
 
-    const card = document.querySelector(
-        `[data-property-id="${CSS.escape(String(id))}"]`
-    );
+    const card =
+        document.querySelector(
+            `.property-card[data-id="${CSS.escape(String(id))}"]`
+        );
 
     if(!card){
         return;
     }
 
-    const img = card.querySelector(".card-photo img");
-    const count = card.querySelector(".card-count");
-    const dots = card.querySelector(".card-dots");
+    const img =
+        $(`img-${id}`);
 
-    /*
-       Keep the index safely inside the available
-       photo range.
-    */
+    const count =
+        $(`count-${id}`);
+
+    const dots =
+        $(`dots-${id}`);
 
     carousel.index =
         Math.max(
@@ -3935,44 +3941,50 @@ function updateCardCarousel(h){
         );
 
     const currentPhoto =
-        carousel.photos[carousel.index];
+        carousel.photos[
+            carousel.index
+        ];
 
-    if(img && currentPhoto){
+    /* ================================
+       UPDATE MAIN PHOTO
+    ================================= */
 
-        /*
-           Main image ALWAYS uses the exact
-           same index as the carousel.
-        */
+    if(
+        img &&
+        currentPhoto
+    ){
 
-        if(img.src !== currentPhoto){
-            img.src = currentPhoto;
-        }
+        img.src =
+            currentPhoto;
 
         img.dataset.carouselIndex =
             carousel.index;
+
     }
 
-    /*
-       Update image counter.
-    */
+
+    /* ================================
+       UPDATE COUNTER
+    ================================= */
 
     if(count){
 
         count.textContent =
             `${carousel.index + 1} / ${carousel.photos.length}`;
+
     }
 
-    /*
-       Update dots.
-    */
+
+    /* ================================
+       UPDATE DOTS
+    ================================= */
 
     if(dots){
 
         dots.innerHTML =
             carousel.photos
-                .map((photo,index) => {
-
-                    return `
+                .map(
+                    (_,index) => `
                         <button
                             type="button"
                             class="card-dot ${
@@ -3981,65 +3993,120 @@ function updateCardCarousel(h){
                                     : ""
                             }"
                             aria-label="View photo ${index + 1}"
-                            data-photo-index="${index}">
-                        </button>
-                    `;
-
-                })
+                            data-photo-index="${index}"
+                            onclick="
+                                event.stopPropagation();
+                                setCardCarouselPhoto(
+                                    '${esc(id)}',
+                                    ${index}
+                                );
+                            "
+                        ></button>
+                    `
+                )
                 .join("");
 
-        /*
-           Clicking a dot changes the SAME carousel index.
-        */
-
-        dots.querySelectorAll(".card-dot")
-            .forEach(dot => {
-
-                dot.addEventListener("click", event => {
-
-                    event.stopPropagation();
-
-                    const newIndex =
-                        Number(
-                            dot.dataset.photoIndex
-                        );
-
-                    if(
-                        Number.isInteger(newIndex) &&
-                        newIndex >= 0 &&
-                        newIndex < carousel.photos.length
-                    ){
-
-                        carousel.index =
-                            newIndex;
-
-                        updateCardCarousel(h);
-                    }
-
-                });
-
-            });
     }
 
-    /*
-       Keep the active thumbnail/dot visually synced.
-    */
-
-    card
-        .querySelectorAll("[data-photo-index]")
-        .forEach(element => {
-
-            const index =
-                Number(element.dataset.photoIndex);
-
-            element.classList.toggle(
-                "active",
-                index === carousel.index
-            );
-
-        });
 }
 
+
+/* =========================================================
+   SET SPECIFIC CAROUSEL PHOTO
+========================================================= */
+
+function setCardCarouselPhoto(
+    id,
+    index
+){
+
+    id =
+        normaliseId(id);
+
+    const carousel =
+        cardCarousels[id];
+
+    if(
+        !carousel ||
+        !carousel.photos ||
+        !carousel.photos.length
+    ){
+        return;
+    }
+
+    if(
+        index < 0 ||
+        index >= carousel.photos.length
+    ){
+        return;
+    }
+
+    carousel.index =
+        index;
+
+    const property =
+        homes.find(
+            h =>
+                normaliseId(h.id) === id
+        );
+
+    if(property){
+
+        updateCardCarousel(
+            property
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PREVIOUS / NEXT PHOTO
+========================================================= */
+
+function rotateCardCarousel(
+    id,
+    direction=1
+){
+
+    id =
+        normaliseId(id);
+
+    const carousel =
+        cardCarousels[id];
+
+    if(
+        !carousel ||
+        !carousel.photos ||
+        !carousel.photos.length
+    ){
+        return;
+    }
+
+    carousel.index =
+        (
+            (carousel.index || 0) +
+            direction +
+            carousel.photos.length
+        ) %
+        carousel.photos.length;
+
+    const property =
+        homes.find(
+            h =>
+                normaliseId(h.id) === id
+        );
+
+    if(property){
+
+        updateCardCarousel(
+            property
+        );
+
+    }
+
+}
 /* =========================================================
    PROPERTY MODAL
 ========================================================= */
