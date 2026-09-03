@@ -3319,90 +3319,102 @@ async function buildGithubImageIndex(force=false){
 
 async function getLocalPhotos(h){
 
-  const wantedFolder =
-    photoFolder(h).toLowerCase();
+    const wantedFolder =
+        photoFolder(h)
+            .replace(/^\/+|\/+$/g,"")
+            .trim();
 
-  try{
-
-    // Get all property folders
-    const folderResponse =
-      await fetch(GITHUB_API);
-
-    if(!folderResponse.ok){
-      console.error(
-        "Could not load GitHub image folders"
-      );
-      return [];
+    if(!wantedFolder){
+        console.error("No photo folder found for:", h);
+        return [];
     }
 
-    const folders =
-      await folderResponse.json();
+    try{
 
-    // Find the correct folder, ignoring capitalisation
-    const folder =
-      folders.find(item =>
-        item.type === "dir" &&
-        item.name.toLowerCase() === wantedFolder
-      );
+        /*
+         * Go directly to the property's image folder.
+         * This avoids relying on the GitHub repository root
+         * folder listing.
+         */
 
-    if(!folder){
-      console.error(
-        "Image folder not found:",
-        wantedFolder
-      );
-      return [];
+        const folderUrl =
+            "https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard/contents/images/" +
+            encodeURIComponent(wantedFolder);
+
+        const response =
+            await fetch(folderUrl, {
+                cache:"no-store"
+            });
+
+        if(!response.ok){
+
+            console.error(
+                "Could not load image folder:",
+                wantedFolder,
+                response.status
+            );
+
+            return [];
+        }
+
+        const files =
+            await response.json();
+
+        if(!Array.isArray(files)){
+            console.error(
+                "GitHub did not return an image list:",
+                wantedFolder
+            );
+            return [];
+        }
+
+        const photos =
+            files
+                .filter(file =>
+                    file.type === "file" &&
+                    /\.(jpg|jpeg|png|webp|gif|avif)$/i
+                        .test(file.name)
+                )
+                .sort((a,b) =>
+                    a.name.localeCompare(
+                        b.name,
+                        undefined,
+                        {
+                            numeric:true,
+                            sensitivity:"base"
+                        }
+                    )
+                )
+                .map(file => {
+
+                    return (
+                        "https://costar-ypa.github.io/" +
+                        "YPA-Bacchus-Marsh-Dashboard/" +
+                        "images/" +
+                        encodeURIComponent(wantedFolder) +
+                        "/" +
+                        encodeURIComponent(file.name)
+                    );
+
+                });
+
+        console.log(
+            "Photos loaded:",
+            wantedFolder,
+            photos
+        );
+
+        return photos;
+
+    }catch(error){
+
+        console.error(
+            "Photo loading error:",
+            error
+        );
+
+        return [];
     }
-
-    // Load the files inside the property folder
-    const fileResponse =
-      await fetch(folder.url);
-
-    if(!fileResponse.ok){
-      console.error(
-        "Could not load property images:",
-        folder.name
-      );
-      return [];
-    }
-
-    const files =
-      await fileResponse.json();
-
-    if(!Array.isArray(files)){
-      return [];
-    }
-
-    return files
-      .filter(file =>
-        file.type === "file" &&
-        /\.(jpg|jpeg|png|webp|gif|avif)$/i
-          .test(file.name)
-      )
-      .sort((a,b) =>
-        a.name.localeCompare(
-          b.name,
-          undefined,
-          {
-            numeric:true,
-            sensitivity:"base"
-          }
-        )
-      )
-      .map(file =>
-        file.download_url
-      );
-
-  }catch(error){
-
-    console.error(
-      "Photo loading error:",
-      error
-    );
-
-    return [];
-
-  }
-}
 
 
 
