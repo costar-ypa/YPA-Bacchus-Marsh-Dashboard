@@ -5874,6 +5874,8 @@ function sheetDateKey(v){
 
   return d ? dateKey(d) : "";
 }
+    /* REMOVE THIS WEEK FILTER */
+document.querySelectorAll('[data-filter="week"]').forEach(btn => btn.remove());
     
 </script>
 
