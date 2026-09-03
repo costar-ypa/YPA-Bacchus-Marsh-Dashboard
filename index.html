@@ -76,7 +76,7 @@ img{
 }
 
 .container{
-    width:min(var(--max), calc(100% - 48px));
+    width:min(var(--max),calc(100% - 48px));
     margin:auto;
 }
 
@@ -187,7 +187,7 @@ img{
     overflow:hidden;
     border-bottom:1px solid var(--border);
     background:
-        radial-gradient(circle at 80% 15%, rgba(212,175,98,.11), transparent 28%),
+        radial-gradient(circle at 80% 15%,rgba(212,175,98,.11),transparent 28%),
         linear-gradient(145deg,#06111F 0%,#030914 65%);
 }
 
@@ -343,7 +343,7 @@ img{
 }
 
 /* =========================================================
-   WEEKEND PLANNER
+   WEEKEND
 ========================================================= */
 
 .weekend-section{
@@ -1129,6 +1129,7 @@ img{
     height:7px;
     border-radius:50%;
     background:rgba(255,255,255,.5);
+    cursor:pointer;
 }
 
 .modal-dot.active{
@@ -1599,10 +1600,6 @@ img{
 
 <body>
 
-<!-- =======================================================
-     HEADER
-======================================================== -->
-
 <header class="header">
     <div class="container header-inner">
 
@@ -1631,10 +1628,6 @@ img{
     </div>
 </header>
 
-
-<!-- =======================================================
-     HERO
-======================================================== -->
 
 <section class="hero">
 
@@ -1688,10 +1681,6 @@ img{
 </section>
 
 
-<!-- =======================================================
-     YOUR WEEKEND
-======================================================== -->
-
 <section class="section weekend-section" id="my-weekend">
 
     <div class="container">
@@ -1718,20 +1707,25 @@ img{
         </div>
 
         <div class="weekend-dashboard" id="weekendDashboard">
+
             <div class="weekend-empty">
-                <strong>Build your inspection day.</strong>
-                <span>Save properties below to create your own personalised weekend itinerary.</span>
+
+                <strong>
+                    Build your inspection day.
+                </strong>
+
+                <span>
+                    Save properties below to create your own personalised weekend itinerary.
+                </span>
+
             </div>
+
         </div>
 
     </div>
 
 </section>
 
-
-<!-- =======================================================
-     PROPERTIES
-======================================================== -->
 
 <section class="section property-section" id="properties">
 
@@ -1754,13 +1748,16 @@ img{
         <div class="toolbar">
 
             <div class="search-wrap">
+
                 <span class="search-icon">⌕</span>
+
                 <input
                     id="searchInput"
                     type="search"
                     placeholder="Search address, suburb or property..."
                     autocomplete="off"
                 >
+
             </div>
 
             <div class="filters">
@@ -1798,10 +1795,6 @@ img{
 
 </section>
 
-
-<!-- =======================================================
-     LOCAL EDIT
-======================================================== -->
 
 <section class="section editorial" id="local-edit">
 
@@ -1851,7 +1844,10 @@ img{
                 <div class="editorial-small">
 
                     <div>
-                        <div class="section-kicker">Thinking of Selling?</div>
+
+                        <div class="section-kicker">
+                            Thinking of Selling?
+                        </div>
 
                         <h4>
                             Know what your property could achieve.
@@ -1860,6 +1856,7 @@ img{
                         <p>
                             Get a considered appraisal based on current local market conditions, comparable sales and buyer demand.
                         </p>
+
                     </div>
 
                     <a class="editorial-link" href="mailto:crodriguez@ypa.com.au">
@@ -1872,7 +1869,10 @@ img{
                 <div class="editorial-small">
 
                     <div>
-                        <div class="section-kicker">YPA Bacchus Marsh</div>
+
+                        <div class="section-kicker">
+                            YPA Bacchus Marsh
+                        </div>
 
                         <h4>
                             Your local property team.
@@ -1881,6 +1881,7 @@ img{
                         <p>
                             Property advice backed by local experience, strong marketing and a genuine understanding of the community.
                         </p>
+
                     </div>
 
                     <a class="editorial-link" href="#people">
@@ -1897,10 +1898,6 @@ img{
 
 </section>
 
-
-<!-- =======================================================
-     PEOPLE
-======================================================== -->
 
 <section class="section people" id="people">
 
@@ -1932,10 +1929,6 @@ img{
 </section>
 
 
-<!-- =======================================================
-     FOOTER
-======================================================== -->
-
 <footer class="footer">
 
     <div class="container footer-inner">
@@ -1966,10 +1959,6 @@ img{
 </footer>
 
 
-<!-- =======================================================
-     FLOATING WEEKEND BUTTON
-======================================================== -->
-
 <button class="floating-weekend" onclick="openWeekend()">
 
     MY WEEKEND
@@ -1980,10 +1969,6 @@ img{
 
 </button>
 
-
-<!-- =======================================================
-     PROPERTY MODAL
-======================================================== -->
 
 <div class="modal" id="propertyModal">
 
@@ -2092,10 +2077,6 @@ img{
 </div>
 
 
-<!-- =======================================================
-     WEEKEND DRAWER
-======================================================== -->
-
 <div class="drawer" id="weekendDrawer">
 
     <div class="drawer-overlay" onclick="closeWeekend()"></div>
@@ -2131,15 +2112,22 @@ img{
 
 
 <script>
-    
+
 /* =========================================================
    CONFIGURATION
 ========================================================= */
 
-const API_URL = "https://script.google.com/macros/s/AKfycbymGhL5QAEnkxA4LRiSvSKOFyCAJSDqmFGD3qB7MmYbQSw15YiOEIM_D4Zm1AR7XM-i/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbymGhL5QAEnkxA4LRiSvOFyCAJSDqmFGD3qB7MmYbQSw15YiOEIM_D4Zm1AR7XM-i/exec";
 
-const GITHUB_API =
-    "https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard";
+const GITHUB_REPO =
+    "costar-ypa/YPA-Bacchus-Marsh-Dashboard";
+
+const GITHUB_META =
+    `https://api.github.com/repos/${GITHUB_REPO}`;
+
+const GITHUB_TREE =
+    branch =>
+        `https://api.github.com/repos/${GITHUB_REPO}/git/trees/${encodeURIComponent(branch)}?recursive=1`;
 
 const GITHUB_PAGES_BASE =
     "https://costar-ypa.github.io/YPA-Bacchus-Marsh-Dashboard";
@@ -2150,19 +2138,27 @@ const GITHUB_PAGES_BASE =
 ========================================================= */
 
 let homes = [];
+
 let filter = "all";
+
 let searchText = "";
 
-let weekendIds = loadWeekendIds();
+let weekendIds =
+    loadWeekendIds();
 
 let cardCarousels = {};
 
 let currentProperty = null;
+
 let currentPhotos = [];
+
 let currentPhotoIndex = 0;
+
 let modalTimer = null;
 
 let githubImageIndex = null;
+
+let githubImageIndexPromise = null;
 
 
 /* =========================================================
@@ -2170,14 +2166,21 @@ let githubImageIndex = null;
 ========================================================= */
 
 function $(id){
+
     return document.getElementById(id);
+
 }
 
 
 function esc(value){
 
-    if(value === undefined || value === null){
+    if(
+        value === undefined ||
+        value === null
+    ){
+
         return "";
+
     }
 
     return String(value)
@@ -2186,10 +2189,15 @@ function esc(value){
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+
 }
 
 
-function field(obj,names,fallback=""){
+function field(
+    obj,
+    names,
+    fallback=""
+){
 
     for(const name of names){
 
@@ -2199,26 +2207,35 @@ function field(obj,names,fallback=""){
             obj[name] !== null &&
             String(obj[name]).trim() !== ""
         ){
+
             return obj[name];
+
         }
 
     }
 
     return fallback;
+
 }
 
 
 /* =========================================================
-   WEEKEND ID NORMALISATION
+   WEEKEND IDS
 ========================================================= */
 
 function normaliseId(value){
 
-    if(value === undefined || value === null){
+    if(
+        value === undefined ||
+        value === null
+    ){
+
         return "";
+
     }
 
     return String(value).trim();
+
 }
 
 
@@ -2228,7 +2245,9 @@ function loadWeekendIds(){
 
         const saved =
             JSON.parse(
-                localStorage.getItem("ypaWeekend") || "[]"
+                localStorage.getItem(
+                    "ypaWeekend"
+                ) || "[]"
             );
 
         if(!Array.isArray(saved)){
@@ -2247,7 +2266,9 @@ function loadWeekendIds(){
         );
 
         return [];
+
     }
+
 }
 
 
@@ -2262,6 +2283,7 @@ function saveWeekendIds(){
         "ypaWeekend",
         JSON.stringify(weekendIds)
     );
+
 }
 
 
@@ -2270,11 +2292,12 @@ function isWeekendSaved(id){
     return weekendIds.includes(
         normaliseId(id)
     );
+
 }
 
 
 /* =========================================================
-   SLUGGING / IMAGE FOLDERS
+   SLUGGING
 ========================================================= */
 
 function slugify(value){
@@ -2286,27 +2309,39 @@ function slugify(value){
         .replace(/['’]/g,"")
         .replace(/[^a-z0-9]+/g,"-")
         .replace(/^-+|-+$/g,"");
+
+}
+
+
+function normaliseFolderName(value){
+
+    return String(value || "")
+        .trim()
+        .replace(/^\/+|\/+$/g,"")
+        .toLowerCase();
+
 }
 
 
 function photoFolder(h){
 
-    const manual = field(
-        h,
-        [
-            "photo folder",
-            "photofolder",
-            "photo_folder",
-            "Photo Folder",
-            "PhotoFolder"
-        ]
-    );
+    const manual =
+        field(
+            h,
+            [
+                "photo folder",
+                "photofolder",
+                "photo_folder",
+                "Photo Folder",
+                "PhotoFolder"
+            ]
+        );
 
     if(manual){
 
         return String(manual)
-            .replace(/^\/|\/$/g,"")
-            .trim();
+            .trim()
+            .replace(/^\/+|\/+$/g,"");
 
     }
 
@@ -2318,14 +2353,25 @@ function photoFolder(h){
         .filter(Boolean)
         .join(" ")
     );
+
 }
 
 
-function placeholder(text="YPA BACCHUS MARSH"){
+function placeholder(
+    text="YPA BACCHUS MARSH"
+){
 
     const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900">
-            <rect width="1200" height="900" fill="#0A1930"/>
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="1200"
+             height="900">
+
+            <rect
+                width="1200"
+                height="900"
+                fill="#0A1930"
+            />
+
             <text
                 x="600"
                 y="450"
@@ -2338,11 +2384,15 @@ function placeholder(text="YPA BACCHUS MARSH"){
             >
                 ${esc(text)}
             </text>
+
         </svg>
     `;
 
-    return "data:image/svg+xml;charset=UTF-8," +
-        encodeURIComponent(svg);
+    return (
+        "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(svg)
+    );
+
 }
 
 
@@ -2360,40 +2410,51 @@ function parseDate(value){
         return value;
     }
 
-    const str = String(value).trim();
+    const str =
+        String(value).trim();
 
-    let d = new Date(str);
+    let d =
+        new Date(str);
 
     if(!isNaN(d.getTime())){
         return d;
     }
 
-    const match = str.match(
-        /^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/
-    );
+    const match =
+        str.match(
+            /^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/
+        );
 
     if(match){
 
-        let day = parseInt(match[1],10);
-        let month = parseInt(match[2],10) - 1;
-        let year = parseInt(match[3],10);
+        let day =
+            parseInt(match[1],10);
+
+        let month =
+            parseInt(match[2],10)-1;
+
+        let year =
+            parseInt(match[3],10);
 
         if(year < 100){
             year += 2000;
         }
 
-        d = new Date(
-            year,
-            month,
-            day
-        );
+        d =
+            new Date(
+                year,
+                month,
+                day
+            );
 
         if(!isNaN(d.getTime())){
             return d;
         }
+
     }
 
     return null;
+
 }
 
 
@@ -2403,38 +2464,62 @@ function parseTime(value){
         return null;
     }
 
-    const str = String(value).trim();
+    const str =
+        String(value).trim();
 
-    const match = str.match(
-        /^(\d{1,2})(?::(\d{2}))?\s*(am|pm)?$/i
-    );
+    const match =
+        str.match(
+            /^(\d{1,2})(?::(\d{2}))?\s*(am|pm)?$/i
+        );
 
     if(!match){
         return null;
     }
 
-    let hour = parseInt(match[1],10);
-    let minute = parseInt(match[2] || "0",10);
+    let hour =
+        parseInt(match[1],10);
+
+    let minute =
+        parseInt(
+            match[2] || "0",
+            10
+        );
 
     const ampm =
-        (match[3] || "").toLowerCase();
+        (
+            match[3] || ""
+        ).toLowerCase();
 
-    if(ampm === "pm" && hour < 12){
+    if(
+        ampm === "pm" &&
+        hour < 12
+    ){
+
         hour += 12;
+
     }
 
-    if(ampm === "am" && hour === 12){
+    if(
+        ampm === "am" &&
+        hour === 12
+    ){
+
         hour = 0;
+
     }
 
     return {
         hour,
         minute
     };
+
 }
 
 
-function dateTime(dateValue,timeValue){
+function dateTime(
+    dateValue,
+    timeValue
+){
 
     const date =
         parseDate(dateValue);
@@ -2470,6 +2555,7 @@ function dateTime(dateValue,timeValue){
     }
 
     return result;
+
 }
 
 
@@ -2481,22 +2567,30 @@ function dateKey(date){
 
     return [
         date.getFullYear(),
-        String(date.getMonth()+1).padStart(2,"0"),
-        String(date.getDate()).padStart(2,"0")
+        String(
+            date.getMonth()+1
+        ).padStart(2,"0"),
+        String(
+            date.getDate()
+        ).padStart(2,"0")
     ].join("-");
+
 }
 
 
 function todayKey(){
 
-    return dateKey(new Date());
+    return dateKey(
+        new Date()
+    );
 
 }
 
 
 function tomorrowKey(){
 
-    const d = new Date();
+    const d =
+        new Date();
 
     d.setDate(
         d.getDate()+1
@@ -2521,6 +2615,7 @@ function formatDate(h){
             month:"short"
         }
     );
+
 }
 
 
@@ -2537,6 +2632,7 @@ function formatTime(h){
             minute:"2-digit"
         }
     );
+
 }
 
 
@@ -2549,13 +2645,16 @@ function formatTimeRange(h){
         return start;
     }
 
-    return `${start} – ${h.endDt.toLocaleTimeString(
-        "en-AU",
-        {
-            hour:"numeric",
-            minute:"2-digit"
-        }
-    )}`;
+    return `${start} – ${
+        h.endDt.toLocaleTimeString(
+            "en-AU",
+            {
+                hour:"numeric",
+                minute:"2-digit"
+            }
+        )
+    }`;
+
 }
 
 
@@ -2563,182 +2662,201 @@ function formatTimeRange(h){
    NORMALISE GOOGLE SHEET
 ========================================================= */
 
-function normalise(raw,index){
+function normalise(
+    raw,
+    index
+){
 
-    const date = field(
-        raw,
-        [
-            "date",
-            "Date",
-            "inspection date",
-            "Inspection Date",
-            "day"
-        ]
-    );
+    const date =
+        field(
+            raw,
+            [
+                "date",
+                "Date",
+                "inspection date",
+                "Inspection Date",
+                "day"
+            ]
+        );
 
-    const start = field(
-        raw,
-        [
-            "start time",
-            "start",
-            "Start Time",
-            "Start",
-            "time",
-            "Time"
-        ]
-    );
+    const start =
+        field(
+            raw,
+            [
+                "start time",
+                "start",
+                "Start Time",
+                "Start",
+                "time",
+                "Time"
+            ]
+        );
 
-    const end = field(
-        raw,
-        [
-            "end time",
-            "end",
-            "End Time",
-            "End"
-        ]
-    );
+    const end =
+        field(
+            raw,
+            [
+                "end time",
+                "end",
+                "End Time",
+                "End"
+            ]
+        );
 
-    const address = field(
-        raw,
-        [
-            "address",
-            "Address",
-            "property address",
-            "Property Address"
-        ]
-    );
+    const address =
+        field(
+            raw,
+            [
+                "address",
+                "Address",
+                "property address",
+                "Property Address"
+            ]
+        );
 
-    const suburb = field(
-        raw,
-        [
-            "suburb",
-            "Suburb",
-            "location",
-            "Location"
-        ]
-    );
+    const suburb =
+        field(
+            raw,
+            [
+                "suburb",
+                "Suburb",
+                "location",
+                "Location"
+            ]
+        );
 
-    const price = field(
-        raw,
-        [
-            "price",
-            "Price",
-            "price guide",
-            "Price Guide"
-        ]
-    );
+    const price =
+        field(
+            raw,
+            [
+                "price",
+                "Price",
+                "price guide",
+                "Price Guide"
+            ]
+        );
 
-    const beds = field(
-        raw,
-        [
-            "bedrooms",
-            "Bedrooms",
-            "beds",
-            "Beds",
-            "bed"
-        ]
-    );
+    const beds =
+        field(
+            raw,
+            [
+                "bedrooms",
+                "Bedrooms",
+                "beds",
+                "Beds",
+                "bed"
+            ]
+        );
 
-    const baths = field(
-        raw,
-        [
-            "bathrooms",
-            "Bathrooms",
-            "baths",
-            "Baths",
-            "bath"
-        ]
-    );
+    const baths =
+        field(
+            raw,
+            [
+                "bathrooms",
+                "Bathrooms",
+                "baths",
+                "Baths",
+                "bath"
+            ]
+        );
 
-    const cars = field(
-        raw,
-        [
-            "parking",
-            "Parking",
-            "car spaces",
-            "Car Spaces",
-            "cars",
-            "Cars",
-            "garage",
-            "Garage"
-        ]
-    );
+    const cars =
+        field(
+            raw,
+            [
+                "parking",
+                "Parking",
+                "car spaces",
+                "Car Spaces",
+                "cars",
+                "Cars",
+                "garage",
+                "Garage"
+            ]
+        );
 
-    const listing = field(
-        raw,
-        [
-            "rea url",
-            "REA URL",
-            "listing url",
-            "Listing URL",
-            "url",
-            "URL",
-            "link",
-            "Link"
-        ]
-    );
+    const listing =
+        field(
+            raw,
+            [
+                "rea url",
+                "REA URL",
+                "listing url",
+                "Listing URL",
+                "url",
+                "URL",
+                "link",
+                "Link"
+            ]
+        );
 
-    const headline = field(
-        raw,
-        [
-            "headline",
-            "Headline",
-            "title",
-            "Title"
-        ]
-    );
+    const headline =
+        field(
+            raw,
+            [
+                "headline",
+                "Headline",
+                "title",
+                "Title"
+            ]
+        );
 
-    const description = field(
-        raw,
-        [
-            "description",
-            "Description",
-            "property description",
-            "Property Description",
-            "copy",
-            "Copy"
-        ]
-    );
+    const description =
+        field(
+            raw,
+            [
+                "description",
+                "Description",
+                "property description",
+                "Property Description",
+                "copy",
+                "Copy"
+            ]
+        );
 
-    const agent = field(
-        raw,
-        [
-            "agent",
-            "Agent",
-            "agent name",
-            "Agent Name"
-        ]
-    );
+    const agent =
+        field(
+            raw,
+            [
+                "agent",
+                "Agent",
+                "agent name",
+                "Agent Name"
+            ]
+        );
 
-    const agentPhoto = field(
-        raw,
-        [
-            "agent photo",
-            "Agent Photo",
-            "agent image",
-            "Agent Image"
-        ]
-    );
+    const agentPhoto =
+        field(
+            raw,
+            [
+                "agent photo",
+                "Agent Photo",
+                "agent image",
+                "Agent Image"
+            ]
+        );
 
-    const agentPhone = field(
-        raw,
-        [
-            "agent phone",
-            "Agent Phone",
-            "phone",
-            "Phone"
-        ]
-    );
+    const agentPhone =
+        field(
+            raw,
+            [
+                "agent phone",
+                "Agent Phone",
+                "phone",
+                "Phone"
+            ]
+        );
 
-    const agentEmail = field(
-        raw,
-        [
-            "agent email",
-            "Agent Email",
-            "email",
-            "Email"
-        ]
-    );
+    const agentEmail =
+        field(
+            raw,
+            [
+                "agent email",
+                "Agent Email",
+                "email",
+                "Email"
+            ]
+        );
 
     const dt =
         dateTime(
@@ -2753,14 +2871,6 @@ function normalise(raw,index){
         );
 
 
-    /*
-       IMPORTANT:
-       Every property now gets a STRING ID.
-       This fixes the My Weekend issue where
-       numeric Sheet IDs and string button IDs
-       were being compared differently.
-    */
-
     const suppliedId =
         field(
             raw,
@@ -2772,6 +2882,11 @@ function normalise(raw,index){
             ]
         );
 
+
+    /*
+       Address + suburb is used as the fallback ID.
+       This keeps IDs stable between Google Sheet refreshes.
+    */
 
     const generatedId =
         `${slugify(address)}-${slugify(suburb)}`;
@@ -2818,6 +2933,7 @@ function normalise(raw,index){
         endDt
 
     };
+
 }
 
 
@@ -2835,32 +2951,45 @@ function matches(h){
     if(query){
 
         const haystack = [
+
             h.address,
             h.suburb,
             h.price,
             h.headline,
             h.description,
             h.agent
+
         ]
         .join(" ")
         .toLowerCase();
 
-        if(!haystack.includes(query)){
+        if(
+            !haystack.includes(query)
+        ){
+
             return false;
+
         }
+
     }
 
 
     if(filter === "today"){
 
-        return dateKey(h.dt) === todayKey();
+        return (
+            dateKey(h.dt) ===
+            todayKey()
+        );
 
     }
 
 
     if(filter === "tomorrow"){
 
-        return dateKey(h.dt) === tomorrowKey();
+        return (
+            dateKey(h.dt) ===
+            tomorrowKey()
+        );
 
     }
 
@@ -2887,211 +3016,559 @@ function matches(h){
 
 
     return true;
+
 }
 
 
 /* =========================================================
-   GITHUB IMAGE INDEX
+   GITHUB PHOTOGRAPHY INDEX
 ========================================================= */
 
 /*
-   Instead of asking GitHub for every property's folder
-   separately, this builds ONE image index.
+   IMPORTANT
 
-   Your structure:
+   The previous system attempted to locate photos by
+   repeatedly querying individual GitHub folders.
+
+   This version instead loads the repository's COMPLETE
+   Git tree once.
+
+   Example:
 
    images/
        45-main-street-bacchus-marsh/
-           IMG_XXXX.JPG
-           IMG_XXXX_2.JPG
-           IMG_XXXX_3.JPG
+           IMG_5713.jpeg
+           IMG_5714.jpeg
+           IMG_5716.jpeg
 
-   This is much more reliable and dramatically reduces
-   GitHub API calls.
+   The dashboard then creates:
+
+   {
+       "45-main-street-bacchus-marsh": [
+           photo1,
+           photo2,
+           photo3
+       ]
+   }
+
+   This means Google Sheet data controls the property,
+   while GitHub controls the photography.
 */
 
-async function buildGithubImageIndex(){
 
-    if(githubImageIndex){
+async function buildGithubImageIndex(
+    force=false
+){
+
+    if(
+        githubImageIndex &&
+        !force
+    ){
+
         return githubImageIndex;
+
     }
 
 
-    try{
+    if(
+        githubImageIndexPromise &&
+        !force
+    ){
 
-        console.log(
-            "Loading YPA property photography..."
+        return githubImageIndexPromise;
+
+    }
+
+
+    githubImageIndexPromise =
+        (async()=>{
+
+            try{
+
+                console.log(
+                    "YPA: Loading property photography index..."
+                );
+
+
+                /*
+                   STEP 1
+
+                   Get repository metadata so we know
+                   which branch is actually active.
+                */
+
+                const metaResponse =
+                    await fetch(
+                        GITHUB_META,
+                        {
+                            cache:"no-store"
+                        }
+                    );
+
+
+                if(!metaResponse.ok){
+
+                    throw new Error(
+                        `GitHub repository request failed: ${metaResponse.status}`
+                    );
+
+                }
+
+
+                const meta =
+                    await metaResponse.json();
+
+
+                const branch =
+                    meta.default_branch ||
+                    "main";
+
+
+                console.log(
+                    "YPA: GitHub branch:",
+                    branch
+                );
+
+
+                /*
+                   STEP 2
+
+                   Fetch the complete repository tree.
+                */
+
+                const treeResponse =
+                    await fetch(
+                        GITHUB_TREE(branch),
+                        {
+                            cache:"no-store"
+                        }
+                    );
+
+
+                if(!treeResponse.ok){
+
+                    throw new Error(
+                        `GitHub tree request failed: ${treeResponse.status}`
+                    );
+
+                }
+
+
+                const treeData =
+                    await treeResponse.json();
+
+
+                if(
+                    treeData.truncated
+                ){
+
+                    console.warn(
+                        "YPA: GitHub tree was truncated."
+                    );
+
+                }
+
+
+                const tree =
+                    Array.isArray(
+                        treeData.tree
+                    )
+                    ?
+                    treeData.tree
+                    :
+                    [];
+
+
+                const index =
+                    new Map();
+
+
+                /*
+                   STEP 3
+
+                   Find every image inside /images/
+                */
+
+                tree.forEach(
+                    item => {
+
+                        if(
+                            !item ||
+                            item.type !== "blob" ||
+                            !item.path
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const path =
+                            String(
+                                item.path
+                            );
+
+
+                        if(
+                            !/^images\//i.test(
+                                path
+                            )
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const parts =
+                            path.split("/");
+
+
+                        /*
+                           Need at least:
+
+                           images
+                           folder
+                           filename
+                        */
+
+                        if(
+                            parts.length < 3
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const folder =
+                            parts[1];
+
+
+                        const filename =
+                            parts[
+                                parts.length-1
+                            ];
+
+
+                        const extension =
+                            filename
+                                .split(".")
+                                .pop()
+                                .toLowerCase();
+
+
+                        const allowed =
+                            [
+                                "jpg",
+                                "jpeg",
+                                "png",
+                                "webp",
+                                "gif",
+                                "avif"
+                            ];
+
+
+                        if(
+                            !allowed.includes(
+                                extension
+                            )
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const key =
+                            normaliseFolderName(
+                                folder
+                            );
+
+
+                        if(
+                            !index.has(key)
+                        ){
+
+                            index.set(
+                                key,
+                                []
+                            );
+
+                        }
+
+
+                        /*
+                           Use GitHub Pages itself as the
+                           final image host.
+
+                           Example:
+
+                           https://costar-ypa.github.io/
+                           YPA-Bacchus-Marsh-Dashboard/
+                           images/
+                           45-main-street-bacchus-marsh/
+                           IMG_5713.jpeg
+                        */
+
+                        const encodedPath =
+                            path
+                                .split("/")
+                                .map(
+                                    segment =>
+                                        encodeURIComponent(
+                                            segment
+                                        )
+                                )
+                                .join("/");
+
+
+                        const url =
+                            `${GITHUB_PAGES_BASE}/${encodedPath}`;
+
+
+                        index
+                            .get(key)
+                            .push({
+
+                                name:
+                                    filename,
+
+                                path,
+
+                                url
+
+                            });
+
+                    }
+                );
+
+
+                /*
+                   STEP 4
+
+                   Natural sort all photography.
+                */
+
+                for(
+                    const photos of index.values()
+                ){
+
+                    photos.sort(
+                        (a,b)=>
+                            a.name.localeCompare(
+                                b.name,
+                                undefined,
+                                {
+                                    numeric:true,
+                                    sensitivity:"base"
+                                }
+                            )
+                    );
+
+                }
+
+
+                githubImageIndex =
+                    index;
+
+
+                console.log(
+                    "YPA: Photography folders found:",
+                    index.size
+                );
+
+
+                let imageCount = 0;
+
+
+                for(
+                    const photos of index.values()
+                ){
+
+                    imageCount +=
+                        photos.length;
+
+                }
+
+
+                console.log(
+                    "YPA: Photography files found:",
+                    imageCount
+                );
+
+
+                /*
+                   Helpful diagnostic output.
+
+                   If images still fail, the browser
+                   console will show the exact folders
+                   discovered.
+                */
+
+                console.log(
+                    "YPA: Photography folders:",
+                    Array.from(
+                        index.keys()
+                    )
+                );
+
+
+                return githubImageIndex;
+
+
+            }catch(error){
+
+                console.error(
+                    "YPA: Photography index failed:",
+                    error
+                );
+
+
+                githubImageIndex =
+                    new Map();
+
+
+                return githubImageIndex;
+
+            }finally{
+
+                githubImageIndexPromise =
+                    null;
+
+            }
+
+        })();
+
+
+    return githubImageIndexPromise;
+
+}
+
+
+/* =========================================================
+   PROPERTY PHOTO MATCHING
+========================================================= */
+
+function findPhotoFolder(
+    h,
+    index
+){
+
+    if(
+        !index ||
+        !index.size
+    ){
+
+        return null;
+
+    }
+
+
+    const wanted =
+        normaliseFolderName(
+            photoFolder(h)
         );
 
 
-        /*
-           First try the Git Trees API.
-           This gives us every file under /images/
-           in one request.
-        */
-
-        const repoResponse =
-            await fetch(
-                `${GITHUB_API}/git/trees/main?recursive=1`
-            );
+    if(!wanted){
+        return null;
+    }
 
 
-        if(!repoResponse.ok){
+    /*
+       EXACT MATCH FIRST
+    */
 
-            throw new Error(
-                `GitHub image index HTTP ${repoResponse.status}`
-            );
+    if(
+        index.has(wanted)
+    ){
+
+        return wanted;
+
+    }
+
+
+    /*
+       Fallback 1:
+       Address only.
+    */
+
+    const addressOnly =
+        normaliseFolderName(
+            slugify(
+                h.address || ""
+            )
+        );
+
+
+    if(addressOnly){
+
+        for(
+            const folder of index.keys()
+        ){
+
+            if(
+                folder === addressOnly ||
+                folder.startsWith(
+                    addressOnly + "-"
+                )
+            ){
+
+                return folder;
+
+            }
 
         }
 
-
-        const data =
-            await repoResponse.json();
+    }
 
 
-        const tree =
-            Array.isArray(data.tree)
-                ? data.tree
-                : [];
+    /*
+       Fallback 2:
+       Try matching address and suburb
+       even if spacing/capitalisation differs.
+    */
 
+    const address =
+        slugify(
+            h.address || ""
+        );
 
-        const index = {};
-
-
-        tree.forEach(item => {
-
-            if(
-                !item ||
-                item.type !== "blob" ||
-                !item.path
-            ){
-                return;
-            }
-
-
-            const path =
-                String(item.path);
-
-
-            if(
-                !path.toLowerCase().startsWith("images/")
-            ){
-                return;
-            }
-
-
-            const relative =
-                path.substring(7);
-
-
-            const parts =
-                relative.split("/");
-
-
-            if(parts.length < 2){
-                return;
-            }
-
-
-            const folder =
-                parts[0];
-
-
-            const filename =
-                parts[parts.length - 1];
-
-
-            const lower =
-                filename.toLowerCase();
-
-
-            const isImage =
-                lower.endsWith(".jpg") ||
-                lower.endsWith(".jpeg") ||
-                lower.endsWith(".png") ||
-                lower.endsWith(".webp");
-
-
-            if(!isImage){
-                return;
-            }
-
-
-            if(!index[folder]){
-                index[folder] = [];
-            }
-
-
-            const encodedPath =
-                path
-                    .split("/")
-                    .map(
-                        segment =>
-                            encodeURIComponent(segment)
-                    )
-                    .join("/");
-
-
-            index[folder].push({
-
-                name:filename,
-
-                url:
-                    `${GITHUB_PAGES_BASE}/${encodedPath}`
-
-            });
-
-        });
-
-
-        /*
-           Natural sort photo filenames.
-        */
-
-        Object.keys(index)
-            .forEach(folder => {
-
-                index[folder].sort(
-                    (a,b) =>
-                        a.name.localeCompare(
-                            b.name,
-                            undefined,
-                            {
-                                numeric:true,
-                                sensitivity:"base"
-                            }
-                        )
-                );
-
-            });
-
-
-        githubImageIndex =
-            index;
-
-
-        console.log(
-            "Property image folders loaded:",
-            Object.keys(index).length
+    const suburb =
+        slugify(
+            h.suburb || ""
         );
 
 
-        return githubImageIndex;
+    if(
+        address &&
+        suburb
+    ){
+
+        const combined =
+            `${address}-${suburb}`;
 
 
-    }catch(error){
+        for(
+            const folder of index.keys()
+        ){
 
-        console.warn(
-            "GitHub image index failed. Trying folder API fallback.",
-            error
-        );
+            if(
+                folder === combined
+            ){
 
+                return folder;
 
-        githubImageIndex = {};
+            }
 
-        return githubImageIndex;
+        }
 
     }
+
+
+    return null;
+
 }
 
 
@@ -3101,146 +3578,66 @@ async function buildGithubImageIndex(){
 
 async function getLocalPhotos(h){
 
-    const folder =
-        photoFolder(h);
-
-
-    if(!folder){
-        return [];
-    }
-
-
-    /*
-       Try the cached tree first.
-    */
-
     const index =
         await buildGithubImageIndex();
 
 
     if(
-        index &&
-        index[folder] &&
-        index[folder].length
+        !index ||
+        !index.size
     ){
 
-        return index[folder]
-            .map(item => item.url);
-
-    }
-
-
-    /*
-       Fallback:
-       Directly request the property's folder.
-
-       This also makes the system tolerant of an image
-       being uploaded while the dashboard is already open.
-    */
-
-    try{
-
-        const response =
-            await fetch(
-                `${GITHUB_API}/contents/images/${encodeURIComponent(folder)}?ref=main`
-            );
-
-
-        if(!response.ok){
-            return [];
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if(!Array.isArray(data)){
-            return [];
-        }
-
-
-        const photos =
-            data
-                .filter(item => {
-
-                    const name =
-                        String(
-                            item.name || ""
-                        ).toLowerCase();
-
-                    return (
-                        name.endsWith(".jpg") ||
-                        name.endsWith(".jpeg") ||
-                        name.endsWith(".png") ||
-                        name.endsWith(".webp")
-                    );
-
-                })
-                .sort(
-                    (a,b) =>
-                        String(a.name).localeCompare(
-                            String(b.name),
-                            undefined,
-                            {
-                                numeric:true,
-                                sensitivity:"base"
-                            }
-                        )
-                )
-                .map(item => {
-
-                    const path =
-                        String(
-                            item.path || ""
-                        );
-
-                    const encodedPath =
-                        path
-                            .split("/")
-                            .map(
-                                segment =>
-                                    encodeURIComponent(segment)
-                            )
-                            .join("/");
-
-                    return (
-                        `${GITHUB_PAGES_BASE}/${encodedPath}`
-                    );
-
-                })
-                .filter(Boolean);
-
-
-        if(photos.length){
-
-            if(!githubImageIndex){
-                githubImageIndex = {};
-            }
-
-            githubImageIndex[folder] =
-                photos.map(url => ({
-                    name:url.split("/").pop(),
-                    url
-                }));
-
-        }
-
-
-        return photos;
-
-
-    }catch(error){
-
         console.warn(
-            "Unable to load photos for",
-            folder,
-            error
+            "YPA: No GitHub photography index available."
         );
 
         return [];
 
     }
+
+
+    const matchedFolder =
+        findPhotoFolder(
+            h,
+            index
+        );
+
+
+    if(
+        matchedFolder &&
+        index.has(matchedFolder)
+    ){
+
+        const photos =
+            index
+                .get(matchedFolder)
+                .map(
+                    item => item.url
+                );
+
+
+        console.log(
+            `YPA: ${h.address} → ${matchedFolder} → ${photos.length} photos`
+        );
+
+
+        return photos;
+
+    }
+
+
+    console.warn(
+        "YPA: No photography match for property:",
+        {
+            address:h.address,
+            suburb:h.suburb,
+            expectedFolder:photoFolder(h)
+        }
+    );
+
+
+    return [];
+
 }
 
 
@@ -3251,7 +3648,9 @@ async function getLocalPhotos(h){
 function propertyCardHTML(h){
 
     const saved =
-        isWeekendSaved(h.id);
+        isWeekendSaved(
+            h.id
+        );
 
 
     const image =
@@ -3426,12 +3825,20 @@ function propertyCardHTML(h){
 
 
                     <button
-                        class="card-save-btn ${saved ? "saved" : ""}"
+                        class="card-save-btn ${
+                            saved
+                                ? "saved"
+                                : ""
+                        }"
                         id="save-${esc(h.id)}"
                         onclick="event.stopPropagation(); toggleWeekend('${esc(h.id)}')"
                         aria-label="Add to weekend"
                     >
-                        ${saved ? "✓" : "+"}
+                        ${
+                            saved
+                                ? "✓"
+                                : "+"
+                        }
                     </button>
 
                 </div>
@@ -3451,29 +3858,30 @@ function propertyCardHTML(h){
 
 function render(){
 
-    /*
-       Clear old carousel timers before rebuilding cards.
-    */
-
     Object.keys(cardCarousels)
-        .forEach(id => {
+        .forEach(
+            id => {
 
-            if(cardCarousels[id].timer){
-
-                clearInterval(
+                if(
+                    cardCarousels[id] &&
                     cardCarousels[id].timer
-                );
+                ){
+
+                    clearInterval(
+                        cardCarousels[id].timer
+                    );
+
+                }
 
             }
-
-        });
+        );
 
 
     cardCarousels = {};
 
 
     homes.sort(
-        (a,b) => {
+        (a,b)=>{
 
             const aTime =
                 a.dt
@@ -3485,7 +3893,7 @@ function render(){
                     ? b.dt.getTime()
                     : Infinity;
 
-            return aTime - bTime;
+            return aTime-bTime;
 
         }
     );
@@ -3551,7 +3959,9 @@ function updateCounts(){
     const suburbs =
         new Set(
             homes
-                .map(h => h.suburb)
+                .map(
+                    h => h.suburb
+                )
                 .filter(Boolean)
                 .map(
                     s =>
@@ -3568,15 +3978,18 @@ function updateCounts(){
         ).length;
 
 
-    $("propertyCount").textContent =
+    $("propertyCount")
+        .textContent =
         homes.length;
 
 
-    $("suburbCount").textContent =
+    $("suburbCount")
+        .textContent =
         suburbs.size;
 
 
-    $("inspectionCount").textContent =
+    $("inspectionCount")
+        .textContent =
         inspections;
 
 
@@ -3610,22 +4023,24 @@ async function initialiseCardCarousel(h){
         await getLocalPhotos(h);
 
 
-    /*
-       The property may have disappeared from the
-       current render while photos were loading.
-    */
+    if(
+        !cardCarousels[id]
+    ){
 
-    if(!cardCarousels[id]){
         return;
+
     }
 
 
     cardCarousels[id].photos =
         photos.length
-            ? photos
-            : [
+            ?
+            photos
+            :
+            [
                 placeholder(
-                    h.suburb || "YPA"
+                    h.suburb ||
+                    "YPA"
                 )
             ];
 
@@ -3634,7 +4049,9 @@ async function initialiseCardCarousel(h){
 
 
     if(
-        cardCarousels[id].photos.length > 1
+        cardCarousels[id]
+            .photos
+            .length > 1
     ){
 
         cardCarousels[id].timer =
@@ -3656,12 +4073,15 @@ async function initialiseCardCarousel(h){
 
             photoElement.addEventListener(
                 "mouseenter",
-                () => {
+                ()=>{
 
-                    if(cardCarousels[id]){
+                    if(
+                        cardCarousels[id]
+                    ){
 
                         clearInterval(
-                            cardCarousels[id].timer
+                            cardCarousels[id]
+                                .timer
                         );
 
                     }
@@ -3672,15 +4092,22 @@ async function initialiseCardCarousel(h){
 
             photoElement.addEventListener(
                 "mouseleave",
-                () => {
+                ()=>{
 
-                    if(!cardCarousels[id]){
+                    if(
+                        !cardCarousels[id]
+                    ){
+
                         return;
+
                     }
 
+
                     clearInterval(
-                        cardCarousels[id].timer
+                        cardCarousels[id]
+                            .timer
                     );
+
 
                     cardCarousels[id].timer =
                         setInterval(
@@ -3719,7 +4146,9 @@ function rotateCardCarousel(
         !carousel ||
         !carousel.photos.length
     ){
+
         return;
+
     }
 
 
@@ -3735,12 +4164,17 @@ function rotateCardCarousel(
     const property =
         homes.find(
             h =>
-                normaliseId(h.id) === id
+                normaliseId(h.id) ===
+                id
         );
 
 
     if(property){
-        updateCardCarousel(property);
+
+        updateCardCarousel(
+            property
+        );
+
     }
 
 }
@@ -3785,49 +4219,54 @@ function updateCardCarousel(h){
                 carousel.index
             ];
 
+
         img.alt =
             h.address ||
             "Property";
 
-        /*
-           If an individual image fails,
-           move to the next image rather than
-           leaving a broken-image icon.
-        */
 
-        img.onerror = function(){
+        img.onerror =
+            function(){
 
-            if(
-                carousel.photos.length > 1
-            ){
-
-                carousel.photos.splice(
-                    carousel.index,
-                    1
+                console.warn(
+                    "YPA: Image failed:",
+                    this.src
                 );
 
+
                 if(
-                    carousel.index >=
-                    carousel.photos.length
+                    carousel.photos.length > 1
                 ){
 
-                    carousel.index =
-                        0;
+                    carousel.photos.splice(
+                        carousel.index,
+                        1
+                    );
+
+
+                    if(
+                        carousel.index >=
+                        carousel.photos.length
+                    ){
+
+                        carousel.index = 0;
+
+                    }
+
+
+                    updateCardCarousel(h);
+
+                }else{
+
+                    this.src =
+                        placeholder(
+                            h.suburb ||
+                            "YPA"
+                        );
 
                 }
 
-                updateCardCarousel(h);
-
-            }else{
-
-                this.src =
-                    placeholder(
-                        h.suburb || "YPA"
-                    );
-
-            }
-
-        };
+            };
 
     }
 
@@ -3835,7 +4274,11 @@ function updateCardCarousel(h){
     if(count){
 
         count.textContent =
-            `${carousel.index + 1} / ${carousel.photos.length}`;
+            `${
+                carousel.index+1
+            } / ${
+                carousel.photos.length
+            }`;
 
     }
 
@@ -3845,7 +4288,7 @@ function updateCardCarousel(h){
         dots.innerHTML =
             carousel.photos
                 .map(
-                    (_,i) =>
+                    (_,i)=>
                         `
                         <span
                             class="card-dot ${
@@ -3876,7 +4319,8 @@ async function openProperty(id){
     const property =
         homes.find(
             h =>
-                normaliseId(h.id) === normalId
+                normaliseId(h.id) ===
+                normalId
         );
 
 
@@ -3889,27 +4333,40 @@ async function openProperty(id){
         property;
 
 
-    $("modalKicker").textContent =
-        `${property.suburb || "BACCHUS MARSH"} · ${formatDate(property)}`;
+    $("modalKicker")
+        .textContent =
+        `${
+            property.suburb ||
+            "BACCHUS MARSH"
+        } · ${
+            formatDate(property)
+        }`;
 
 
-    $("modalTitle").textContent =
+    $("modalTitle")
+        .textContent =
         property.headline ||
         property.address ||
         "Property";
 
 
-    $("modalAddress").textContent =
-        property.address || "";
+    $("modalAddress")
+        .textContent =
+        property.address ||
+        "";
 
 
-    $("modalPrice").textContent =
-        property.price || "";
+    $("modalPrice")
+        .textContent =
+        property.price ||
+        "";
 
 
-    $("modalDescription").innerHTML =
+    $("modalDescription")
+        .innerHTML =
         property.description
-            ? esc(
+            ?
+            esc(
                 property.description
             ).replace(
                 /\n/g,
@@ -3919,16 +4376,22 @@ async function openProperty(id){
             "Contact YPA Bacchus Marsh for further property information.";
 
 
-    $("modalBeds").textContent =
-        property.beds || "—";
+    $("modalBeds")
+        .textContent =
+        property.beds ||
+        "—";
 
 
-    $("modalBaths").textContent =
-        property.baths || "—";
+    $("modalBaths")
+        .textContent =
+        property.baths ||
+        "—";
 
 
-    $("modalCars").textContent =
-        property.cars || "—";
+    $("modalCars")
+        .textContent =
+        property.cars ||
+        "—";
 
 
     const agentHTML =
@@ -3984,11 +4447,13 @@ async function openProperty(id){
         `;
 
 
-    $("modalAgent").innerHTML =
+    $("modalAgent")
+        .innerHTML =
         agentHTML;
 
 
-    $("modalListingBtn").style.display =
+    $("modalListingBtn")
+        .style.display =
         property.listing
             ? "block"
             : "none";
@@ -3997,27 +4462,25 @@ async function openProperty(id){
     updateModalWeekendButton();
 
 
-    $("propertyModal").classList.add(
-        "open"
-    );
+    $("propertyModal")
+        .classList
+        .add("open");
 
 
     document.body.style.overflow =
         "hidden";
 
 
-    /*
-       Load photography after opening the modal.
-    */
-
-    $("modalMainImage").src =
+    $("modalMainImage")
+        .src =
         placeholder(
             property.suburb ||
             "YPA BACCHUS MARSH"
         );
 
 
-    $("modalDots").innerHTML =
+    $("modalDots")
+        .innerHTML =
         "";
 
 
@@ -4035,20 +4498,32 @@ async function openProperty(id){
         );
 
 
-    if(!currentProperty){
+    if(
+        !currentProperty
+    ){
+
         return;
+
     }
 
 
     if(
-        currentProperty.id !==
-        property.id
+        normaliseId(
+            currentProperty.id
+        ) !==
+        normaliseId(
+            property.id
+        )
     ){
+
         return;
+
     }
 
 
-    if(!currentPhotos.length){
+    if(
+        !currentPhotos.length
+    ){
 
         currentPhotos = [
             placeholder(
@@ -4066,7 +4541,9 @@ async function openProperty(id){
     updateCarousel();
 
 
-    if(currentPhotos.length > 1){
+    if(
+        currentPhotos.length > 1
+    ){
 
         modalTimer =
             setInterval(
@@ -4112,8 +4589,12 @@ function closeProperty(){
 
 function updateCarousel(){
 
-    if(!currentPhotos.length){
+    if(
+        !currentPhotos.length
+    ){
+
         return;
+
     }
 
 
@@ -4129,12 +4610,20 @@ function updateCarousel(){
 
     image.alt =
         currentProperty
-            ? currentProperty.address
-            : "Property";
+            ?
+            currentProperty.address
+            :
+            "Property";
 
 
     image.onerror =
         function(){
+
+            console.warn(
+                "YPA: Modal image failed:",
+                this.src
+            );
+
 
             if(
                 currentPhotos.length > 1
@@ -4151,8 +4640,7 @@ function updateCarousel(){
                     currentPhotos.length
                 ){
 
-                    currentPhotoIndex =
-                        0;
+                    currentPhotoIndex = 0;
 
                 }
 
@@ -4164,8 +4652,10 @@ function updateCarousel(){
                 this.src =
                     placeholder(
                         currentProperty
-                            ? currentProperty.suburb
-                            : "YPA"
+                            ?
+                            currentProperty.suburb
+                            :
+                            "YPA"
                     );
 
             }
@@ -4173,10 +4663,11 @@ function updateCarousel(){
         };
 
 
-    $("modalDots").innerHTML =
+    $("modalDots")
+        .innerHTML =
         currentPhotos
             .map(
-                (_,i) =>
+                (_,i)=>
                     `
                     <span
                         class="modal-dot ${
@@ -4193,16 +4684,24 @@ function updateCarousel(){
 }
 
 
+/* =========================================================
+   MODAL NAVIGATION
+========================================================= */
+
 function nextPhoto(){
 
-    if(!currentPhotos.length){
+    if(
+        !currentPhotos.length
+    ){
+
         return;
+
     }
 
 
     currentPhotoIndex =
         (
-            currentPhotoIndex + 1
+            currentPhotoIndex+1
         ) %
         currentPhotos.length;
 
@@ -4214,14 +4713,19 @@ function nextPhoto(){
 
 function previousPhoto(){
 
-    if(!currentPhotos.length){
+    if(
+        !currentPhotos.length
+    ){
+
         return;
+
     }
 
 
     currentPhotoIndex =
         (
-            currentPhotoIndex - 1 +
+            currentPhotoIndex -
+            1 +
             currentPhotos.length
         ) %
         currentPhotos.length;
@@ -4238,7 +4742,9 @@ function goPhoto(index){
         index < 0 ||
         index >= currentPhotos.length
     ){
+
         return;
+
     }
 
 
@@ -4252,61 +4758,69 @@ function goPhoto(index){
 
 
 /* =========================================================
-   MODAL TOUCH SWIPE
+   TOUCH SWIPE
 ========================================================= */
 
 let touchStartX = 0;
 
 
-$("modalMainImage").addEventListener(
-    "touchstart",
-    event => {
+$("modalMainImage")
+    .addEventListener(
+        "touchstart",
+        event => {
 
-        touchStartX =
-            event.changedTouches[0].screenX;
+            touchStartX =
+                event.changedTouches[0]
+                    .screenX;
 
-    },
-    {
-        passive:true
-    }
-);
-
-
-$("modalMainImage").addEventListener(
-    "touchend",
-    event => {
-
-        const touchEndX =
-            event.changedTouches[0].screenX;
-
-
-        const difference =
-            touchStartX -
-            touchEndX;
-
-
-        if(
-            Math.abs(difference) < 45
-        ){
-            return;
+        },
+        {
+            passive:true
         }
+    );
 
 
-        if(difference > 0){
+$("modalMainImage")
+    .addEventListener(
+        "touchend",
+        event => {
 
-            nextPhoto();
+            const touchEndX =
+                event.changedTouches[0]
+                    .screenX;
 
-        }else{
 
-            previousPhoto();
+            const difference =
+                touchStartX -
+                touchEndX;
 
+
+            if(
+                Math.abs(difference) < 45
+            ){
+
+                return;
+
+            }
+
+
+            if(
+                difference > 0
+            ){
+
+                nextPhoto();
+
+            }else{
+
+                previousPhoto();
+
+            }
+
+        },
+        {
+            passive:true
         }
-
-    },
-    {
-        passive:true
-    }
-);
+    );
 
 
 /* =========================================================
@@ -4351,9 +4865,7 @@ function toggleWeekend(id){
 
     updateWeekendCounts();
 
-
     renderWeekendDashboard();
-
 
     updateSaveButton(
         normalId
@@ -4362,8 +4874,9 @@ function toggleWeekend(id){
 
     if(
         currentProperty &&
-        normaliseId(currentProperty.id) ===
-        normalId
+        normaliseId(
+            currentProperty.id
+        ) === normalId
     ){
 
         updateModalWeekendButton();
@@ -4414,7 +4927,9 @@ function updateWeekendCounts(){
         weekendIds.length;
 
 
-    if($("weekendCountHeader")){
+    if(
+        $("weekendCountHeader")
+    ){
 
         $("weekendCountHeader")
             .textContent =
@@ -4423,7 +4938,9 @@ function updateWeekendCounts(){
     }
 
 
-    if($("weekendCountFloating")){
+    if(
+        $("weekendCountFloating")
+    ){
 
         $("weekendCountFloating")
             .textContent =
@@ -4432,7 +4949,9 @@ function updateWeekendCounts(){
     }
 
 
-    if($("weekendCountHero")){
+    if(
+        $("weekendCountHero")
+    ){
 
         $("weekendCountHero")
             .textContent =
@@ -4441,7 +4960,9 @@ function updateWeekendCounts(){
     }
 
 
-    if($("weekendSummaryCount")){
+    if(
+        $("weekendSummaryCount")
+    ){
 
         $("weekendSummaryCount")
             .textContent =
@@ -4465,27 +4986,32 @@ function getSelectedWeekend(){
 
                 return homes.find(
                     h =>
-                        normaliseId(h.id) ===
-                        id
+                        normaliseId(
+                            h.id
+                        ) === id
                 );
 
             }
         )
         .filter(Boolean)
         .sort(
-            (a,b) => {
+            (a,b)=>{
 
                 const aTime =
                     a.dt
-                        ? a.dt.getTime()
-                        : Infinity;
+                        ?
+                        a.dt.getTime()
+                        :
+                        Infinity;
 
                 const bTime =
                     b.dt
-                        ? b.dt.getTime()
-                        : Infinity;
+                        ?
+                        b.dt.getTime()
+                        :
+                        Infinity;
 
-                return aTime - bTime;
+                return aTime-bTime;
 
             }
         );
@@ -4583,8 +5109,12 @@ function renderWeekendDashboard(){
 
 function updateModalWeekendButton(){
 
-    if(!currentProperty){
+    if(
+        !currentProperty
+    ){
+
         return;
+
     }
 
 
@@ -4605,8 +5135,10 @@ function updateModalWeekendButton(){
 
     button.textContent =
         saved
-            ? "✓ Saved To My Weekend"
-            : "+ Add To My Weekend";
+            ?
+            "✓ Saved To My Weekend"
+            :
+            "+ Add To My Weekend";
 
 
     button.classList.toggle(
@@ -4619,8 +5151,12 @@ function updateModalWeekendButton(){
 
 function toggleCurrentWeekend(){
 
-    if(!currentProperty){
+    if(
+        !currentProperty
+    ){
+
         return;
+
     }
 
 
@@ -4639,12 +5175,6 @@ function toggleCurrentWeekend(){
 ========================================================= */
 
 function openWeekend(){
-
-    /*
-       ALWAYS rebuild the drawer before opening it.
-       This fixes the issue where the drawer opened
-       with stale/empty content.
-    */
 
     renderWeekend();
 
@@ -4687,11 +5217,6 @@ function closeWeekend(){
         "open"
     );
 
-
-    /*
-       Only restore scrolling if the property modal
-       isn't also open.
-    */
 
     if(
         !$("propertyModal")
@@ -4748,13 +5273,13 @@ function renderWeekend(){
     container.innerHTML =
         selected
             .map(
-                (h,index) =>
+                (h,index)=>
                     `
 
                     <div class="drawer-item">
 
                         <div class="drawer-number">
-                            ${index + 1}
+                            ${index+1}
                         </div>
 
 
@@ -4825,15 +5350,11 @@ function removeWeekendProperty(id){
 
     saveWeekendIds();
 
-
     updateWeekendCounts();
-
 
     renderWeekend();
 
-
     renderWeekendDashboard();
-
 
     updateSaveButton(
         normalId
@@ -4842,8 +5363,9 @@ function removeWeekendProperty(id){
 
     if(
         currentProperty &&
-        normaliseId(currentProperty.id) ===
-        normalId
+        normaliseId(
+            currentProperty.id
+        ) === normalId
     ){
 
         updateModalWeekendButton();
@@ -4880,13 +5402,19 @@ function mapsUrl(h){
 
 function openCurrentDirections(){
 
-    if(!currentProperty){
+    if(
+        !currentProperty
+    ){
+
         return;
+
     }
 
 
     window.open(
-        mapsUrl(currentProperty),
+        mapsUrl(
+            currentProperty
+        ),
         "_blank"
     );
 
@@ -4899,7 +5427,9 @@ function openCurrentListing(){
         !currentProperty ||
         !currentProperty.listing
     ){
+
         return;
+
     }
 
 
@@ -4947,14 +5477,16 @@ function openRoute(){
             "&destination=" +
             encodeURIComponent(
                 locations[
-                    locations.length - 1
+                    locations.length-1
                 ]
             );
 
     }
 
 
-    if(locations.length > 1){
+    if(
+        locations.length > 1
+    ){
 
         url +=
             "&waypoints=" +
@@ -4994,29 +5526,33 @@ function renderAgents(){
         new Map();
 
 
-    homes.forEach(h => {
+    homes.forEach(
+        h => {
 
-        if(!h.agent){
-            return;
+            if(!h.agent){
+                return;
+            }
+
+
+            const key =
+                String(h.agent)
+                    .trim()
+                    .toLowerCase();
+
+
+            if(
+                !agentMap.has(key)
+            ){
+
+                agentMap.set(
+                    key,
+                    h
+                );
+
+            }
+
         }
-
-
-        const key =
-            String(h.agent)
-                .trim()
-                .toLowerCase();
-
-
-        if(!agentMap.has(key)){
-
-            agentMap.set(
-                key,
-                h
-            );
-
-        }
-
-    });
+    );
 
 
     const agents =
@@ -5123,17 +5659,18 @@ function renderAgents(){
    SEARCH
 ========================================================= */
 
-$("searchInput").addEventListener(
-    "input",
-    event => {
+$("searchInput")
+    .addEventListener(
+        "input",
+        event => {
 
-        searchText =
-            event.target.value || "";
+            searchText =
+                event.target.value || "";
 
-        render();
+            render();
 
-    }
-);
+        }
+    );
 
 
 /* =========================================================
@@ -5141,98 +5678,110 @@ $("searchInput").addEventListener(
 ========================================================= */
 
 document
-    .querySelectorAll(".filter-btn")
-    .forEach(button => {
+    .querySelectorAll(
+        ".filter-btn"
+    )
+    .forEach(
+        button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                document
-                    .querySelectorAll(".filter-btn")
-                    .forEach(
-                        b =>
-                            b.classList.remove(
-                                "active"
-                            )
+                    document
+                        .querySelectorAll(
+                            ".filter-btn"
+                        )
+                        .forEach(
+                            b =>
+                                b.classList.remove(
+                                    "active"
+                                )
+                        );
+
+
+                    button.classList.add(
+                        "active"
                     );
 
 
-                button.classList.add(
-                    "active"
-                );
+                    filter =
+                        button.dataset.filter ||
+                        "all";
 
 
-                filter =
-                    button.dataset.filter ||
-                    "all";
+                    render();
 
+                }
+            );
 
-                render();
-
-            }
-        );
-
-    });
+        }
+    );
 
 
 /* =========================================================
    MODAL CLICK OUTSIDE
 ========================================================= */
 
-$("propertyModal").addEventListener(
-    "click",
-    event => {
+$("propertyModal")
+    .addEventListener(
+        "click",
+        event => {
 
-        if(
-            event.target ===
-            $("propertyModal")
-        ){
+            if(
+                event.target ===
+                $("propertyModal")
+            ){
 
-            closeProperty();
+                closeProperty();
+
+            }
 
         }
-
-    }
-);
+    );
 
 
 /* =========================================================
-   ESCAPE KEY
+   ESCAPE
 ========================================================= */
 
-document.addEventListener(
-    "keydown",
-    event => {
+document
+    .addEventListener(
+        "keydown",
+        event => {
 
-        if(event.key !== "Escape"){
-            return;
+            if(
+                event.key !== "Escape"
+            ){
+
+                return;
+
+            }
+
+
+            if(
+                $("propertyModal")
+                    .classList
+                    .contains("open")
+            ){
+
+                closeProperty();
+
+            }
+
+
+            if(
+                $("weekendDrawer")
+                    .classList
+                    .contains("open")
+            ){
+
+                closeWeekend();
+
+            }
+
         }
-
-
-        if(
-            $("propertyModal")
-                .classList
-                .contains("open")
-        ){
-
-            closeProperty();
-
-        }
-
-
-        if(
-            $("weekendDrawer")
-                .classList
-                .contains("open")
-        ){
-
-            closeWeekend();
-
-        }
-
-    }
-);
+    );
 
 
 /* =========================================================
@@ -5285,9 +5834,12 @@ async function load(){
         let rows = [];
 
 
-        if(Array.isArray(data)){
+        if(
+            Array.isArray(data)
+        ){
 
-            rows = data;
+            rows =
+                data;
 
         }else if(
             data &&
@@ -5319,7 +5871,7 @@ async function load(){
         homes =
             rows
                 .map(
-                    (row,index) =>
+                    (row,index)=>
                         normalise(
                             row,
                             index
@@ -5333,9 +5885,8 @@ async function load(){
 
 
         /*
-           Remove old saved IDs that no longer exist.
-           This prevents old properties from breaking
-           the My Weekend interface.
+           Remove saved properties which no longer
+           exist in the Google Sheet.
         */
 
         const validIds =
@@ -5365,15 +5916,17 @@ async function load(){
 
 
         /*
-           Warm the GitHub image index in the background.
-           The page doesn't have to wait for it.
+           Build photography index in the background.
+
+           This does NOT block the property data
+           from appearing.
         */
 
         buildGithubImageIndex()
             .catch(
                 error =>
                     console.warn(
-                        "Photo index warm-up failed:",
+                        "YPA: Photo index warm-up failed:",
                         error
                     )
             );
@@ -5412,16 +5965,18 @@ async function load(){
    INITIALISE
 ========================================================= */
 
-$("weekendDate").textContent =
-    new Date().toLocaleDateString(
-        "en-AU",
-        {
-            weekday:"long",
-            day:"numeric",
-            month:"long",
-            year:"numeric"
-        }
-    );
+$("weekendDate")
+    .textContent =
+    new Date()
+        .toLocaleDateString(
+            "en-AU",
+            {
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+            }
+        );
 
 
 updateWeekendCounts();
@@ -5438,7 +5993,7 @@ setInterval(
     load,
     300000
 );
-    
+
 </script>
 
 </body>
