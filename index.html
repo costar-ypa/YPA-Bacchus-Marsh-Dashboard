@@ -3597,26 +3597,7 @@ function propertyCardHTML(h){
 
 function render(){
 
-    /*
-       Clear old carousel timers.
-    */
-
-    Object.keys(cardCarousels)
-        .forEach(id => {
-
-            if(cardCarousels[id].timer){
-
-                clearInterval(
-                    cardCarousels[id].timer
-                );
-
-            }
-
-        });
-
-
-    cardCarousels = {};
-
+  
 
     homes.sort(
         (a,b) => {
@@ -3754,8 +3735,6 @@ function updateCounts(){
 
 async function initialiseCardCarousel(h){
 
-   async function initialiseCardCarousel(h){
-
     const id = normaliseId(h.id);
 
     cardCarousels[id] = {
@@ -3797,48 +3776,26 @@ let masterCarouselTimer = null;
 
 function startMasterCarousel(){
 
-    if(masterCarouselTimer){
-        clearInterval(masterCarouselTimer);
-        masterCarouselTimer = null;
-    }
+  /* =========================================================
+   INITIALISE PROPERTY CAROUSELS
+========================================================= */
 
-    masterCarouselTimer = setInterval(() => {
-
-        Object.keys(cardCarousels).forEach(id => {
-
-            const carousel = cardCarousels[id];
-
-            if(
-                !carousel ||
-                !carousel.photos ||
-                carousel.photos.length <= 1
-            ){
-                return;
-            }
-
-            carousel.index =
-                (
-                    (carousel.index || 0) + 1
-                ) %
-                carousel.photos.length;
-
-            const property =
-                homes.find(
-                    h =>
-                        normaliseId(h.id) ===
-                        normaliseId(id)
-                );
-
-            if(property){
-                updateCardCarousel(property);
-            }
-
-        });
-
-    }, 3500);
+if(masterCarouselTimer){
+    clearInterval(masterCarouselTimer);
+    masterCarouselTimer = null;
 }
 
+visible.forEach(h => {
+    initialiseCardCarousel(h);
+});
 
+/*
+   Start the single carousel clock immediately.
+   Individual cards will begin rotating once their
+   photos have finished loading.
+*/
+
+startMasterCarousel();
 /* =========================================================
    PREVIOUS / NEXT PHOTO
 ========================================================= */
