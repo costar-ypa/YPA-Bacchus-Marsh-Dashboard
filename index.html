@@ -1,2847 +1,2131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#061426">
+<title>The Weekend Property Guide | YPA Bacchus Marsh</title>
 
-<title>The Property Edit | Costa Rodriguez | YPA Bacchus Marsh</title>
+<meta name="description" content="The Weekend Property Guide from YPA Bacchus Marsh. Explore this weekend's inspections, properties and local opportunities.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
-  rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
-/* =========================================================
-   COSTA RODRIGUEZ
-   YPA BACCHUS MARSH
-   THE PROPERTY EDIT
-   PREMIUM NAVY EDITION
-   ========================================================= */
-
 :root{
+    --navy-950:#030914;
+    --navy-900:#06111F;
+    --navy-850:#081628;
+    --navy-800:#0A1930;
+    --navy-750:#0D2039;
+    --navy-700:#112945;
 
-  --navy-950:#040B14;
-  --navy-900:#06111F;
-  --navy-850:#081628;
-  --navy-800:#0A1930;
-  --navy-750:#0D2039;
-  --navy-700:#112945;
+    --gold:#D4AF62;
+    --gold-light:#E4C985;
 
-  --gold:#D4AF62;
-  --gold-light:#E4C985;
+    --white:#F8FAFC;
+    --text:#E8EDF3;
+    --muted:#8D9CAF;
+    --muted-light:#B8C2CE;
 
-  --white:#F8FAFC;
-  --text:#E8EDF3;
-  --muted:#8D9CAF;
-  --muted-light:#B8C2CE;
+    --border:rgba(255,255,255,.09);
+    --border-light:rgba(255,255,255,.15);
 
-  --border:rgba(255,255,255,.09);
-  --border-light:rgba(255,255,255,.14);
+    --shadow:0 25px 70px rgba(0,0,0,.30);
 
-  --shadow:0 20px 55px rgba(0,0,0,.28);
-
-  --radius:14px;
-
+    --radius:18px;
+    --max:1480px;
 }
 
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-
-  margin:0;
-
-  background:
-    radial-gradient(
-      circle at 85% 0%,
-      rgba(30,65,105,.18),
-      transparent 35%
-    ),
-    var(--navy-950);
-
-  color:var(--text);
-
-  font-family:
-    "Montserrat",
-    Arial,
-    sans-serif;
-
-  -webkit-font-smoothing:antialiased;
-
+    background:var(--navy-950);
+    color:var(--text);
+    font-family:"DM Sans",sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
 }
 
 button,
 input{
-  font:inherit;
+    font:inherit;
 }
 
 button{
-  cursor:pointer;
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
 }
 
 img{
-  max-width:100%;
+    display:block;
+    max-width:100%;
 }
 
+.container{
+    width:min(var(--max), calc(100% - 48px));
+    margin:auto;
+}
 
 /* =========================================================
-   TOP NAVIGATION
-   ========================================================= */
+   HEADER
+========================================================= */
 
-.top{
-
-  min-height:76px;
-
-  padding:
-    0
-    clamp(20px,5vw,70px);
-
-  background:
-    rgba(4,11,20,.96);
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  border-bottom:
-    1px solid
-    rgba(212,175,98,.35);
-
-  position:sticky;
-
-  top:0;
-
-  z-index:100;
-
-  backdrop-filter:blur(15px);
-
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(3,9,20,.90);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
 }
 
-.logo{
-
-  color:#fff;
-
-  font-size:32px;
-
-  font-weight:800;
-
-  letter-spacing:-.09em;
-
+.header-inner{
+    height:82px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
 }
 
-.logo span{
-  color:var(--gold);
+.brand{
+    display:flex;
+    align-items:center;
+    gap:16px;
 }
 
-.topright{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:30px;
-
+.ypa-logo{
+    font-family:Montserrat,sans-serif;
+    font-size:34px;
+    font-weight:800;
+    letter-spacing:-3px;
+    color:#fff;
 }
 
-.toplink{
-
-  color:var(--muted-light);
-
-  text-decoration:none;
-
-  font-size:9px;
-
-  font-weight:800;
-
-  letter-spacing:.18em;
-
-  text-transform:uppercase;
-
-  transition:.2s ease;
-
+.brand-divider{
+    width:1px;
+    height:30px;
+    background:var(--border-light);
 }
 
-.toplink:hover{
-  color:var(--gold);
+.brand-title{
+    font-family:Montserrat,sans-serif;
+    font-size:11px;
+    line-height:1.35;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--muted-light);
 }
 
-
-/* =========================================================
-   GLOBAL WRAPPER
-   ========================================================= */
-
-.wrap{
-
-  max-width:1380px;
-
-  margin:auto;
-
-  padding:
-    0
-    clamp(20px,4vw,42px);
-
+.header-nav{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
+.header-nav a{
+    padding:11px 15px;
+    border-radius:9px;
+    color:var(--muted-light);
+    font-size:13px;
+    font-weight:600;
+    transition:.2s ease;
+}
+
+.header-nav a:hover{
+    background:rgba(255,255,255,.05);
+    color:#fff;
+}
+
+.header-weekend{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    border:1px solid var(--border-light);
+    background:rgba(255,255,255,.04);
+    color:#fff;
+    padding:11px 15px;
+    border-radius:9px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.3px;
+}
+
+.weekend-count{
+    min-width:21px;
+    height:21px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:var(--gold);
+    color:var(--navy-950);
+    font-size:10px;
+}
 
 /* =========================================================
    HERO
-   ========================================================= */
+========================================================= */
 
-.masthead{
-
-  position:relative;
-
-  overflow:hidden;
-
-  padding:
-    clamp(65px,9vw,120px)
-    0
-    clamp(55px,7vw,90px);
-
-  background:
-
-    linear-gradient(
-      115deg,
-      #06111F 0%,
-      #0A1B32 50%,
-      #071322 100%
-    );
-
-  border-bottom:
-    1px solid
-    var(--border);
-
+.hero{
+    position:relative;
+    min-height:650px;
+    display:flex;
+    align-items:flex-end;
+    overflow:hidden;
+    border-bottom:1px solid var(--border);
+    background:
+        radial-gradient(circle at 80% 15%, rgba(212,175,98,.11), transparent 28%),
+        linear-gradient(145deg,#06111F 0%,#030914 65%);
 }
 
-.masthead:after{
-
-  content:"";
-
-  position:absolute;
-
-  width:500px;
-  height:500px;
-
-  border-radius:50%;
-
-  background:
-    rgba(212,175,98,.035);
-
-  right:-220px;
-
-  top:-260px;
-
-  pointer-events:none;
-
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(90deg,rgba(3,9,20,.95) 0%,rgba(3,9,20,.72) 42%,rgba(3,9,20,.28) 100%),
+        linear-gradient(0deg,rgba(3,9,20,.85) 0%,transparent 50%);
+    pointer-events:none;
 }
 
-.kicker{
-
-  color:var(--gold);
-
-  font-size:9px;
-
-  font-weight:800;
-
-  letter-spacing:.22em;
-
-  text-transform:uppercase;
-
+.hero-pattern{
+    position:absolute;
+    right:-100px;
+    top:-120px;
+    width:700px;
+    height:700px;
+    border:1px solid rgba(212,175,98,.10);
+    border-radius:50%;
 }
 
-.title{
-
-  color:var(--white);
-
-  font-size:
-    clamp(52px,8vw,108px);
-
-  line-height:.84;
-
-  letter-spacing:-.075em;
-
-  font-weight:800;
-
-  margin:
-    20px 0
-    28px;
-
+.hero-pattern::after{
+    content:"";
+    position:absolute;
+    inset:80px;
+    border:1px solid rgba(212,175,98,.07);
+    border-radius:50%;
 }
 
-.title .gold{
-  color:var(--gold);
+.hero-content{
+    position:relative;
+    z-index:2;
+    padding:110px 0 75px;
+    width:min(900px,100%);
 }
 
-.subtitle{
-
-  max-width:690px;
-
-  color:var(--muted-light);
-
-  font-size:13px;
-
-  line-height:1.9;
-
-  margin:0;
-
+.hero-kicker{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:27px;
+    color:var(--gold-light);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
 }
 
+.hero-kicker::before{
+    content:"";
+    width:38px;
+    height:1px;
+    background:var(--gold);
+}
+
+.hero h1{
+    font-family:Montserrat,sans-serif;
+    font-size:clamp(48px,7vw,100px);
+    line-height:.92;
+    letter-spacing:-5px;
+    text-transform:uppercase;
+    font-weight:800;
+    max-width:950px;
+}
+
+.hero h1 span{
+    display:block;
+    color:var(--gold-light);
+}
+
+.hero-subtitle{
+    margin-top:30px;
+    max-width:690px;
+    font-size:18px;
+    line-height:1.7;
+    color:var(--muted-light);
+}
+
+.hero-stats{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1px;
+    margin-top:55px;
+    border:1px solid var(--border);
+    width:max-content;
+    max-width:100%;
+    background:var(--border);
+}
+
+.hero-stat{
+    min-width:150px;
+    padding:18px 25px;
+    background:rgba(6,17,31,.88);
+}
+
+.hero-stat strong{
+    display:block;
+    font-family:Montserrat,sans-serif;
+    font-size:25px;
+    font-weight:700;
+    color:#fff;
+}
+
+.hero-stat span{
+    display:block;
+    margin-top:3px;
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--muted);
+}
 
 /* =========================================================
-   STATS
-   ========================================================= */
+   SECTION
+========================================================= */
 
-.stats{
-
-  display:flex;
-
-  gap:0;
-
-  margin-top:48px;
-
-  flex-wrap:wrap;
-
+.section{
+    padding:95px 0;
 }
 
-.stat{
-
-  min-width:155px;
-
-  padding:
-    0
-    35px
-    0
-    0;
-
-  margin-right:35px;
-
-  border-right:
-    1px solid
-    var(--border);
-
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:30px;
+    margin-bottom:42px;
 }
 
-.stat:last-child{
-
-  border-right:0;
-
+.section-kicker{
+    color:var(--gold);
+    font-size:11px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    font-weight:700;
+    margin-bottom:10px;
 }
 
-.stat b{
-
-  color:var(--white);
-
-  font-size:32px;
-
-  font-weight:800;
-
-  letter-spacing:-.04em;
-
+.section-title{
+    font-family:Montserrat,sans-serif;
+    font-size:clamp(30px,4vw,52px);
+    letter-spacing:-2px;
+    line-height:1;
+    color:#fff;
 }
 
-.stat small{
-
-  display:block;
-
-  color:var(--muted);
-
-  margin-top:7px;
-
-  font-size:8px;
-
-  font-weight:800;
-
-  letter-spacing:.14em;
-
-  text-transform:uppercase;
-
+.section-copy{
+    max-width:530px;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
 }
-
 
 /* =========================================================
-   COSTA'S WEEKEND
-   ========================================================= */
+   WEEKEND PLANNER
+========================================================= */
 
 .weekend-section{
-
-  margin:
-    38px
-    0
-    10px;
-
-  padding:30px;
-
-  background:
-
-    linear-gradient(
-      135deg,
-      #0C213B,
-      #081629
-    );
-
-  border:
-    1px solid
-    rgba(212,175,98,.20);
-
-  border-radius:var(--radius);
-
-  box-shadow:var(--shadow);
-
-  position:relative;
-
-  overflow:hidden;
-
+    background:
+        linear-gradient(180deg,#071321 0%,#06111F 100%);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
 }
 
-.weekend-section:before{
-
-  content:"";
-
-  position:absolute;
-
-  width:360px;
-
-  height:360px;
-
-  border-radius:50%;
-
-  right:-180px;
-
-  top:-220px;
-
-  background:
-    rgba(212,175,98,.035);
-
-}
-
-.weekend-head{
-
-  display:flex;
-
-  align-items:flex-end;
-
-  justify-content:space-between;
-
-  gap:20px;
-
-  margin-bottom:26px;
-
-  position:relative;
-
+.weekend-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:30px;
+    margin-bottom:35px;
 }
 
 .weekend-title{
-
-  margin:7px 0 0;
-
-  font-size:34px;
-
-  line-height:.95;
-
-  letter-spacing:-.055em;
-
-  font-weight:800;
-
-  color:var(--white);
-
-}
-
-.weekend-title span{
-  color:var(--gold);
+    font-family:Montserrat,sans-serif;
+    font-size:clamp(38px,5vw,68px);
+    letter-spacing:-3px;
+    text-transform:uppercase;
+    line-height:.95;
 }
 
 .weekend-date{
+    color:var(--gold-light);
+    font-size:13px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-top:13px;
+}
 
-  color:var(--muted);
+.weekend-summary{
+    text-align:right;
+    color:var(--muted);
+    font-size:13px;
+}
 
-  font-size:9px;
+.weekend-summary strong{
+    color:#fff;
+    font-size:30px;
+    display:block;
+}
 
-  font-weight:700;
-
-  letter-spacing:.12em;
-
-  text-transform:uppercase;
-
+.weekend-dashboard{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
 }
 
 .weekend-empty{
-
-  padding:25px;
-
-  border:
-    1px dashed
-    var(--border-light);
-
-  color:var(--muted);
-
-  font-size:11px;
-
-  line-height:1.7;
-
+    grid-column:1/-1;
+    padding:55px;
+    text-align:center;
+    background:var(--navy-900);
 }
 
 .weekend-empty strong{
-  color:var(--white);
+    display:block;
+    color:#fff;
+    font-family:Montserrat,sans-serif;
+    font-size:22px;
+    margin-bottom:8px;
 }
 
-
-/* WEEKEND STATS */
-
-.weekend-stats{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  gap:10px;
-
-  margin-bottom:20px;
-
-}
-
-.weekend-stat{
-
-  background:
-    rgba(255,255,255,.035);
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:10px;
-
-  padding:17px;
-
-}
-
-.weekend-stat-number{
-
-  color:var(--gold);
-
-  font-size:25px;
-
-  font-weight:800;
-
-  letter-spacing:-.04em;
-
-}
-
-.weekend-stat-label{
-
-  margin-top:5px;
-
-  color:var(--muted);
-
-  font-size:8px;
-
-  font-weight:800;
-
-  letter-spacing:.12em;
-
-  text-transform:uppercase;
-
-}
-
-
-/* WEEKEND LIST */
-
-.weekend-list{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:8px;
-
+.weekend-empty span{
+    color:var(--muted);
+    font-size:14px;
 }
 
 .weekend-item{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:15px;
-
-  padding:15px;
-
-  background:
-    rgba(255,255,255,.035);
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:10px;
-
+    background:var(--navy-900);
+    padding:25px;
+    min-height:165px;
 }
 
 .weekend-time{
+    color:var(--gold);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:15px;
+}
 
-  min-width:76px;
-
-  color:var(--gold);
-
-  font-size:10px;
-
-  font-weight:800;
-
+.weekend-suburb{
+    color:var(--muted);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
 }
 
 .weekend-address{
-
-  flex:1;
-
+    margin-top:5px;
+    color:#fff;
+    font-family:Montserrat,sans-serif;
+    font-size:16px;
+    font-weight:700;
 }
 
-.weekend-address strong{
-
-  display:block;
-
-  color:var(--white);
-
-  font-size:12px;
-
-  font-weight:700;
-
+.weekend-remove{
+    margin-top:17px;
+    background:none;
+    border:0;
+    color:var(--muted);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
 }
 
-.weekend-address small{
-
-  display:block;
-
-  color:var(--muted);
-
-  margin-top:4px;
-
-  font-size:8px;
-
-  font-weight:700;
-
-  letter-spacing:.08em;
-
-  text-transform:uppercase;
-
+.weekend-remove:hover{
+    color:#fff;
 }
-
-.weekend-directions{
-
-  min-height:34px;
-
-  padding:
-    0
-    11px;
-
-  border:
-    1px solid
-    var(--border-light);
-
-  border-radius:5px;
-
-  background:transparent;
-
-  color:var(--muted-light);
-
-  font-size:8px;
-
-  font-weight:800;
-
-  letter-spacing:.08em;
-
-  text-transform:uppercase;
-
-}
-
-.weekend-directions:hover{
-
-  color:var(--gold);
-
-  border-color:var(--gold);
-
-}
-
-
-/* WEEKEND FOOTER */
-
-.weekend-footer{
-
-  margin-top:18px;
-
-  display:flex;
-
-  justify-content:flex-end;
-
-}
-
-.route-btn{
-
-  min-height:43px;
-
-  padding:0 18px;
-
-  border:0;
-
-  border-radius:5px;
-
-  background:var(--gold);
-
-  color:#07111D;
-
-  font-size:8px;
-
-  font-weight:800;
-
-  letter-spacing:.1em;
-
-  text-transform:uppercase;
-
-}
-
 
 /* =========================================================
    TOOLBAR
-   ========================================================= */
+========================================================= */
+
+.property-section{
+    background:var(--navy-950);
+}
 
 .toolbar{
-
-  padding:
-    32px
-    0
-    22px;
-
-  display:flex;
-
-  gap:8px;
-
-  flex-wrap:wrap;
-
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:32px;
 }
 
-.search{
-
-  flex:1;
-
-  min-width:240px;
-
-  height:47px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:5px;
-
-  background:
-    rgba(255,255,255,.035);
-
-  padding:
-    0
-    16px;
-
-  outline:none;
-
-  color:var(--white);
-
-  font-size:11px;
-
+.search-wrap{
+    position:relative;
+    flex:1;
+    max-width:460px;
 }
 
-.search::placeholder{
-  color:#6F7D8F;
+.search-wrap input{
+    width:100%;
+    height:49px;
+    padding:0 17px 0 46px;
+    border:1px solid var(--border-light);
+    background:rgba(255,255,255,.035);
+    color:#fff;
+    outline:none;
+    border-radius:9px;
+    font-size:13px;
 }
 
-.search:focus{
-
-  border-color:
-    rgba(212,175,98,.55);
-
-  background:
-    rgba(255,255,255,.05);
-
+.search-wrap input::placeholder{
+    color:#697789;
 }
 
-.filter,
-.bluebtn,
-.yellowbtn{
-
-  min-height:43px;
-
-  padding:
-    0
-    16px;
-
-  border-radius:5px;
-
-  font-size:8px;
-
-  font-weight:800;
-
-  letter-spacing:.09em;
-
-  text-transform:uppercase;
-
+.search-wrap input:focus{
+    border-color:rgba(212,175,98,.5);
 }
 
-.filter{
-
-  background:
-    rgba(255,255,255,.035);
-
-  color:var(--muted-light);
-
-  border:
-    1px solid
-    var(--border);
-
+.search-icon{
+    position:absolute;
+    left:17px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--muted);
+    font-size:15px;
 }
 
-.filter:hover{
-
-  border-color:
-    var(--gold);
-
-  color:var(--gold);
-
+.filters{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
 }
 
-.filter.active{
-
-  background:var(--gold);
-
-  color:#07111D;
-
-  border-color:var(--gold);
-
+.filter-btn{
+    border:1px solid var(--border);
+    background:transparent;
+    color:var(--muted);
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.7px;
 }
 
-.bluebtn{
-
-  background:var(--navy-700);
-
-  color:var(--white);
-
-  border:
-    1px solid
-    var(--border-light);
-
+.filter-btn:hover{
+    border-color:var(--border-light);
+    color:#fff;
 }
 
-.bluebtn:hover{
-
-  background:var(--navy-600);
-
-  border-color:
-    rgba(212,175,98,.45);
-
+.filter-btn.active{
+    background:#fff;
+    border-color:#fff;
+    color:var(--navy-950);
 }
-
-.yellowbtn{
-
-  background:var(--gold);
-
-  color:#07111D;
-
-  border:
-    1px solid
-    var(--gold);
-
-}
-
 
 /* =========================================================
    PROPERTY GRID
-   ========================================================= */
+========================================================= */
 
-.grid{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:20px;
-
-  padding-bottom:80px;
-
+.property-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
 }
 
-
-/* =========================================================
-   PROPERTY CARD
-   ========================================================= */
-
-.card{
-
-  background:
-    linear-gradient(
-      145deg,
-      #0B1C32,
-      #081526
-    );
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:var(--radius);
-
-  box-shadow:
-    0 15px 45px
-    rgba(0,0,0,.20);
-
-  overflow:hidden;
-
-  transition:
-    transform .3s ease,
-    box-shadow .3s ease,
-    border-color .3s ease;
-
+.property-card{
+    min-width:0;
+    background:var(--navy-900);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
 }
 
-.card:hover{
-
-  transform:
-    translateY(-5px);
-
-  box-shadow:
-    0 25px 65px
-    rgba(0,0,0,.34);
-
-  border-color:
-    rgba(212,175,98,.22);
-
+.property-card:hover{
+    transform:translateY(-5px);
+    border-color:var(--border-light);
+    box-shadow:var(--shadow);
 }
 
-
-/* =========================================================
-   AUTOMATIC CARD CAROUSEL
-   ========================================================= */
-
-.cardphoto{
-
-  height:310px;
-
-  position:relative;
-
-  background:#071321;
-
-  overflow:hidden;
-
-  cursor:pointer;
-
+.card-photo{
+    position:relative;
+    aspect-ratio:1.28/1;
+    overflow:hidden;
+    background:var(--navy-800);
 }
 
-.cardphoto img{
-
-  width:100%;
-
-  height:100%;
-
-  object-fit:cover;
-
-  display:block;
-
-  opacity:0;
-
-  transition:
-    opacity .65s ease,
-    transform 6s ease;
-
+.card-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .7s ease;
 }
 
-.cardphoto img.loaded{
-  opacity:1;
+.property-card:hover .card-photo img{
+    transform:scale(1.035);
 }
 
-.card:hover .cardphoto img.loaded{
-
-  transform:scale(1.035);
-
+.card-photo::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,.22),transparent 30%,rgba(0,0,0,.38));
+    pointer-events:none;
 }
 
-
-/* IMAGE OVERLAY */
-
-.cardphoto:after{
-
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(4,11,20,.05) 0%,
-      transparent 42%,
-      rgba(4,11,20,.82) 100%
-    );
-
-  pointer-events:none;
-
+.card-label{
+    position:absolute;
+    top:16px;
+    left:16px;
+    z-index:2;
+    padding:8px 11px;
+    border:1px solid rgba(255,255,255,.20);
+    background:rgba(3,9,20,.72);
+    backdrop-filter:blur(12px);
+    color:#fff;
+    border-radius:6px;
+    font-size:9px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1.3px;
 }
 
-
-/* DATE LABEL */
-
-.photo-label{
-
-  position:absolute;
-
-  top:14px;
-
-  left:14px;
-
-  z-index:5;
-
-  background:var(--gold);
-
-  color:#07111D;
-
-  padding:
-    8px
-    10px;
-
-  border-radius:3px;
-
-  font-size:7px;
-
-  font-weight:800;
-
-  letter-spacing:.1em;
-
-  text-transform:uppercase;
-
+.card-count{
+    position:absolute;
+    top:16px;
+    right:16px;
+    z-index:2;
+    padding:7px 9px;
+    border-radius:5px;
+    background:rgba(3,9,20,.70);
+    color:#fff;
+    font-size:10px;
 }
 
-
-/* CAROUSEL COUNTER */
-
-.card-photo-counter{
-
-  position:absolute;
-
-  right:13px;
-
-  top:13px;
-
-  z-index:5;
-
-  background:
-    rgba(4,11,20,.72);
-
-  color:#fff;
-
-  padding:
-    7px
-    9px;
-
-  border-radius:3px;
-
-  font-size:7px;
-
-  font-weight:800;
-
-  letter-spacing:.08em;
-
+.card-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:5;
+    width:35px;
+    height:35px;
+    display:grid;
+    place-items:center;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(3,9,20,.55);
+    backdrop-filter:blur(8px);
+    color:#fff;
+    border-radius:50%;
+    opacity:0;
+    transition:.2s ease;
 }
 
+.card-photo:hover .card-arrow{
+    opacity:1;
+}
 
-/* CAROUSEL DOTS */
+.card-arrow.left{
+    left:13px;
+}
+
+.card-arrow.right{
+    right:13px;
+}
 
 .card-dots{
-
-  position:absolute;
-
-  bottom:13px;
-
-  left:50%;
-
-  transform:translateX(-50%);
-
-  display:flex;
-
-  gap:5px;
-
-  z-index:6;
-
-  max-width:80%;
-
-  overflow:hidden;
-
+    position:absolute;
+    bottom:13px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:3;
+    display:flex;
+    gap:5px;
+    max-width:75%;
+    overflow:hidden;
 }
 
 .card-dot{
-
-  width:5px;
-
-  height:5px;
-
-  flex:0 0 auto;
-
-  border-radius:50%;
-
-  background:
-    rgba(255,255,255,.45);
-
-  transition:
-    width .25s ease,
-    background .25s ease;
-
+    width:5px;
+    height:5px;
+    flex:0 0 5px;
+    border-radius:50%;
+    background:rgba(255,255,255,.5);
 }
 
 .card-dot.active{
-
-  width:16px;
-
-  border-radius:5px;
-
-  background:var(--gold);
-
+    background:#fff;
 }
 
-
-/* =========================================================
-   CARD BODY
-   ========================================================= */
-
-.cardbody{
-
-  padding:22px;
-
+.card-content{
+    padding:23px;
 }
 
-.suburb{
-
-  color:var(--gold);
-
-  font-size:8px;
-
-  font-weight:800;
-
-  letter-spacing:.16em;
-
-  text-transform:uppercase;
-
-  margin-bottom:8px;
-
+.card-suburb{
+    color:var(--gold);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-weight:700;
 }
 
-.card h3{
-
-  color:var(--white);
-
-  font-size:19px;
-
-  line-height:1.2;
-
-  font-weight:700;
-
-  letter-spacing:-.025em;
-
-  margin:0;
-
+.card-address{
+    margin-top:7px;
+    color:#fff;
+    font-family:Montserrat,sans-serif;
+    font-size:21px;
+    font-weight:700;
+    letter-spacing:-.5px;
+    line-height:1.15;
 }
 
-.price{
-
-  color:var(--gold-light);
-
-  font-size:17px;
-
-  font-weight:800;
-
-  margin:15px 0;
-
+.card-price{
+    margin-top:9px;
+    color:var(--muted-light);
+    font-size:13px;
+    font-weight:600;
 }
 
-.chips{
-
-  display:flex;
-
-  gap:14px;
-
-  flex-wrap:wrap;
-
-  color:var(--muted);
-
-  font-size:8px;
-
-  font-weight:700;
-
-  letter-spacing:.06em;
-
-  text-transform:uppercase;
-
+.card-headline{
+    margin-top:16px;
+    color:#fff;
+    font-family:Montserrat,sans-serif;
+    font-size:15px;
+    line-height:1.35;
 }
 
-.actions{
-
-  display:flex;
-
-  gap:7px;
-
-  margin-top:20px;
-
+.card-stats{
+    display:flex;
+    gap:20px;
+    margin-top:19px;
+    padding-top:17px;
+    border-top:1px solid var(--border);
 }
 
-.actions button{
-
-  flex:1;
-
+.card-stat{
+    color:var(--muted);
+    font-size:11px;
 }
 
-
-/* =========================================================
-   LOADING / EMPTY
-   ========================================================= */
-
-.loading,
-.empty{
-
-  grid-column:1/-1;
-
-  text-align:center;
-
-  padding:80px 20px;
-
-  color:var(--muted);
-
-  font-size:11px;
-
+.card-stat strong{
+    color:#fff;
+    font-size:14px;
+    margin-right:4px;
 }
 
-.loading-spinner{
-
-  width:28px;
-
-  height:28px;
-
-  border:
-    2px solid
-    var(--border);
-
-  border-top-color:
-    var(--gold);
-
-  border-radius:50%;
-
-  animation:
-    spin .8s linear infinite;
-
-  margin:
-    0
-    auto
-    18px;
-
+.card-actions{
+    display:flex;
+    gap:8px;
+    margin-top:21px;
 }
 
-@keyframes spin{
-
-  to{
-    transform:rotate(360deg);
-  }
-
+.card-main-btn{
+    flex:1;
+    border:1px solid #fff;
+    background:#fff;
+    color:var(--navy-950);
+    border-radius:7px;
+    padding:12px;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1px;
 }
 
+.card-main-btn:hover{
+    background:var(--gold-light);
+    border-color:var(--gold-light);
+}
+
+.card-save-btn{
+    width:48px;
+    border:1px solid var(--border-light);
+    background:transparent;
+    color:#fff;
+    border-radius:7px;
+    font-size:19px;
+}
+
+.card-save-btn.saved{
+    color:var(--gold-light);
+    border-color:rgba(212,175,98,.55);
+    background:rgba(212,175,98,.08);
+}
+
+.loading{
+    grid-column:1/-1;
+    min-height:300px;
+    display:grid;
+    place-items:center;
+    color:var(--muted);
+}
+
+.no-results{
+    grid-column:1/-1;
+    text-align:center;
+    padding:80px 20px;
+    border:1px solid var(--border);
+    background:var(--navy-900);
+}
+
+.no-results strong{
+    display:block;
+    color:#fff;
+    font-family:Montserrat,sans-serif;
+    font-size:24px;
+    margin-bottom:8px;
+}
 
 /* =========================================================
    EDITORIAL
-   ========================================================= */
+========================================================= */
 
 .editorial{
-
-  background:
-    #071424;
-
-  padding:
-    85px
-    0;
-
-  border-top:
-    1px solid
-    var(--border);
-
-  border-bottom:
-    1px solid
-    var(--border);
-
+    background:#06111F;
+    border-top:1px solid var(--border);
 }
 
-.editorial h2,
-.sectionhead h2{
-
-  color:var(--white);
-
-  font-size:
-    clamp(36px,5vw,58px);
-
-  line-height:1;
-
-  letter-spacing:-.06em;
-
-  font-weight:800;
-
-  margin:
-    12px
-    0
-    30px;
-
+.editorial-grid{
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+    gap:22px;
 }
 
-.storygrid{
-
-  display:grid;
-
-  grid-template-columns:
-    2fr 1fr;
-
-  gap:12px;
-
+.editorial-feature{
+    position:relative;
+    min-height:440px;
+    overflow:hidden;
+    border-radius:var(--radius);
+    background:
+        radial-gradient(circle at 80% 20%,rgba(212,175,98,.16),transparent 25%),
+        linear-gradient(135deg,#0C2037,#06111F);
+    border:1px solid var(--border);
+    padding:55px;
+    display:flex;
+    align-items:flex-end;
 }
 
-.storybox{
-
-  padding:38px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #102B49,
-      #0A1B31
-    );
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:10px;
-
+.editorial-feature::before{
+    content:"YPA";
+    position:absolute;
+    right:-15px;
+    top:-40px;
+    font-family:Montserrat,sans-serif;
+    font-weight:800;
+    font-size:230px;
+    line-height:1;
+    color:rgba(255,255,255,.025);
 }
 
-.storybox:last-child{
-
-  background:
-    linear-gradient(
-      135deg,
-      #0C2038,
-      #081426
-    );
-
-  border-top:
-    3px solid
-    var(--gold);
-
+.editorial-feature-content{
+    position:relative;
+    z-index:2;
 }
 
-.storybox h3{
-
-  color:var(--white);
-
-  font-size:29px;
-
-  line-height:1.05;
-
-  letter-spacing:-.04em;
-
-  font-weight:800;
-
-  margin:
-    0
-    0
-    15px;
-
+.editorial-feature h3{
+    max-width:650px;
+    font-family:Montserrat,sans-serif;
+    font-size:clamp(34px,5vw,62px);
+    line-height:.98;
+    letter-spacing:-3px;
+    color:#fff;
 }
 
-.storybox p{
-
-  color:var(--muted-light);
-
-  font-size:11px;
-
-  line-height:1.8;
-
+.editorial-feature p{
+    max-width:600px;
+    margin-top:20px;
+    color:var(--muted-light);
+    font-size:15px;
+    line-height:1.7;
 }
 
+.editorial-small{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:35px;
+    min-height:209px;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    background:var(--navy-900);
+}
+
+.editorial-small+.editorial-small{
+    margin-top:22px;
+}
+
+.editorial-small h4{
+    font-family:Montserrat,sans-serif;
+    font-size:25px;
+    letter-spacing:-1px;
+    color:#fff;
+}
+
+.editorial-small p{
+    margin-top:12px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.editorial-link{
+    margin-top:20px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--gold-light);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-weight:800;
+}
+
+.editorial-link:hover{
+    color:#fff;
+}
 
 /* =========================================================
-   AGENTS
-   ========================================================= */
+   PEOPLE
+========================================================= */
 
-#agents{
-
-  padding-top:70px;
-
+.people{
+    background:var(--navy-950);
 }
 
-.agentgrid{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:12px;
-
-  padding-bottom:80px;
-
+.agents{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
 }
 
 .agent{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:15px;
-
-  background:
-    #0B1B30;
-
-  padding:20px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:10px;
-
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    background:var(--navy-900);
+    padding:25px;
+    display:flex;
+    gap:20px;
+    align-items:center;
 }
 
-.agent img{
-
-  width:66px;
-
-  height:66px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-  background:#15263B;
-
+.agent-photo{
+    width:70px;
+    height:70px;
+    flex:0 0 70px;
+    border-radius:50%;
+    object-fit:cover;
+    background:var(--navy-700);
 }
 
-.agent h4{
-
-  margin:
-    0
-    0
-    6px;
-
-  color:var(--white);
-
-  font-size:13px;
-
-  font-weight:800;
-
+.agent-name{
+    font-family:Montserrat,sans-serif;
+    font-size:16px;
+    font-weight:700;
+    color:#fff;
 }
 
-.agent p{
-
-  margin:
-    0
-    0
-    8px;
-
-  color:var(--muted);
-
-  font-size:7px;
-
-  font-weight:700;
-
-  text-transform:uppercase;
-
-  letter-spacing:.1em;
-
+.agent-role{
+    margin-top:4px;
+    font-size:11px;
+    color:var(--muted);
 }
 
-.agent a{
-
-  color:var(--gold);
-
-  text-decoration:none;
-
-  font-size:8px;
-
-  font-weight:800;
-
-  margin-right:8px;
-
+.agent-contact{
+    margin-top:8px;
+    color:var(--gold-light);
+    font-size:11px;
 }
-
-
-/* =========================================================
-   PROPERTY MODAL
-   ========================================================= */
-
-.modal{
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:200;
-
-  background:
-    rgba(0,5,12,.88);
-
-  padding:20px;
-
-  overflow:auto;
-
-  display:none;
-
-  backdrop-filter:blur(8px);
-
-}
-
-.modal.open{
-  display:block;
-}
-
-.panel{
-
-  max-width:1180px;
-
-  min-height:90vh;
-
-  margin:
-    20px
-    auto;
-
-  background:
-    #F7F8FA;
-
-  position:relative;
-
-  border-radius:12px;
-
-  overflow:hidden;
-
-}
-
-.close{
-
-  position:absolute;
-
-  z-index:20;
-
-  right:15px;
-
-  top:15px;
-
-  width:42px;
-
-  height:42px;
-
-  border:0;
-
-  border-radius:4px;
-
-  background:
-    rgba(4,11,20,.86);
-
-  color:#fff;
-
-  font-size:25px;
-
-}
-
-.close:hover{
-  background:var(--gold);
-  color:#07111D;
-}
-
-
-/* =========================================================
-   MODAL CAROUSEL
-   ========================================================= */
-
-.carousel{
-
-  position:relative;
-
-  background:
-    #050E19;
-
-  overflow:hidden;
-
-  touch-action:pan-y;
-
-}
-
-.carousel-main{
-
-  height:
-    min(65vh,680px);
-
-  position:relative;
-
-}
-
-.carousel-main img{
-
-  width:100%;
-
-  height:100%;
-
-  object-fit:cover;
-
-  display:block;
-
-  user-select:none;
-
-  -webkit-user-drag:none;
-
-}
-
-.carousel-arrow{
-
-  position:absolute;
-
-  top:50%;
-
-  transform:translateY(-50%);
-
-  width:50px;
-
-  height:50px;
-
-  border:0;
-
-  border-radius:4px;
-
-  background:
-    rgba(4,11,20,.76);
-
-  color:#fff;
-
-  font-size:28px;
-
-  z-index:5;
-
-}
-
-.carousel-arrow.left{
-  left:18px;
-}
-
-.carousel-arrow.right{
-  right:18px;
-}
-
-.carousel-arrow:hover{
-
-  background:var(--gold);
-
-  color:#07111D;
-
-}
-
-.counter{
-
-  position:absolute;
-
-  left:20px;
-
-  bottom:20px;
-
-  z-index:5;
-
-  background:
-    rgba(4,11,20,.82);
-
-  color:#fff;
-
-  padding:
-    8px
-    11px;
-
-  font-size:8px;
-
-  font-weight:800;
-
-  letter-spacing:.1em;
-
-}
-
-.dots{
-
-  position:absolute;
-
-  bottom:20px;
-
-  left:50%;
-
-  transform:translateX(-50%);
-
-  display:flex;
-
-  gap:6px;
-
-  z-index:5;
-
-}
-
-.dot{
-
-  width:7px;
-
-  height:7px;
-
-  padding:0;
-
-  border:0;
-
-  border-radius:50%;
-
-  background:
-    rgba(255,255,255,.45);
-
-}
-
-.dot.active{
-  background:var(--gold);
-}
-
-.thumbs{
-
-  display:flex;
-
-  gap:6px;
-
-  padding:8px;
-
-  background:#fff;
-
-  overflow-x:auto;
-
-}
-
-.thumb{
-
-  width:85px;
-
-  height:60px;
-
-  flex:0 0 auto;
-
-  object-fit:cover;
-
-  opacity:.55;
-
-  cursor:pointer;
-
-  border:
-    3px solid
-    transparent;
-
-}
-
-.thumb.active{
-
-  opacity:1;
-
-  border-color:var(--gold);
-
-}
-
-
-/* =========================================================
-   MODAL STORY
-   ========================================================= */
-
-.story{
-
-  padding:
-    42px;
-
-}
-
-.story .kicker{
-  color:var(--ypa-blue);
-}
-
-.story h1{
-
-  color:#071A2E;
-
-  font-size:
-    clamp(40px,6vw,75px);
-
-  line-height:.94;
-
-  letter-spacing:-.06em;
-
-  font-weight:800;
-
-  margin:
-    13px
-    0
-    18px;
-
-}
-
-.meta{
-
-  color:#687586;
-
-  font-size:10px;
-
-  font-weight:700;
-
-  text-transform:uppercase;
-
-  letter-spacing:.08em;
-
-}
-
-.description{
-
-  max-width:850px;
-
-  color:#344054;
-
-  font-size:13px;
-
-  line-height:1.9;
-
-  white-space:pre-line;
-
-  margin-top:30px;
-
-}
-
-.story .chips{
-
-  color:#687586;
-
-}
-
-.agentbox{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:15px;
-
-  background:#EEF1F4;
-
-  padding:20px;
-
-  margin:30px 0;
-
-  border-left:
-    4px solid
-    var(--gold);
-
-}
-
-.agentbox img{
-
-  width:70px;
-
-  height:70px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-}
-
-.agentbox h3{
-
-  margin:0;
-
-  color:#071A2E;
-
-  font-size:15px;
-
-  font-weight:800;
-
-}
-
-.agentbox p{
-
-  margin:6px 0;
-
-  color:#687586;
-
-  font-size:10px;
-
-}
-
-.modalactions{
-
-  display:flex;
-
-  gap:8px;
-
-  flex-wrap:wrap;
-
-}
-
-
-/* =========================================================
-   FLOATING WEEKEND BUTTON
-   ========================================================= */
-
-.weekend{
-
-  position:fixed;
-
-  right:20px;
-
-  bottom:20px;
-
-  z-index:90;
-
-  background:
-    #0A1B30;
-
-  color:#fff;
-
-  border:
-    1px solid
-    var(--gold);
-
-  border-radius:6px;
-
-  padding:
-    13px
-    18px;
-
-  font-size:8px;
-
-  font-weight:800;
-
-  letter-spacing:.1em;
-
-  text-transform:uppercase;
-
-  box-shadow:
-    0 12px 35px
-    rgba(0,0,0,.35);
-
-}
-
-.weekend span{
-
-  color:var(--gold);
-
-}
-
-
-/* =========================================================
-   WEEKEND DRAWER
-   ========================================================= */
-
-.drawer{
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:210;
-
-  background:
-    rgba(0,5,12,.75);
-
-  display:none;
-
-}
-
-.drawer.open{
-  display:block;
-}
-
-.drawerpanel{
-
-  width:
-    min(580px,100%);
-
-  height:100%;
-
-  margin-left:auto;
-
-  background:
-    #071424;
-
-  padding:30px;
-
-  overflow:auto;
-
-  border-left:
-    1px solid
-    var(--border);
-
-}
-
-.drawerpanel h2{
-
-  color:var(--white);
-
-  font-size:38px;
-
-  letter-spacing:-.06em;
-
-  margin:
-    8px
-    0
-    30px;
-
-}
-
-.trip{
-
-  background:
-    #0D2038;
-
-  padding:20px;
-
-  margin:10px 0;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-left:
-    4px solid
-    var(--gold);
-
-  border-radius:8px;
-
-}
-
-.triptime{
-
-  color:var(--gold);
-
-  font-size:9px;
-
-  font-weight:800;
-
-  letter-spacing:.1em;
-
-}
-
-.tripaddr{
-
-  color:var(--white);
-
-  font-size:17px;
-
-  font-weight:700;
-
-  margin:7px 0;
-
-}
-
-.tripsuburb{
-
-  color:var(--muted);
-
-  font-size:8px;
-
-  font-weight:700;
-
-  text-transform:uppercase;
-
-  letter-spacing:.1em;
-
-}
-
 
 /* =========================================================
    FOOTER
-   ========================================================= */
+========================================================= */
 
 .footer{
-
-  background:
-    #040B14;
-
-  color:#fff;
-
-  padding:
-    75px
-    0;
-
-  border-top:
-    1px solid
-    rgba(212,175,98,.3);
-
+    border-top:1px solid var(--border);
+    background:#02070E;
+    padding:45px 0;
 }
 
-.footer h2{
-
-  color:var(--white);
-
-  font-size:
-    clamp(38px,5vw,60px);
-
-  line-height:.95;
-
-  letter-spacing:-.055em;
-
-  font-weight:800;
-
-  margin:
-    12px
-    0;
-
+.footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
 }
 
-.footer p{
-
-  color:var(--muted-light);
-
-  max-width:550px;
-
-  font-size:11px;
-
-  line-height:1.8;
-
+.footer-brand{
+    display:flex;
+    align-items:center;
+    gap:17px;
 }
 
+.footer-brand .ypa-logo{
+    font-size:38px;
+}
+
+.footer-copy{
+    font-size:11px;
+    color:var(--muted);
+    line-height:1.5;
+}
+
+.footer-right{
+    text-align:right;
+}
+
+.footer-right strong{
+    display:block;
+    font-family:Montserrat,sans-serif;
+    font-size:15px;
+    color:#fff;
+}
+
+.footer-right a{
+    display:inline-block;
+    margin-top:7px;
+    color:var(--gold-light);
+    font-size:12px;
+}
 
 /* =========================================================
-   MOBILE
-   ========================================================= */
+   FLOATING WEEKEND
+========================================================= */
 
-@media(max-width:1050px){
-
-  .grid{
-
-    grid-template-columns:
-      repeat(2,1fr);
-
-  }
-
-  .agentgrid{
-
-    grid-template-columns:
-      repeat(2,1fr);
-
-  }
-
+.floating-weekend{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:900;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:14px 17px;
+    border:1px solid rgba(212,175,98,.5);
+    border-radius:10px;
+    background:rgba(6,17,31,.94);
+    backdrop-filter:blur(15px);
+    color:#fff;
+    box-shadow:0 15px 45px rgba(0,0,0,.35);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
 }
 
-@media(max-width:700px){
+/* =========================================================
+   MODAL
+========================================================= */
 
-  .top{
-
-    min-height:65px;
-
-    padding:
-      0
-      18px;
-
-  }
-
-  .toplink{
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:2000;
     display:none;
-  }
-
-  .wrap{
-
-    padding:
-      0
-      18px;
-
-  }
-
-  .masthead{
-
-    padding:
-      60px
-      0
-      50px;
-
-  }
-
-  .title{
-
-    font-size:57px;
-
-  }
-
-  .stats{
-
-    gap:25px;
-
-  }
-
-  .stat{
-
-    min-width:110px;
-
-    padding-right:20px;
-
-    margin-right:0;
-
-  }
-
-  .stat b{
-
-    font-size:26px;
-
-  }
-
-  .weekend-section{
-
-    padding:20px;
-
-    margin-top:25px;
-
-  }
-
-  .weekend-head{
-
-    display:block;
-
-  }
-
-  .weekend-date{
-
-    margin-top:8px;
-
-  }
-
-  .weekend-stats{
-
-    grid-template-columns:
-      repeat(2,1fr);
-
-  }
-
-  .weekend-list{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .weekend-item{
-
-    align-items:flex-start;
-
-  }
-
-  .weekend-time{
-
-    min-width:62px;
-
-  }
-
-  .weekend-directions{
-
-    display:none;
-
-  }
-
-  .grid{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .cardphoto{
-
-    height:270px;
-
-  }
-
-  .agentgrid{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .storygrid{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .storybox{
-
-    padding:28px;
-
-  }
-
-  .modal{
-
-    padding:0;
-
-  }
-
-  .panel{
-
-    margin:0;
-
-    min-height:100vh;
-
-    border-radius:0;
-
-  }
-
-  .carousel-main{
-
-    height:52vh;
-
-  }
-
-  .carousel-arrow{
-
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(12px);
+}
+
+.modal.open{
+    display:flex;
+}
+
+.modal-shell{
+    width:min(1250px,100%);
+    max-height:calc(100vh - 50px);
+    overflow:auto;
+    border-radius:20px;
+    background:#fff;
+    color:#17202B;
+    box-shadow:0 35px 100px rgba(0,0,0,.55);
+}
+
+.modal-top{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+}
+
+.modal-gallery{
+    position:relative;
+    min-height:600px;
+    background:#071321;
+}
+
+.modal-main-image{
+    width:100%;
+    height:600px;
+    object-fit:cover;
+}
+
+.modal-close{
+    position:absolute;
+    right:18px;
+    top:18px;
+    z-index:10;
     width:42px;
-
     height:42px;
-
-  }
-
-  .carousel-arrow.left{
-
-    left:10px;
-
-  }
-
-  .carousel-arrow.right{
-
-    right:10px;
-
-  }
-
-  .thumbs{
-
-    display:none;
-
-  }
-
-  .story{
-
-    padding:
-      28px
-      20px;
-
-  }
-
-  .story h1{
-
-    font-size:46px;
-
-  }
-
-  .weekend{
-
-    right:12px;
-
-    bottom:12px;
-
-  }
-
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(0,0,0,.5);
+    backdrop-filter:blur(8px);
+    border-radius:50%;
+    color:#fff;
+    font-size:22px;
 }
 
+.modal-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:5;
+    width:43px;
+    height:43px;
+    display:grid;
+    place-items:center;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(0,0,0,.5);
+    border-radius:50%;
+    color:#fff;
+    font-size:20px;
+}
+
+.modal-nav.left{
+    left:18px;
+}
+
+.modal-nav.right{
+    right:18px;
+}
+
+.modal-dots{
+    position:absolute;
+    bottom:17px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:6px;
+}
+
+.modal-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:rgba(255,255,255,.5);
+}
+
+.modal-dot.active{
+    background:#fff;
+}
+
+.modal-info{
+    padding:50px;
+    overflow:auto;
+}
+
+.modal-kicker{
+    color:#A27B2B;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.modal-title{
+    margin-top:12px;
+    font-family:Montserrat,sans-serif;
+    font-size:34px;
+    line-height:1.05;
+    letter-spacing:-1.5px;
+    color:#0B1624;
+}
+
+.modal-address{
+    margin-top:9px;
+    font-size:14px;
+    color:#687586;
+}
+
+.modal-price{
+    margin-top:15px;
+    font-family:Montserrat,sans-serif;
+    font-size:17px;
+    font-weight:700;
+    color:#152236;
+}
+
+.modal-description{
+    margin-top:27px;
+    color:#596675;
+    font-size:14px;
+    line-height:1.8;
+}
+
+.modal-stats{
+    display:flex;
+    gap:28px;
+    margin-top:30px;
+    padding:22px 0;
+    border-top:1px solid #E7EBEF;
+    border-bottom:1px solid #E7EBEF;
+}
+
+.modal-stat strong{
+    display:block;
+    font-family:Montserrat,sans-serif;
+    font-size:19px;
+    color:#111B28;
+}
+
+.modal-stat span{
+    font-size:10px;
+    color:#8993A0;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.modal-agent{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-top:25px;
+}
+
+.modal-agent img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.modal-agent strong{
+    display:block;
+    font-size:13px;
+}
+
+.modal-agent span{
+    color:#7C8794;
+    font-size:11px;
+}
+
+.modal-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:30px;
+}
+
+.modal-action{
+    border:1px solid #D8DEE5;
+    background:#fff;
+    padding:13px;
+    border-radius:7px;
+    color:#1A2737;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.modal-action.primary{
+    background:#081628;
+    border-color:#081628;
+    color:#fff;
+}
+
+.modal-action.saved{
+    background:#F4EAD2;
+    border-color:#D4AF62;
+}
+
+/* =========================================================
+   DRAWER
+========================================================= */
+
+.drawer{
+    position:fixed;
+    inset:0;
+    z-index:1900;
+    pointer-events:none;
+}
+
+.drawer.open{
+    pointer-events:auto;
+}
+
+.drawer-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    opacity:0;
+    transition:.3s ease;
+}
+
+.drawer.open .drawer-overlay{
+    opacity:1;
+}
+
+.drawer-panel{
+    position:absolute;
+    right:0;
+    top:0;
+    bottom:0;
+    width:min(500px,100%);
+    background:var(--navy-900);
+    border-left:1px solid var(--border);
+    transform:translateX(100%);
+    transition:.35s ease;
+    overflow:auto;
+}
+
+.drawer.open .drawer-panel{
+    transform:translateX(0);
+}
+
+.drawer-head{
+    position:sticky;
+    top:0;
+    z-index:5;
+    padding:25px;
+    background:rgba(6,17,31,.95);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.drawer-head h3{
+    font-family:Montserrat,sans-serif;
+    font-size:22px;
+}
+
+.drawer-close{
+    width:36px;
+    height:36px;
+    border:1px solid var(--border);
+    background:transparent;
+    color:#fff;
+    border-radius:50%;
+}
+
+.drawer-body{
+    padding:20px;
+}
+
+.route-btn{
+    width:100%;
+    margin-bottom:20px;
+    border:1px solid var(--gold);
+    background:rgba(212,175,98,.08);
+    color:var(--gold-light);
+    border-radius:8px;
+    padding:13px;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.route-btn:hover{
+    background:var(--gold);
+    color:var(--navy-950);
+}
+
+.drawer-item{
+    display:flex;
+    gap:16px;
+    padding:20px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.drawer-number{
+    width:28px;
+    height:28px;
+    flex:0 0 28px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:var(--gold);
+    color:var(--navy-950);
+    font-size:11px;
+    font-weight:800;
+}
+
+.drawer-time{
+    color:var(--gold);
+    font-size:11px;
+    font-weight:700;
+}
+
+.drawer-address{
+    margin-top:4px;
+    color:#fff;
+    font-family:Montserrat,sans-serif;
+    font-size:14px;
+    font-weight:700;
+}
+
+.drawer-suburb{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.drawer-remove{
+    margin-top:9px;
+    background:none;
+    border:0;
+    color:var(--muted);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .property-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .agents{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .weekend-dashboard{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .modal-top{
+        grid-template-columns:1fr;
+    }
+
+    .modal-gallery{
+        min-height:450px;
+    }
+
+    .modal-main-image{
+        height:450px;
+    }
+}
+
+@media(max-width:800px){
+
+    .container{
+        width:min(100% - 30px,var(--max));
+    }
+
+    .header-inner{
+        height:70px;
+    }
+
+    .brand-divider,
+    .brand-title,
+    .header-nav{
+        display:none;
+    }
+
+    .ypa-logo{
+        font-size:32px;
+    }
+
+    .header-weekend{
+        padding:9px 12px;
+    }
+
+    .hero{
+        min-height:610px;
+    }
+
+    .hero-content{
+        padding:90px 0 55px;
+    }
+
+    .hero h1{
+        font-size:clamp(45px,13vw,76px);
+        letter-spacing:-3px;
+    }
+
+    .hero-subtitle{
+        font-size:15px;
+    }
+
+    .hero-stats{
+        width:100%;
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .hero-stat{
+        min-width:0;
+    }
+
+    .section{
+        padding:70px 0;
+    }
+
+    .section-head{
+        display:block;
+    }
+
+    .section-copy{
+        margin-top:18px;
+    }
+
+    .weekend-top{
+        display:block;
+    }
+
+    .weekend-summary{
+        text-align:left;
+        margin-top:20px;
+    }
+
+    .toolbar{
+        display:block;
+    }
+
+    .search-wrap{
+        max-width:none;
+        margin-bottom:12px;
+    }
+
+    .property-grid{
+        grid-template-columns:1fr;
+    }
+
+    .editorial-grid{
+        grid-template-columns:1fr;
+    }
+
+    .editorial-feature{
+        min-height:350px;
+        padding:35px;
+    }
+
+    .agents{
+        grid-template-columns:1fr;
+    }
+
+    .footer-inner{
+        display:block;
+    }
+
+    .footer-right{
+        margin-top:25px;
+        text-align:left;
+    }
+
+    .modal{
+        padding:0;
+    }
+
+    .modal-shell{
+        max-height:100vh;
+        border-radius:0;
+    }
+
+    .modal-gallery{
+        min-height:350px;
+    }
+
+    .modal-main-image{
+        height:350px;
+    }
+
+    .modal-info{
+        padding:30px 22px 40px;
+    }
+
+    .modal-actions{
+        grid-template-columns:1fr;
+    }
+
+    .floating-weekend{
+        right:15px;
+        bottom:15px;
+    }
+}
+
+@media(max-width:500px){
+
+    .weekend-dashboard{
+        grid-template-columns:1fr;
+    }
+
+    .hero-stat{
+        padding:15px 18px;
+    }
+
+    .hero-stat strong{
+        font-size:21px;
+    }
+
+    .card-content{
+        padding:20px;
+    }
+
+    .editorial-feature{
+        padding:28px;
+    }
+
+    .editorial-small{
+        padding:28px;
+    }
+}
 </style>
-
 </head>
-
 
 <body>
 
+<!-- =======================================================
+     HEADER
+======================================================== -->
 
-<!-- ======================================================
-     NAV
-     ====================================================== -->
+<header class="header">
+    <div class="container header-inner">
 
-<header class="top">
+        <a href="#" class="brand">
+            <div class="ypa-logo">ypa.</div>
 
-  <div class="logo">
-    ypa<span>.</span>
-  </div>
+            <div class="brand-divider"></div>
 
-  <div class="topright">
+            <div class="brand-title">
+                Weekend Property Guide<br>
+                Bacchus Marsh
+            </div>
+        </a>
 
-    <a
-      class="toplink"
-      href="#properties"
-    >
-      The Property Edit
-    </a>
+        <nav class="header-nav">
+            <a href="#properties">Properties</a>
+            <a href="#local-edit">The Local Edit</a>
+            <a href="#people">YPA Team</a>
+        </nav>
 
-    <a
-      class="toplink"
-      href="#agents"
-    >
-      YPA Bacchus Marsh
-    </a>
+        <button class="header-weekend" onclick="openWeekend()">
+            MY WEEKEND
+            <span class="weekend-count" id="weekendCountHeader">0</span>
+        </button>
 
-  </div>
-
+    </div>
 </header>
 
 
-<!-- ======================================================
+<!-- =======================================================
      HERO
-     ====================================================== -->
+======================================================== -->
 
-<section class="masthead">
+<section class="hero">
 
-  <div class="wrap">
+    <div class="hero-pattern"></div>
 
-    <div class="kicker">
-      Costa Rodriguez · YPA Bacchus Marsh
-    </div>
+    <div class="container">
 
-    <div class="title">
-      THE<br>
-      PROPERTY <span class="gold">EDIT</span>
-    </div>
+        <div class="hero-content">
 
-    <p class="subtitle">
-      A curated look at the homes worth seeing this week.
-      Explore the latest properties, follow the local market
-      and build your own inspection itinerary.
-    </p>
+            <div class="hero-kicker">
+                YPA BACCHUS MARSH
+            </div>
 
-    <div class="stats">
+            <h1>
+                THE WEEKEND
+                <span>PROPERTY GUIDE</span>
+            </h1>
 
-      <div class="stat">
+            <p class="hero-subtitle">
+                Your guide to this weekend's properties, inspections and opportunities across Bacchus Marsh and surrounding areas.
+            </p>
 
-        <b id="propertyCount">
-          —
-        </b>
+            <div class="hero-stats">
 
-        <small>
-          Current homes
-        </small>
+                <div class="hero-stat">
+                    <strong id="propertyCount">—</strong>
+                    <span>Homes</span>
+                </div>
 
-      </div>
+                <div class="hero-stat">
+                    <strong id="suburbCount">—</strong>
+                    <span>Suburbs</span>
+                </div>
 
+                <div class="hero-stat">
+                    <strong id="inspectionCount">—</strong>
+                    <span>Inspections</span>
+                </div>
 
-      <div class="stat">
+                <div class="hero-stat">
+                    <strong id="weekendCountHero">0</strong>
+                    <span>My Weekend</span>
+                </div>
 
-        <b id="suburbCount">
-          —
-        </b>
+            </div>
 
-        <small>
-          Suburbs
-        </small>
-
-      </div>
-
-
-      <div class="stat">
-
-        <b id="inspectionCount">
-          —
-        </b>
-
-        <small>
-          Inspections
-        </small>
-
-      </div>
-
-
-      <div class="stat">
-
-        <b id="weekendCountHero">
-          0
-        </b>
-
-        <small>
-          My weekend
-        </small>
-
-      </div>
+        </div>
 
     </div>
-
-  </div>
 
 </section>
 
 
-<!-- ======================================================
-     MAIN
-     ====================================================== -->
+<!-- =======================================================
+     YOUR WEEKEND
+======================================================== -->
 
-<main class="wrap">
+<section class="section weekend-section" id="my-weekend">
 
+    <div class="container">
 
-<!-- ======================================================
-     COSTA'S WEEKEND
-     ====================================================== -->
+        <div class="weekend-top">
 
-<section class="weekend-section">
+            <div>
+                <div class="section-kicker">Plan Your Day</div>
 
-  <div class="weekend-head">
+                <div class="weekend-title">
+                    YOUR WEEKEND
+                </div>
 
-    <div>
+                <div class="weekend-date" id="weekendDate">
+                    INSPECTION PLANNER
+                </div>
+            </div>
 
-      <div class="kicker">
-        Your Personal Inspection Plan
-      </div>
+            <div class="weekend-summary">
+                <strong id="weekendSummaryCount">0</strong>
+                properties saved
+            </div>
 
-      <div class="weekend-title">
-        COSTA'S <span>WEEKEND</span>
-      </div>
+        </div>
 
-    </div>
-
-    <div
-      class="weekend-date"
-      id="weekendDate"
-    >
-      Your saved inspections
-    </div>
-
-  </div>
-
-
-  <div
-    id="weekendDashboard"
-  >
-
-    <div class="weekend-empty">
-
-      <strong>
-        Nothing saved yet.
-      </strong>
-
-      <br>
-
-      Add properties to your weekend using the
-      <strong>+ Weekend</strong> button on any property.
+        <div class="weekend-dashboard" id="weekendDashboard">
+            <div class="weekend-empty">
+                <strong>Build your inspection day.</strong>
+                <span>Save properties below to create your own personalised weekend itinerary.</span>
+            </div>
+        </div>
 
     </div>
-
-  </div>
 
 </section>
 
 
-<!-- ======================================================
-     TOOLBAR
-     ====================================================== -->
+<!-- =======================================================
+     PROPERTIES
+======================================================== -->
 
-<div
-  class="toolbar"
-  id="properties"
->
+<section class="section property-section" id="properties">
 
-  <input
-    id="search"
-    class="search"
-    placeholder="Search address, suburb or price..."
-    autocomplete="off"
-  >
+    <div class="container">
 
+        <div class="section-head">
 
-  <button
-    class="filter active"
-    data-filter="all"
-  >
-    All Homes
-  </button>
+            <div>
+                <div class="section-kicker">This Weekend</div>
+                <h2 class="section-title">THE PROPERTY EDIT</h2>
+            </div>
+
+            <p class="section-copy">
+                Explore the latest homes available to inspect. Browse the photography, review the details and add the properties you want to see to your weekend.
+            </p>
+
+        </div>
 
 
-  <button
-    class="filter"
-    data-filter="today"
-  >
-    Today
-  </button>
+        <div class="toolbar">
+
+            <div class="search-wrap">
+                <span class="search-icon">⌕</span>
+                <input
+                    id="searchInput"
+                    type="search"
+                    placeholder="Search address, suburb or property..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="filters">
+
+                <button class="filter-btn active" data-filter="all">
+                    All Homes
+                </button>
+
+                <button class="filter-btn" data-filter="today">
+                    Today
+                </button>
+
+                <button class="filter-btn" data-filter="tomorrow">
+                    Tomorrow
+                </button>
+
+                <button class="filter-btn" data-filter="week">
+                    This Week
+                </button>
+
+            </div>
+
+        </div>
 
 
-  <button
-    class="filter"
-    data-filter="tomorrow"
-  >
-    Tomorrow
-  </button>
+        <div class="property-grid" id="propertyGrid">
 
+            <div class="loading">
+                Loading this weekend's properties...
+            </div>
 
-  <button
-    class="filter"
-    data-filter="week"
-  >
-    This Week
-  </button>
-
-</div>
-
-
-<!-- ======================================================
-     PROPERTY GRID
-     ====================================================== -->
-
-<div
-  id="propertyGrid"
-  class="grid"
->
-
-  <div class="loading">
-
-    <div class="loading-spinner"></div>
-
-    Loading this week's Property Edit…
-
-  </div>
-
-</div>
-
-</main>
-
-
-<!-- ======================================================
-     EDITORIAL
-     ====================================================== -->
-
-<section class="editorial">
-
-  <div class="wrap">
-
-    <div class="kicker">
-      The Local Edit
-    </div>
-
-    <h2>
-      More than property.
-    </h2>
-
-
-    <div class="storygrid">
-
-
-      <div class="storybox">
-
-        <h3>
-          Your weekend, curated.
-        </h3>
-
-        <p>
-          Explore homes across Bacchus Marsh,
-          Darley, Maddingley, Hopetoun Park and
-          surrounding areas.
-        </p>
-
-      </div>
-
-
-      <div class="storybox">
-
-        <h3>
-          Thinking of selling?
-        </h3>
-
-        <p>
-          Find out what your property could achieve
-          in today's market.
-        </p>
-
-        <button
-          class="yellowbtn"
-          onclick="location.href='mailto:crodriguez@ypa.com.au?subject=Property Appraisal'"
-        >
-          Request an appraisal
-        </button>
-
-      </div>
-
+        </div>
 
     </div>
-
-  </div>
 
 </section>
 
 
-<!-- ======================================================
-     AGENTS
-     ====================================================== -->
+<!-- =======================================================
+     LOCAL EDIT
+======================================================== -->
 
-<section
-  class="wrap"
-  id="agents"
->
+<section class="section editorial" id="local-edit">
 
-  <div class="sectionhead">
+    <div class="container">
 
-    <div class="kicker">
-      The People
+        <div class="section-head">
+
+            <div>
+                <div class="section-kicker">The Local Edit</div>
+                <h2 class="section-title">MORE THAN PROPERTY.</h2>
+            </div>
+
+            <p class="section-copy">
+                Local knowledge matters. From the right streets to current buyer demand, our team understands the Bacchus Marsh market and the people who live in it.
+            </p>
+
+        </div>
+
+
+        <div class="editorial-grid">
+
+            <div class="editorial-feature">
+
+                <div class="editorial-feature-content">
+
+                    <div class="section-kicker">
+                        LOCAL KNOWLEDGE
+                    </div>
+
+                    <h3>
+                        LOCAL KNOWLEDGE.
+                        MARKET INSIGHT.
+                        THE RIGHT MOVE.
+                    </h3>
+
+                    <p>
+                        Buying or selling property is about more than a price. It is about understanding the market, knowing the local buyer and having the right strategy from the beginning.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div class="editorial-small">
+
+                    <div>
+                        <div class="section-kicker">Thinking of Selling?</div>
+
+                        <h4>
+                            Know what your property could achieve.
+                        </h4>
+
+                        <p>
+                            Get a considered appraisal based on current local market conditions, comparable sales and buyer demand.
+                        </p>
+                    </div>
+
+                    <a class="editorial-link" href="mailto:crodriguez@ypa.com.au">
+                        Request an Appraisal →
+                    </a>
+
+                </div>
+
+
+                <div class="editorial-small">
+
+                    <div>
+                        <div class="section-kicker">YPA Bacchus Marsh</div>
+
+                        <h4>
+                            Your local property team.
+                        </h4>
+
+                        <p>
+                            Property advice backed by local experience, strong marketing and a genuine understanding of the community.
+                        </p>
+                    </div>
+
+                    <a class="editorial-link" href="#people">
+                        Meet The Team →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-
-    <h2>
-      Your local YPA team.
-    </h2>
-
-  </div>
-
-
-  <div
-    id="agentGrid"
-    class="agentgrid"
-  ></div>
 
 </section>
 
 
-<!-- ======================================================
+<!-- =======================================================
+     PEOPLE
+======================================================== -->
+
+<section class="section people" id="people">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div>
+                <div class="section-kicker">YPA Bacchus Marsh</div>
+                <h2 class="section-title">THE PEOPLE</h2>
+            </div>
+
+            <p class="section-copy">
+                A local team with the experience and market knowledge to guide you through your next property move.
+            </p>
+
+        </div>
+
+        <div class="agents" id="agents">
+
+            <div class="loading">
+                Loading team...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
      FOOTER
-     ====================================================== -->
+======================================================== -->
 
 <footer class="footer">
 
-  <div class="wrap">
+    <div class="container footer-inner">
 
-    <div
-      class="kicker"
-      style="color:var(--gold)"
-    >
-      YPA Bacchus Marsh
+        <div class="footer-brand">
+
+            <div class="ypa-logo">ypa.</div>
+
+            <div class="footer-copy">
+                YPA BACCHUS MARSH<br>
+                The Weekend Property Guide
+            </div>
+
+        </div>
+
+        <div class="footer-right">
+
+            <strong>Ready when you are.</strong>
+
+            <a href="mailto:crodriguez@ypa.com.au">
+                crodriguez@ypa.com.au
+            </a>
+
+        </div>
+
     </div>
-
-    <h2>
-      Ready when you are.
-    </h2>
-
-    <p>
-      For property advice, appraisals or a conversation
-      about your next move.
-    </p>
-
-    <button
-      class="yellowbtn"
-      onclick="location.href='mailto:crodriguez@ypa.com.au?subject=Property Enquiry'"
-    >
-      Contact YPA Bacchus Marsh
-    </button>
-
-  </div>
 
 </footer>
 
 
-<!-- ======================================================
+<!-- =======================================================
      FLOATING WEEKEND BUTTON
-     ====================================================== -->
+======================================================== -->
 
-<button
-  class="weekend"
-  onclick="openWeekend()"
->
+<button class="floating-weekend" onclick="openWeekend()">
 
-  My Weekend ·
-  <span id="weekendCount">
-    0
-  </span>
+    MY WEEKEND
+
+    <span class="weekend-count" id="weekendCountFloating">
+        0
+    </span>
 
 </button>
 
 
-<!-- ======================================================
+<!-- =======================================================
      PROPERTY MODAL
-     ====================================================== -->
+======================================================== -->
 
-<div
-  id="propertyModal"
-  class="modal"
-  onclick="if(event.target===this)closeProperty()"
->
+<div class="modal" id="propertyModal">
 
-  <div class="panel">
+    <div class="modal-shell" id="modalShell">
 
-    <button
-      class="close"
-      onclick="closeProperty()"
-    >
-      ×
-    </button>
+        <div class="modal-top">
 
-    <div id="propertyStory"></div>
+            <div class="modal-gallery">
 
-  </div>
+                <button class="modal-close" onclick="closeProperty()">
+                    ×
+                </button>
+
+                <button class="modal-nav left" onclick="previousPhoto()">
+                    ‹
+                </button>
+
+                <img
+                    id="modalMainImage"
+                    class="modal-main-image"
+                    src=""
+                    alt=""
+                >
+
+                <button class="modal-nav right" onclick="nextPhoto()">
+                    ›
+                </button>
+
+                <div class="modal-dots" id="modalDots"></div>
+
+            </div>
+
+
+            <div class="modal-info">
+
+                <div class="modal-kicker" id="modalKicker">
+                    YPA BACCHUS MARSH
+                </div>
+
+                <h2 class="modal-title" id="modalTitle">
+                    Property
+                </h2>
+
+                <div class="modal-address" id="modalAddress"></div>
+
+                <div class="modal-price" id="modalPrice"></div>
+
+                <div class="modal-description" id="modalDescription"></div>
+
+                <div class="modal-stats">
+
+                    <div class="modal-stat">
+                        <strong id="modalBeds">—</strong>
+                        <span>Beds</span>
+                    </div>
+
+                    <div class="modal-stat">
+                        <strong id="modalBaths">—</strong>
+                        <span>Baths</span>
+                    </div>
+
+                    <div class="modal-stat">
+                        <strong id="modalCars">—</strong>
+                        <span>Cars</span>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-agent" id="modalAgent"></div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        class="modal-action primary"
+                        id="modalWeekendBtn"
+                        onclick="toggleCurrentWeekend()"
+                    >
+                        + Add To My Weekend
+                    </button>
+
+                    <button
+                        class="modal-action"
+                        onclick="openCurrentDirections()"
+                    >
+                        Directions
+                    </button>
+
+                    <button
+                        class="modal-action"
+                        id="modalListingBtn"
+                        onclick="openCurrentListing()"
+                    >
+                        View Listing
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 
-<!-- ======================================================
+<!-- =======================================================
      WEEKEND DRAWER
-     ====================================================== -->
+======================================================== -->
 
-<div
-  id="weekendDrawer"
-  class="drawer"
-  onclick="if(event.target===this)closeWeekend()"
->
+<div class="drawer" id="weekendDrawer">
 
-  <div class="drawerpanel">
+    <div class="drawer-overlay" onclick="closeWeekend()"></div>
 
-    <button
-      class="bluebtn"
-      onclick="closeWeekend()"
-    >
-      Close
-    </button>
+    <div class="drawer-panel">
 
+        <div class="drawer-head">
 
-    <div
-      class="kicker"
-      style="margin-top:30px"
-    >
-      Your Inspection Plan
+            <div>
+                <div class="section-kicker">Inspection Planner</div>
+                <h3>MY WEEKEND</h3>
+            </div>
+
+            <button class="drawer-close" onclick="closeWeekend()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="drawer-body">
+
+            <button class="route-btn" onclick="openRoute()">
+                Open Full Route in Google Maps
+            </button>
+
+            <div id="drawerItinerary"></div>
+
+        </div>
+
     </div>
-
-
-    <h2>
-      My Weekend
-    </h2>
-
-
-    <div id="itinerary"></div>
-
-
-    <button
-      id="mapsButton"
-      class="yellowbtn"
-      style="
-        width:100%;
-        display:none;
-        margin-top:18px;
-      "
-      onclick="openRoute()"
-    >
-      Open Route In Google Maps
-    </button>
-
-  </div>
 
 </div>
 
@@ -2849,2918 +2133,2178 @@ img{
 <script>
 
 /* =========================================================
-   API
-   ========================================================= */
+   CONFIGURATION
+========================================================= */
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbymGhL5QAEnkxA4LRiSvSKOFyCAJSDqmFGD3qB7MmYbQSw15YiOEIM_D4Zm1AR7XM-i/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbymGhL5QAEnkxA4LRiSvSKOFyCAJSDqmFGD3qB7MmYbQSw15YiOEIM_D4Zm1AR7XM-i/exec";
 
-
-const GITHUB_API =
-"https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard/contents/images/";
+const GITHUB_API = "https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard/contents/images/";
 
 
 /* =========================================================
-   GLOBAL STATE
-   ========================================================= */
+   STATE
+========================================================= */
 
 let homes = [];
-
 let filter = "all";
-
 let searchText = "";
 
-let weekendIds =
-JSON.parse(
-  localStorage.getItem("ypaWeekend") || "[]"
+let weekendIds = JSON.parse(
+    localStorage.getItem("ypaWeekend") || "[]"
 );
 
+let cardCarousels = {};
 
-/* =========================================================
-   CAROUSEL STATE
-   ========================================================= */
-
-const cardCarousels = {};
+let currentProperty = null;
+let currentPhotos = [];
+let currentPhotoIndex = 0;
+let modalTimer = null;
 
 
 /* =========================================================
    HELPERS
-   ========================================================= */
+========================================================= */
 
 function $(id){
-
-  return document.getElementById(id);
-
+    return document.getElementById(id);
 }
 
 
-function esc(s){
+function esc(value){
 
-  return String(s ?? "")
+    if(value === undefined || value === null){
+        return "";
+    }
 
-    .replace(
-      /[&<>"']/g,
-      m => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-      }[m])
-    );
-
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
 
 
-function field(o,...names){
+function field(obj, names, fallback=""){
 
-  for(const n of names){
+    for(const name of names){
 
-    if(
-      o[n] != null &&
-      String(o[n]).trim() !== ""
-    ){
-
-      return String(o[n]).trim();
+        if(
+            obj &&
+            obj[name] !== undefined &&
+            obj[name] !== null &&
+            String(obj[name]).trim() !== ""
+        ){
+            return obj[name];
+        }
 
     }
 
-  }
-
-  return "";
-
+    return fallback;
 }
 
 
 function slugify(value){
 
-  return String(value || "")
+    return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .replace(/['’]/g,"")
+        .replace(/[^a-z0-9]+/g,"-")
+        .replace(/^-+|-+$/g,"");
+}
 
-    .toLowerCase()
 
-    .trim()
+function photoFolder(h){
 
-    .replace(/[\/\\]/g,"-")
-
-    .replace(
-      /[^a-z0-9]+/g,
-      "-"
-    )
-
-    .replace(
-      /^-+|-+$/g,
-      ""
+    const manual = field(
+        h,
+        [
+            "photo folder",
+            "photofolder",
+            "photo_folder",
+            "Photo Folder",
+            "PhotoFolder"
+        ]
     );
 
+    if(manual){
+        return String(manual).replace(/^\/|\/$/g,"");
+    }
+
+    return slugify(
+        [h.address,h.suburb]
+            .filter(Boolean)
+            .join(" ")
+    );
+}
+
+
+function placeholder(text="YPA BACCHUS MARSH"){
+
+    const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900">
+            <rect width="1200" height="900" fill="#0A1930"/>
+            <text
+                x="600"
+                y="450"
+                text-anchor="middle"
+                dominant-baseline="middle"
+                fill="#D4AF62"
+                font-family="Arial"
+                font-size="34"
+                letter-spacing="5"
+            >
+                ${text}
+            </text>
+        </svg>
+    `;
+
+    return "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(svg);
 }
 
 
 /* =========================================================
-   PHOTO FOLDER
-   ========================================================= */
+   DATE HELPERS
+========================================================= */
 
-function photoFolder(h){
+function parseDate(value){
 
-  const manual =
-    field(
-      h,
-      "photo folder",
-      "photofolder",
-      "photo_folder"
+    if(!value){
+        return null;
+    }
+
+    if(value instanceof Date){
+        return value;
+    }
+
+    const str = String(value).trim();
+
+    let d = new Date(str);
+
+    if(!isNaN(d)){
+        return d;
+    }
+
+    const match = str.match(
+        /^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/
     );
 
-  if(manual){
+    if(match){
 
-    return slugify(manual);
+        let day = parseInt(match[1]);
+        let month = parseInt(match[2]) - 1;
+        let year = parseInt(match[3]);
 
-  }
+        if(year < 100){
+            year += 2000;
+        }
 
-  return slugify(
-    [
-      h.address,
-      h.suburb
-    ]
-    .filter(Boolean)
-    .join(" ")
-  );
+        d = new Date(year,month,day);
 
+        if(!isNaN(d)){
+            return d;
+        }
+    }
+
+    return null;
+}
+
+
+function parseTime(value){
+
+    if(!value){
+        return null;
+    }
+
+    const str = String(value).trim();
+
+    const match = str.match(
+        /^(\d{1,2})(?::(\d{2}))?\s*(am|pm)?$/i
+    );
+
+    if(!match){
+        return null;
+    }
+
+    let hour = parseInt(match[1]);
+    let minute = parseInt(match[2] || "0");
+    const ampm = (match[3] || "").toLowerCase();
+
+    if(ampm === "pm" && hour < 12){
+        hour += 12;
+    }
+
+    if(ampm === "am" && hour === 12){
+        hour = 0;
+    }
+
+    return {
+        hour,
+        minute
+    };
+}
+
+
+function dateTime(dateValue,timeValue){
+
+    const date = parseDate(dateValue);
+
+    if(!date){
+        return null;
+    }
+
+    const result = new Date(date);
+
+    const time = parseTime(timeValue);
+
+    if(time){
+        result.setHours(
+            time.hour,
+            time.minute,
+            0,
+            0
+        );
+    }else{
+        result.setHours(0,0,0,0);
+    }
+
+    return result;
+}
+
+
+function dateKey(date){
+
+    if(!date){
+        return "";
+    }
+
+    const y = date.getFullYear();
+    const m = String(date.getMonth()+1).padStart(2,"0");
+    const d = String(date.getDate()).padStart(2,"0");
+
+    return `${y}-${m}-${d}`;
+}
+
+
+function todayKey(){
+
+    return dateKey(new Date());
+
+}
+
+
+function tomorrowKey(){
+
+    const d = new Date();
+
+    d.setDate(d.getDate()+1);
+
+    return dateKey(d);
+
+}
+
+
+function formatDate(h){
+
+    if(!h.dt){
+        return "Inspection";
+    }
+
+    return h.dt.toLocaleDateString(
+        "en-AU",
+        {
+            weekday:"short",
+            day:"numeric",
+            month:"short"
+        }
+    );
+}
+
+
+function formatTime(h){
+
+    if(!h.dt){
+        return "";
+    }
+
+    return h.dt.toLocaleTimeString(
+        "en-AU",
+        {
+            hour:"numeric",
+            minute:"2-digit"
+        }
+    );
+}
+
+
+function formatTimeRange(h){
+
+    const start = formatTime(h);
+
+    if(!h.end){
+        return start;
+    }
+
+    return `${start} – ${h.end.toLocaleTimeString(
+        "en-AU",
+        {
+            hour:"numeric",
+            minute:"2-digit"
+        }
+    )}`;
+}
+
+
+/* =========================================================
+   NORMALISE GOOGLE SHEET DATA
+========================================================= */
+
+function normalise(raw,index){
+
+    const date = field(
+        raw,
+        [
+            "date",
+            "Date",
+            "inspection date",
+            "Inspection Date",
+            "day"
+        ]
+    );
+
+    const start = field(
+        raw,
+        [
+            "start time",
+            "start",
+            "Start Time",
+            "Start",
+            "time",
+            "Time"
+        ]
+    );
+
+    const end = field(
+        raw,
+        [
+            "end time",
+            "end",
+            "End Time",
+            "End"
+        ]
+    );
+
+    const address = field(
+        raw,
+        [
+            "address",
+            "Address",
+            "property address",
+            "Property Address"
+        ]
+    );
+
+    const suburb = field(
+        raw,
+        [
+            "suburb",
+            "Suburb",
+            "location",
+            "Location"
+        ]
+    );
+
+    const price = field(
+        raw,
+        [
+            "price",
+            "Price",
+            "price guide",
+            "Price Guide"
+        ]
+    );
+
+    const beds = field(
+        raw,
+        [
+            "bedrooms",
+            "Bedrooms",
+            "beds",
+            "Beds",
+            "bed"
+        ]
+    );
+
+    const baths = field(
+        raw,
+        [
+            "bathrooms",
+            "Bathrooms",
+            "baths",
+            "Baths",
+            "bath"
+        ]
+    );
+
+    const cars = field(
+        raw,
+        [
+            "parking",
+            "Parking",
+            "car spaces",
+            "Car Spaces",
+            "cars",
+            "Cars",
+            "garage",
+            "Garage"
+        ]
+    );
+
+    const listing = field(
+        raw,
+        [
+            "rea url",
+            "REA URL",
+            "listing url",
+            "Listing URL",
+            "url",
+            "URL",
+            "link",
+            "Link"
+        ]
+    );
+
+    const headline = field(
+        raw,
+        [
+            "headline",
+            "Headline",
+            "title",
+            "Title"
+        ]
+    );
+
+    const description = field(
+        raw,
+        [
+            "description",
+            "Description",
+            "property description",
+            "Property Description",
+            "copy",
+            "Copy"
+        ]
+    );
+
+    const agent = field(
+        raw,
+        [
+            "agent",
+            "Agent",
+            "agent name",
+            "Agent Name"
+        ]
+    );
+
+    const agentPhoto = field(
+        raw,
+        [
+            "agent photo",
+            "Agent Photo",
+            "agent image",
+            "Agent Image"
+        ]
+    );
+
+    const agentPhone = field(
+        raw,
+        [
+            "agent phone",
+            "Agent Phone",
+            "phone",
+            "Phone"
+        ]
+    );
+
+    const agentEmail = field(
+        raw,
+        [
+            "agent email",
+            "Agent Email",
+            "email",
+            "Email"
+        ]
+    );
+
+    const dt = dateTime(date,start);
+    const endDt = dateTime(date,end);
+
+    return {
+
+        ...raw,
+
+        id:
+            field(
+                raw,
+                [
+                    "id",
+                    "ID",
+                    "property id",
+                    "Property ID"
+                ]
+            ) ||
+            `${slugify(address)}-${slugify(suburb)}-${index}`,
+
+        date,
+        start,
+        end,
+
+        address,
+        suburb,
+
+        price,
+        beds,
+        baths,
+        cars,
+
+        listing,
+
+        headline,
+
+        description,
+
+        agent,
+        agentPhoto,
+        agentPhone,
+        agentEmail,
+
+        dt,
+        endDt
+
+    };
+}
+
+
+/* =========================================================
+   FILTERING
+========================================================= */
+
+function matches(h){
+
+    const query = searchText.trim().toLowerCase();
+
+    if(query){
+
+        const haystack = [
+            h.address,
+            h.suburb,
+            h.price,
+            h.headline,
+            h.description,
+            h.agent
+        ]
+        .join(" ")
+        .toLowerCase();
+
+        if(!haystack.includes(query)){
+            return false;
+        }
+    }
+
+    if(filter === "today"){
+
+        return dateKey(h.dt) === todayKey();
+
+    }
+
+    if(filter === "tomorrow"){
+
+        return dateKey(h.dt) === tomorrowKey();
+
+    }
+
+    if(filter === "week"){
+
+        const now = new Date();
+
+        const weekEnd = new Date();
+
+        weekEnd.setDate(
+            now.getDate()+7
+        );
+
+        return (
+            h.dt &&
+            h.dt >= now &&
+            h.dt <= weekEnd
+        );
+    }
+
+    return true;
 }
 
 
 /* =========================================================
    GITHUB PHOTOS
-   ========================================================= */
+========================================================= */
 
 async function getLocalPhotos(h){
 
-  const folder =
-    photoFolder(h);
+    const folder = photoFolder(h);
 
-  const url =
-    GITHUB_API +
-    encodeURIComponent(folder);
-
-
-  try{
-
-    const response =
-      await fetch(url);
-
-
-    if(!response.ok){
-
-      return [];
-
+    if(!folder){
+        return [];
     }
 
-
-    const files =
-      await response.json();
-
-
-    if(!Array.isArray(files)){
-
-      return [];
-
-    }
-
-
-    return files
-
-      .filter(
-        file =>
-          file.type === "file" &&
-          /\.(jpg|jpeg|png|webp)$/i
-            .test(file.name)
-      )
-
-      .sort(
-        (a,b) =>
-          a.name.localeCompare(
-            b.name,
-            undefined,
-            {
-              numeric:true,
-              sensitivity:"base"
-            }
-          )
-      )
-
-      .map(
-        file =>
-          file.download_url
-      );
-
-
-  }catch(error){
-
-    console.error(
-      "Photo loading error:",
-      error
-    );
-
-    return [];
-
-  }
-
-}
-
-
-/* =========================================================
-   PLACEHOLDER
-   ========================================================= */
-
-function placeholder(){
-
-  return (
-    "data:image/svg+xml;charset=UTF-8," +
-
-    encodeURIComponent(
-
-      "<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'>" +
-
-      "<rect width='100%' height='100%' fill='#081A2F'/>" +
-
-      "<text x='50%' y='48%' text-anchor='middle' fill='#D4AF62' font-family='Arial' font-size='42' font-weight='700'>ypa.</text>" +
-
-      "<text x='50%' y='55%' text-anchor='middle' fill='white' font-family='Arial' font-size='16' letter-spacing='4'>BACCHUS MARSH</text>" +
-
-      "</svg>"
-
-    )
-
-  );
-
-}
-
-
-/* =========================================================
-   DATES
-   ========================================================= */
-
-function parseDate(v){
-
-  if(!v)
-    return null;
-
-
-  let s =
-    String(v).trim();
-
-
-  let d;
-
-
-  if(
-    /^\d{2}\/\d{2}\/\d{4}$/
-      .test(s)
-  ){
-
-    let [
-      a,
-      b,
-      c
-    ] =
-      s.split("/");
-
-
-    d =
-      new Date(
-        +c,
-        +b - 1,
-        +a
-      );
-
-
-  }else{
-
-    d =
-      new Date(s);
-
-  }
-
-
-  return isNaN(d)
-    ? null
-    : d;
-
-}
-
-
-function parseTime(v){
-
-  if(!v)
-    return null;
-
-
-  let s =
-    String(v)
-      .trim()
-      .toUpperCase();
-
-
-  let m =
-    s.match(
-      /(\d{1,2}):(\d{2})\s*(AM|PM)?/
-    );
-
-
-  if(!m)
-    return null;
-
-
-  let h =
-    +m[1];
-
-  let min =
-    +m[2];
-
-  let ap =
-    m[3];
-
-
-  if(
-    ap === "PM" &&
-    h < 12
-  ){
-
-    h += 12;
-
-  }
-
-
-  if(
-    ap === "AM" &&
-    h === 12
-  ){
-
-    h = 0;
-
-  }
-
-
-  return (
-    h * 60 +
-    min
-  );
-
-}
-
-
-function dateTime(h){
-
-  let d =
-    parseDate(h.date);
-
-  let t =
-    parseTime(h.start);
-
-
-  if(
-    !d ||
-    t == null
-  ){
-
-    return null;
-
-  }
-
-
-  d.setHours(
-    Math.floor(t / 60),
-    t % 60,
-    0,
-    0
-  );
-
-
-  return d;
-
-}
-
-
-function dateKey(d){
-
-  if(!d)
-    return "";
-
-
-  return (
-    `${d.getFullYear()}-` +
-
-    `${String(
-      d.getMonth()+1
-    ).padStart(2,"0")}-` +
-
-    `${String(
-      d.getDate()
-    ).padStart(2,"0")}`
-  );
-
-}
-
-
-/* =========================================================
-   NORMALISE
-   ========================================================= */
-
-function normalise(raw,i){
-
-  let h =
-    {...raw};
-
-
-  h.id =
-    "p" +
-    i +
-    "-" +
-    Math.random()
-      .toString(36)
-      .slice(2,9);
-
-
-  h.date =
-    field(
-      h,
-      "date"
-    );
-
-
-  h.start =
-    field(
-      h,
-      "start time",
-      "starttime",
-      "start"
-    );
-
-
-  h.end =
-    field(
-      h,
-      "end time",
-      "endtime",
-      "end"
-    );
-
-
-  h.address =
-    field(
-      h,
-      "address"
-    );
-
-
-  h.suburb =
-    field(
-      h,
-      "suburb"
-    );
-
-
-  h.price =
-    field(
-      h,
-      "price"
-    );
-
-
-  h.bedrooms =
-    field(
-      h,
-      "bedrooms",
-      "beds"
-    );
-
-
-  h.bathrooms =
-    field(
-      h,
-      "bathrooms",
-      "baths"
-    );
-
-
-  h.parking =
-    field(
-      h,
-      "parking",
-      "car spaces",
-      "cars"
-    );
-
-
-  h.url =
-    field(
-      h,
-      "rea url",
-      "rea_url",
-      "listing url",
-      "listingurl"
-    );
-
-
-  h.headline =
-    field(
-      h,
-      "headline",
-      "title"
-    );
-
-
-  h.description =
-    field(
-      h,
-      "description",
-      "property description",
-      "copy"
-    );
-
-
-  h.agent =
-    field(
-      h,
-      "agent",
-      "agent name"
-    );
-
-
-  h.agentPhoto =
-    field(
-      h,
-      "agent photo",
-      "agentphoto"
-    );
-
-
-  h.agentPhone =
-    field(
-      h,
-      "agent phone",
-      "agentphone"
-    );
-
-
-  h.agentEmail =
-    field(
-      h,
-      "agent email",
-      "agentemail"
-    );
-
-
-  h.dt =
-    dateTime(h);
-
-
-  return h;
-
-}
-
-
-/* =========================================================
-   DATE DISPLAY
-   ========================================================= */
-
-function formatDate(h){
-
-  return h.dt
-
-    ? h.dt.toLocaleDateString(
-        "en-AU",
-        {
-          weekday:"long",
-          day:"numeric",
-          month:"long"
+    try{
+
+        const response = await fetch(
+            GITHUB_API +
+            encodeURIComponent(folder)
+        );
+
+        if(!response.ok){
+            return [];
         }
-      )
 
-    : (
-        h.date ||
-        "Inspection"
-      );
+        const data = await response.json();
 
-}
+        if(!Array.isArray(data)){
+            return [];
+        }
 
+        const photos = data
+            .filter(item => {
 
-/* =========================================================
-   FILTER
-   ========================================================= */
+                const name =
+                    String(item.name || "").toLowerCase();
 
-function matches(h){
+                return (
+                    name.endsWith(".jpg") ||
+                    name.endsWith(".jpeg") ||
+                    name.endsWith(".png") ||
+                    name.endsWith(".webp")
+                );
+            })
+            .sort((a,b) =>
+                String(a.name).localeCompare(
+                    String(b.name),
+                    undefined,
+                    {
+                        numeric:true,
+                        sensitivity:"base"
+                    }
+                )
+            )
+            .map(item =>
+                item.download_url || item.html_url
+            )
+            .filter(Boolean);
 
-  let d =
-    h.dt;
+        return photos;
 
-  let now =
-    new Date();
+    }catch(error){
 
+        console.warn(
+            "Unable to load photos for",
+            folder,
+            error
+        );
 
-  let today =
-    dateKey(now);
-
-
-  let tomorrow =
-    new Date(now);
-
-
-  tomorrow.setDate(
-    tomorrow.getDate()+1
-  );
-
-
-  let pass =
-    filter === "all";
-
-
-  if(
-    filter === "today"
-  ){
-
-    pass =
-      dateKey(d) ===
-      today;
-
-  }
-
-
-  if(
-    filter === "tomorrow"
-  ){
-
-    pass =
-      dateKey(d) ===
-      dateKey(tomorrow);
-
-  }
-
-
-  if(
-    filter === "week"
-  ){
-
-    let diff =
-      d
-        ? (d-now)/86400000
-        : 0;
-
-
-    pass =
-      diff >= -1 &&
-      diff < 7;
-
-  }
-
-
-  let text =
-    (
-      h.address +
-      " " +
-      h.suburb +
-      " " +
-      h.price +
-      " " +
-      h.headline
-    )
-    .toLowerCase();
-
-
-  return (
-    pass &&
-    text.includes(
-      searchText
-    )
-  );
-
+        return [];
+    }
 }
 
 
 /* =========================================================
    PROPERTY CARD
-   ========================================================= */
+========================================================= */
 
 function propertyCardHTML(h){
 
-  return `
+    const saved =
+        weekendIds.includes(h.id);
 
-    <article
-      class="card"
-      data-property-id="${esc(h.id)}"
-    >
+    const image =
+        placeholder(h.suburb || "YPA");
 
+    const label =
+        h.dt
+            ? formatDate(h)
+            : "PROPERTY";
 
-      <div
-        class="cardphoto"
-        id="cardphoto-${esc(h.id)}"
-        onclick="openProperty('${esc(h.id)}')"
-      >
+    return `
 
-        <div class="photo-label">
-          ${esc(formatDate(h))}
-        </div>
-
-
-        <div
-          class="card-photo-counter"
-          id="counter-${esc(h.id)}"
-          style="display:none"
-        >
-          1 / 1
-        </div>
-
-
-        <img
-          id="img-${esc(h.id)}"
-          src="${placeholder()}"
-          alt="${esc(h.address)}"
-          loading="lazy"
+        <article
+            class="property-card"
+            data-id="${esc(h.id)}"
         >
 
+            <div
+                class="card-photo"
+                id="photo-${esc(h.id)}"
+            >
 
-        <div
-          class="card-dots"
-          id="dots-${esc(h.id)}"
-        ></div>
+                <img
+                    id="img-${esc(h.id)}"
+                    src="${image}"
+                    alt="${esc(h.address)}"
+                    loading="lazy"
+                >
 
-      </div>
+                <div class="card-label">
+                    ${esc(label)}
+                </div>
 
+                <div
+                    class="card-count"
+                    id="count-${esc(h.id)}"
+                >
+                    1 / 1
+                </div>
 
-      <div class="cardbody">
+                <button
+                    class="card-arrow left"
+                    onclick="event.stopPropagation(); rotateCardCarousel('${esc(h.id)}',-1)"
+                    aria-label="Previous photo"
+                >
+                    ‹
+                </button>
 
+                <button
+                    class="card-arrow right"
+                    onclick="event.stopPropagation(); rotateCardCarousel('${esc(h.id)}',1)"
+                    aria-label="Next photo"
+                >
+                    ›
+                </button>
 
-        <div class="suburb">
-          ${esc(h.suburb)}
-        </div>
+                <div
+                    class="card-dots"
+                    id="dots-${esc(h.id)}"
+                ></div>
 
-
-        <h3>
-          ${esc(h.address)}
-        </h3>
-
-
-        <div class="price">
-          ${esc(
-            h.price ||
-            "Contact Agent"
-          )}
-        </div>
-
-
-        <div class="chips">
-
-          <span>
-            ${esc(
-              h.bedrooms ||
-              "—"
-            )}
-            bed
-          </span>
-
-
-          <span>
-            ${esc(
-              h.bathrooms ||
-              "—"
-            )}
-            bath
-          </span>
+            </div>
 
 
-          ${
-            h.parking
+            <div class="card-content">
 
-              ? `
+                <div class="card-suburb">
+                    ${esc(h.suburb || "Bacchus Marsh")}
+                </div>
+
+                <div class="card-address">
+                    ${esc(h.address || "Property")}
+                </div>
+
+                ${
+                    h.price
+                    ?
+                    `<div class="card-price">
+                        ${esc(h.price)}
+                    </div>`
+                    :
+                    ""
+                }
+
+                ${
+                    h.headline
+                    ?
+                    `<div class="card-headline">
+                        ${esc(h.headline)}
+                    </div>`
+                    :
+                    ""
+                }
+
+                <div class="card-stats">
+
+                    ${
+                        h.beds
+                        ?
+                        `<div class="card-stat">
+                            <strong>${esc(h.beds)}</strong> Beds
+                        </div>`
+                        :
+                        ""
+                    }
+
+                    ${
+                        h.baths
+                        ?
+                        `<div class="card-stat">
+                            <strong>${esc(h.baths)}</strong> Baths
+                        </div>`
+                        :
+                        ""
+                    }
+
+                    ${
+                        h.cars
+                        ?
+                        `<div class="card-stat">
+                            <strong>${esc(h.cars)}</strong> Cars
+                        </div>`
+                        :
+                        ""
+                    }
+
+                </div>
+
+                <div class="card-actions">
+
+                    <button
+                        class="card-main-btn"
+                        onclick="openProperty('${esc(h.id)}')"
+                    >
+                        View Property
+                    </button>
+
+                    <button
+                        class="card-save-btn ${saved ? "saved" : ""}"
+                        id="save-${esc(h.id)}"
+                        onclick="event.stopPropagation(); toggleWeekend('${esc(h.id)}')"
+                        aria-label="Add to weekend"
+                    >
+                        ${saved ? "✓" : "+"}
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+    `;
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+    homes.sort((a,b) => {
+
+        const aTime =
+            a.dt ? a.dt.getTime() : Infinity;
+
+        const bTime =
+            b.dt ? b.dt.getTime() : Infinity;
+
+        return aTime - bTime;
+    });
+
+
+    const visible =
+        homes.filter(matches);
+
+
+    const grid =
+        $("propertyGrid");
+
+
+    if(!visible.length){
+
+        grid.innerHTML = `
+            <div class="no-results">
+
+                <strong>
+                    No properties found.
+                </strong>
+
                 <span>
-                  ${esc(h.parking)}
-                  car
+                    Try another search or filter.
                 </span>
-              `
 
-              : ""
-          }
+            </div>
+        `;
 
-        </div>
+    }else{
 
-
-        <div class="actions">
-
-
-          <button
-            class="bluebtn"
-            onclick="openProperty('${esc(h.id)}')"
-          >
-            View Property
-          </button>
-
-
-          <button
-            class="${
-              weekendIds.includes(h.id)
-                ? "yellowbtn"
-                : "filter"
-            }"
-            onclick="toggleWeekend('${esc(h.id)}')"
-          >
-
-            ${
-              weekendIds.includes(h.id)
-
-                ? "✓ Saved"
-
-                : "+ Weekend"
-            }
-
-          </button>
-
-
-        </div>
-
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RENDER PROPERTIES
-   ========================================================= */
-
-async function render(){
-
-  let list =
-    homes
-      .filter(matches)
-      .sort(
-        (a,b) =>
-          (
-            a.dt?.getTime() ||
-            9999999999999
-          ) -
-          (
-            b.dt?.getTime() ||
-            9999999999999
-          )
-      );
-
-
-  $("propertyCount")
-    .textContent =
-      homes.length;
-
-
-  $("suburbCount")
-    .textContent =
-      new Set(
-        homes
-          .map(
-            h => h.suburb
-          )
-          .filter(Boolean)
-      ).size;
-
-
-  $("inspectionCount")
-    .textContent =
-      homes.length;
-
-
-  updateWeekendCounts();
-
-
-  if(!list.length){
-
-    $("propertyGrid")
-      .innerHTML =
-
-      `
-
-        <div class="empty">
-
-          No properties match
-          your search.
-
-        </div>
-
-      `;
-
-    return;
-
-  }
-
-
-  $("propertyGrid")
-    .innerHTML =
-      list
-        .map(
-          h =>
-            propertyCardHTML(h)
-        )
-        .join("");
-
-
-  /*
-   * Load photos AFTER the cards
-   * exist so the dashboard remains
-   * fast.
-   */
-
-  await Promise.all(
-
-    list.map(
-      h =>
-        initialiseCardCarousel(h)
-    )
-
-  );
-
-
-  renderAgents();
-
-  renderWeekendDashboard();
-
-}
-
-
-/* =========================================================
-   CARD CAROUSEL
-   ========================================================= */
-
-async function initialiseCardCarousel(h){
-
-  const photos =
-    await getLocalPhotos(h);
-
-
-  const usablePhotos =
-    photos.length
-      ? photos
-      : [placeholder()];
-
-
-  const img =
-    $("img-" + h.id);
-
-
-  const counter =
-    $("counter-" + h.id);
-
-
-  const dots =
-    $("dots-" + h.id);
-
-
-  if(!img)
-    return;
-
-
-  /*
-   * Store carousel state
-   */
-
-  cardCarousels[h.id] = {
-
-    photos:
-      usablePhotos,
-
-    current:0,
-
-    timer:null,
-
-    paused:false
-
-  };
-
-
-  /*
-   * Set first photo
-   */
-
-  img.src =
-    usablePhotos[0];
-
-
-  img.onload =
-    () =>
-      img.classList.add(
-        "loaded"
-      );
-
-
-  /*
-   * Counter
-   */
-
-  if(
-    usablePhotos.length > 1
-  ){
-
-    counter.style.display =
-      "block";
-
-    counter.textContent =
-      `1 / ${usablePhotos.length}`;
-
-  }
-
-
-  /*
-   * Dots
-   */
-
-  if(
-    usablePhotos.length > 1
-  ){
-
-    dots.innerHTML =
-      usablePhotos
-        .map(
-          (_,i) =>
-            `
-              <span
-                class="
-                  card-dot
-                  ${i === 0 ? "active" : ""}
-                "
-              ></span>
-            `
-        )
-        .join("");
-
-  }
-
-
-  /*
-   * Automatic rotation
-   */
-
-  if(
-    usablePhotos.length > 1
-  ){
-
-    cardCarousels[h.id].timer =
-      setInterval(
-        () => {
-
-          const state =
-            cardCarousels[h.id];
-
-          if(
-            !state ||
-            state.paused
-          )
-            return;
-
-
-          state.current =
-            (
-              state.current + 1
-            ) %
-            state.photos.length;
-
-
-          rotateCardCarousel(
-            h.id
-          );
-
-        },
-        3500
-      );
-
-
-    /*
-     * Pause while mouse is
-     * over the property.
-     */
-
-    const card =
-      $("cardphoto-" + h.id);
-
-
-    if(card){
-
-      card.addEventListener(
-        "mouseenter",
-        () => {
-
-          cardCarousels[h.id]
-            .paused = true;
-
-        }
-      );
-
-
-      card.addEventListener(
-        "mouseleave",
-        () => {
-
-          cardCarousels[h.id]
-            .paused = false;
-
-        }
-      );
+        grid.innerHTML =
+            visible
+                .map(propertyCardHTML)
+                .join("");
 
     }
 
-  }
 
+    updateCounts();
+
+    renderWeekendDashboard();
+
+    renderAgents();
+
+    visible.forEach(
+        initialiseCardCarousel
+    );
 }
 
 
 /* =========================================================
-   ROTATE CARD
-   ========================================================= */
+   COUNTS
+========================================================= */
 
-function rotateCardCarousel(id){
+function updateCounts(){
 
-  const state =
-    cardCarousels[id];
+    const suburbs = new Set(
+        homes
+            .map(h => h.suburb)
+            .filter(Boolean)
+            .map(s => String(s).trim().toLowerCase())
+    );
 
-
-  if(!state)
-    return;
-
-
-  const img =
-    $("img-" + id);
-
-
-  const counter =
-    $("counter-" + id);
+    const inspections =
+        homes.filter(h => h.dt).length;
 
 
-  const dots =
-    $("dots-" + id);
+    $("propertyCount").textContent =
+        homes.length;
+
+    $("suburbCount").textContent =
+        suburbs.size;
+
+    $("inspectionCount").textContent =
+        inspections;
+
+    updateWeekendCounts();
+}
 
 
-  if(!img)
-    return;
+/* =========================================================
+   CARD CAROUSELS
+========================================================= */
+
+async function initialiseCardCarousel(h){
+
+    const id = h.id;
+
+    if(cardCarousels[id]){
+        return;
+    }
+
+    cardCarousels[id] = {
+        photos:[],
+        index:0,
+        timer:null
+    };
+
+    const photos =
+        await getLocalPhotos(h);
+
+    if(!cardCarousels[id]){
+        return;
+    }
+
+    cardCarousels[id].photos =
+        photos.length
+            ? photos
+            : [placeholder(h.suburb || "YPA")];
+
+    updateCardCarousel(h);
+
+    if(cardCarousels[id].photos.length > 1){
+
+        cardCarousels[id].timer =
+            setInterval(
+                () => rotateCardCarousel(id,1),
+                3500
+            );
+
+        const photoElement =
+            $(`photo-${id}`);
+
+        if(photoElement){
+
+            photoElement.addEventListener(
+                "mouseenter",
+                () => {
+
+                    clearInterval(
+                        cardCarousels[id].timer
+                    );
+
+                }
+            );
+
+            photoElement.addEventListener(
+                "mouseleave",
+                () => {
+
+                    clearInterval(
+                        cardCarousels[id].timer
+                    );
+
+                    cardCarousels[id].timer =
+                        setInterval(
+                            () => rotateCardCarousel(id,1),
+                            3500
+                        );
+
+                }
+            );
+
+        }
+
+    }
+}
 
 
-  img.style.opacity =
-    "0";
+function rotateCardCarousel(id,direction=1){
+
+    const carousel =
+        cardCarousels[id];
+
+    if(
+        !carousel ||
+        !carousel.photos.length
+    ){
+        return;
+    }
+
+    carousel.index =
+        (
+            carousel.index +
+            direction +
+            carousel.photos.length
+        ) %
+        carousel.photos.length;
+
+    updateCardCarousel(
+        homes.find(h => h.id === id)
+    );
+}
 
 
-  setTimeout(
-    () => {
+function updateCardCarousel(h){
 
-      img.src =
-        state.photos[
-          state.current
-        ];
+    if(!h){
+        return;
+    }
 
+    const carousel =
+        cardCarousels[h.id];
 
-      img.onload =
-        () => {
+    if(!carousel){
+        return;
+    }
 
-          img.classList.add(
-            "loaded"
-          );
+    const img =
+        $(`img-${h.id}`);
 
-          img.style.opacity =
-            "1";
+    const count =
+        $(`count-${h.id}`);
 
-        };
-
-
-      if(counter){
-
-        counter.textContent =
-          `${state.current + 1} / ${state.photos.length}`;
-
-      }
+    const dots =
+        $(`dots-${h.id}`);
 
 
-      if(dots){
+    if(img){
 
-        dots
-          .querySelectorAll(
-            ".card-dot"
-          )
-          .forEach(
-            (dot,i) => {
+        img.src =
+            carousel.photos[
+                carousel.index
+            ];
 
-              dot.classList.toggle(
-                "active",
-                i === state.current
-              );
+        img.alt =
+            h.address || "Property";
 
-            }
-          );
+    }
 
-      }
 
-    },
-    300
-  );
+    if(count){
 
+        count.textContent =
+            `${carousel.index + 1} / ${carousel.photos.length}`;
+
+    }
+
+
+    if(dots){
+
+        dots.innerHTML =
+            carousel.photos
+                .map(
+                    (_,i) =>
+                        `<span class="card-dot ${i === carousel.index ? "active" : ""}"></span>`
+                )
+                .join("");
+
+    }
 }
 
 
 /* =========================================================
    PROPERTY MODAL
-   ========================================================= */
-
-let currentCarousel = [];
-
-let currentPhoto = 0;
-
-let touchStartX = 0;
-
+========================================================= */
 
 async function openProperty(id){
 
-  let h =
-    homes.find(
-      x => x.id === id
-    );
+    const property =
+        homes.find(
+            h => String(h.id) === String(id)
+        );
 
+    if(!property){
+        return;
+    }
 
-  if(!h)
-    return;
+    currentProperty = property;
 
+    currentPhotos =
+        await getLocalPhotos(property);
 
-  $("propertyStory")
-    .innerHTML =
+    if(!currentPhotos.length){
 
-    `
+        currentPhotos = [
+            placeholder(
+                property.suburb ||
+                "YPA BACCHUS MARSH"
+            )
+        ];
 
-      <div id="propertyCarousel">
+    }
 
-        <div class="loading">
+    currentPhotoIndex = 0;
 
-          <div class="loading-spinner"></div>
+    $("modalKicker").textContent =
+        `${property.suburb || "BACCHUS MARSH"} · ${formatDate(property)}`;
 
-          Loading property photography…
+    $("modalTitle").textContent =
+        property.headline ||
+        property.address ||
+        "Property";
 
-        </div>
+    $("modalAddress").textContent =
+        property.address || "";
 
-      </div>
+    $("modalPrice").textContent =
+        property.price || "";
 
+    $("modalDescription").innerHTML =
+        property.description
+            ? esc(property.description).replace(/\n/g,"<br>")
+            : "Contact YPA Bacchus Marsh for further property information.";
 
-      <div class="story">
+    $("modalBeds").textContent =
+        property.beds || "—";
 
-        <div class="kicker">
+    $("modalBaths").textContent =
+        property.baths || "—";
 
-          ${esc(h.suburb)}
-          ·
-          ${esc(formatDate(h))}
+    $("modalCars").textContent =
+        property.cars || "—";
 
-        </div>
 
-
-        <h1>
-
-          ${esc(
-            h.headline ||
-            h.address
-          )}
-
-        </h1>
-
-
-        <div class="meta">
-
-          ${esc(h.address)}
-          ·
-          ${esc(
-            h.price ||
-            "Contact Agent"
-          )}
-
-        </div>
-
-
-        <div class="description">
-
-          ${esc(
-            h.description ||
-            "Property details and editorial copy coming soon."
-          )}
-
-        </div>
-
-
-        <div
-          class="chips"
-          style="margin-top:28px"
-        >
-
-          <span>
-            ${esc(
-              h.bedrooms ||
-              "—"
-            )}
-            Bedrooms
-          </span>
-
-
-          <span>
-            ${esc(
-              h.bathrooms ||
-              "—"
-            )}
-            Bathrooms
-          </span>
-
-
-          ${
-            h.parking
-
-              ? `
-                <span>
-                  ${esc(h.parking)}
-                  Car
-                </span>
-              `
-
-              : ""
-          }
-
-        </div>
-
-
-        ${
-          h.agent
-
-            ? `
-
-              <div class="agentbox">
-
-
-                ${
-                  h.agentPhoto
-
-                    ? `
-                      <img
-                        src="${esc(h.agentPhoto)}"
-                        alt="${esc(h.agent)}"
-                      >
-                    `
-
-                    : ""
-                }
-
-
-                <div>
-
-                  <h3>
-                    ${esc(h.agent)}
-                  </h3>
-
-                  <p>
-
-                    ${esc(
-                      h.agentPhone ||
-                      ""
-                    )}
-
-                    ${
-                      h.agentEmail
-
-                        ? " · " +
-                          esc(
-                            h.agentEmail
-                          )
-
-                        : ""
-                    }
-
-                  </p>
-
-                </div>
-
-
-              </div>
-
-            `
-
-            : ""
-        }
-
-
-        <div class="modalactions">
-
-
-          <button
-            class="yellowbtn"
-            onclick="toggleWeekend('${esc(h.id)}')"
-          >
-
+    const agentHTML = property.agent
+        ?
+        `
             ${
-              weekendIds.includes(h.id)
-
-                ? "✓ Saved To My Weekend"
-
-                : "+ Add To My Weekend"
+                property.agentPhoto
+                ?
+                `<img
+                    src="${esc(property.agentPhoto)}"
+                    alt="${esc(property.agent)}"
+                    onerror="this.style.display='none'"
+                >`
+                :
+                ""
             }
 
-          </button>
+            <div>
+                <strong>${esc(property.agent)}</strong>
+                <span>${esc(property.agentPhone || "YPA Bacchus Marsh")}</span>
+            </div>
+        `
+        :
+        `
+            <div>
+                <strong>YPA Bacchus Marsh</strong>
+                <span>Local Property Team</span>
+            </div>
+        `;
+
+    $("modalAgent").innerHTML =
+        agentHTML;
 
 
-          <button
-            class="bluebtn"
-            onclick="
-              window.open(
-                '${esc(mapsUrl(h))}',
-                '_blank'
-              )
-            "
-          >
-            Directions
-          </button>
+    $("modalListingBtn").style.display =
+        property.listing
+            ? "block"
+            : "none";
 
 
-          ${
-            h.url
+    updateModalWeekendButton();
 
-              ? `
+    updateCarousel();
 
-                <button
-                  class="filter"
-                  onclick="
-                    window.open(
-                      '${esc(h.url)}',
-                      '_blank'
-                    )
-                  "
-                >
-                  View Listing
-                </button>
+    $("propertyModal").classList.add("open");
 
-              `
-
-              : ""
-          }
+    document.body.style.overflow = "hidden";
 
 
-        </div>
+    clearInterval(modalTimer);
 
-      </div>
+    if(currentPhotos.length > 1){
 
-    `;
+        modalTimer =
+            setInterval(
+                () => nextPhoto(),
+                4000
+            );
 
-
-  $("propertyModal")
-    .classList
-    .add("open");
-
-
-  document.body.style.overflow =
-    "hidden";
-
-
-  const photos =
-    await getLocalPhotos(h);
-
-
-  currentCarousel =
-    photos.length
-      ? photos
-      : [placeholder()];
-
-
-  currentPhoto = 0;
-
-
-  $("propertyCarousel")
-    .innerHTML =
-      carouselHTML(
-        currentCarousel
-      );
-
-
-  startModalAutoCarousel();
+    }
 
 }
 
 
 function closeProperty(){
 
-  stopModalAutoCarousel();
+    $("propertyModal").classList.remove("open");
 
+    document.body.style.overflow = "";
 
-  $("propertyModal")
-    .classList
-    .remove("open");
+    clearInterval(modalTimer);
 
+    currentProperty = null;
 
-  document.body.style.overflow =
-    "";
-
+    currentPhotos = [];
 }
 
 
-/* =========================================================
-   MODAL CAROUSEL
-   ========================================================= */
+function carouselHTML(){
 
-let modalCarouselTimer =
-  null;
-
-
-function carouselHTML(photos){
-
-  if(!photos.length){
-
-    photos =
-      [placeholder()];
-
-  }
-
-
-  return `
-
-    <div
-      class="carousel"
-      id="modalCarousel"
-      ontouchstart="touchStart(event)"
-      ontouchend="touchEnd(event)"
-    >
-
-      <div class="carousel-main">
-
-
-        <img
-          id="carouselImage"
-          src="${esc(photos[0])}"
-          alt="Property photograph"
-        >
-
-
-        ${
-          photos.length > 1
-
-            ? `
-
-              <button
-                class="carousel-arrow left"
-                onclick="previousPhoto()"
-                aria-label="Previous photo"
-              >
-                ‹
-              </button>
-
-
-              <button
-                class="carousel-arrow right"
-                onclick="nextPhoto()"
-                aria-label="Next photo"
-              >
-                ›
-              </button>
-
-            `
-
-            : ""
-        }
-
-
-        <div
-          class="counter"
-          id="photoCounter"
-        >
-          1 / ${photos.length}
-        </div>
-
-
-        ${
-          photos.length > 1
-
-            ? `
-
-              <div class="dots">
-
-                ${
-                  photos
-                    .map(
-                      (_,i) =>
-                        `
-
-                          <button
-                            class="
-                              dot
-                              ${
-                                i === 0
-                                  ? "active"
-                                  : ""
-                              }
-                            "
-                            onclick="goPhoto(${i})"
-                          ></button>
-
-                        `
-                    )
-                    .join("")
-                }
-
-              </div>
-
-            `
-
-            : ""
-        }
-
-
-      </div>
-
-
-      ${
-        photos.length > 1
-
-          ? `
-
-            <div class="thumbs">
-
-              ${
-                photos
-                  .map(
-                    (p,i) =>
-                      `
-
-                        <img
-                          class="
-                            thumb
-                            ${
-                              i === 0
-                                ? "active"
-                                : ""
-                            }
-                          "
-                          src="${esc(p)}"
-                          onclick="goPhoto(${i})"
-                          alt="
-                            Property photo
-                            ${i+1}
-                          "
-                        >
-
-                      `
-                  )
-                  .join("")
-              }
-
-            </div>
-
-          `
-
-          : ""
-      }
-
-
-    </div>
-
-  `;
-
+    return "";
 }
 
 
 function updateCarousel(){
 
-  if(
-    !currentCarousel.length
-  )
-    return;
+    if(!currentPhotos.length){
+        return;
+    }
+
+    const image =
+        $("modalMainImage");
+
+    image.src =
+        currentPhotos[currentPhotoIndex];
+
+    image.alt =
+        currentProperty
+            ? currentProperty.address
+            : "Property";
 
 
-  const image =
-    $("carouselImage");
-
-
-  if(!image)
-    return;
-
-
-  image.style.opacity =
-    "0";
-
-
-  setTimeout(
-    () => {
-
-      image.src =
-        currentCarousel[
-          currentPhoto
-        ];
-
-
-      image.onload =
-        () => {
-
-          image.style.opacity =
-            "1";
-
-        };
-
-
-      $("photoCounter")
-        .textContent =
-          `${currentPhoto + 1} / ${currentCarousel.length}`;
-
-
-      document
-        .querySelectorAll(
-          ".dot"
-        )
-        .forEach(
-          (d,i) =>
-            d.classList.toggle(
-              "active",
-              i === currentPhoto
+    $("modalDots").innerHTML =
+        currentPhotos
+            .map(
+                (_,i) =>
+                    `
+                    <span
+                        class="modal-dot ${i === currentPhotoIndex ? "active" : ""}"
+                        onclick="goPhoto(${i})"
+                    ></span>
+                    `
             )
-        );
-
-
-      document
-        .querySelectorAll(
-          ".thumb"
-        )
-        .forEach(
-          (d,i) =>
-            d.classList.toggle(
-              "active",
-              i === currentPhoto
-            )
-        );
-
-    },
-    180
-  );
-
+            .join("");
 }
 
 
 function nextPhoto(){
 
-  if(
-    !currentCarousel.length
-  )
-    return;
+    if(!currentPhotos.length){
+        return;
+    }
 
+    currentPhotoIndex =
+        (
+            currentPhotoIndex + 1
+        ) %
+        currentPhotos.length;
 
-  currentPhoto =
-    (
-      currentPhoto + 1
-    ) %
-    currentCarousel.length;
-
-
-  updateCarousel();
-
+    updateCarousel();
 }
 
 
 function previousPhoto(){
 
-  if(
-    !currentCarousel.length
-  )
-    return;
+    if(!currentPhotos.length){
+        return;
+    }
 
+    currentPhotoIndex =
+        (
+            currentPhotoIndex - 1 +
+            currentPhotos.length
+        ) %
+        currentPhotos.length;
 
-  currentPhoto =
-    (
-      currentPhoto - 1 +
-      currentCarousel.length
-    ) %
-    currentCarousel.length;
-
-
-  updateCarousel();
-
+    updateCarousel();
 }
 
 
-function goPhoto(i){
+function goPhoto(index){
 
-  currentPhoto =
-    i;
+    if(
+        index < 0 ||
+        index >= currentPhotos.length
+    ){
+        return;
+    }
 
+    currentPhotoIndex = index;
 
-  updateCarousel();
-
-}
-
-
-/* =========================================================
-   MODAL AUTOMATIC ROTATION
-   ========================================================= */
-
-function startModalAutoCarousel(){
-
-  stopModalAutoCarousel();
-
-
-  if(
-    currentCarousel.length <= 1
-  )
-    return;
-
-
-  modalCarouselTimer =
-    setInterval(
-      () => {
-
-        nextPhoto();
-
-      },
-      4000
-    );
-
-}
-
-
-function stopModalAutoCarousel(){
-
-  if(
-    modalCarouselTimer
-  ){
-
-    clearInterval(
-      modalCarouselTimer
-    );
-
-    modalCarouselTimer =
-      null;
-
-  }
-
+    updateCarousel();
 }
 
 
 /* =========================================================
-   MOBILE SWIPE
-   ========================================================= */
+   MODAL TOUCH SWIPE
+========================================================= */
 
-function touchStart(event){
+let touchStartX = 0;
 
-  touchStartX =
-    event
-      .changedTouches[0]
-      .screenX;
+$("modalMainImage").addEventListener(
+    "touchstart",
+    event => {
 
-}
+        touchStartX =
+            event.changedTouches[0].screenX;
 
+    },
+    {passive:true}
+);
 
-function touchEnd(event){
+$("modalMainImage").addEventListener(
+    "touchend",
+    event => {
 
-  const endX =
-    event
-      .changedTouches[0]
-      .screenX;
+        const touchEndX =
+            event.changedTouches[0].screenX;
 
+        const difference =
+            touchStartX - touchEndX;
 
-  const difference =
-    touchStartX -
-    endX;
+        if(Math.abs(difference) < 45){
+            return;
+        }
 
+        if(difference > 0){
+            nextPhoto();
+        }else{
+            previousPhoto();
+        }
 
-  if(
-    Math.abs(difference) < 40
-  )
-    return;
-
-
-  if(difference > 0)
-    nextPhoto();
-
-  else
-    previousPhoto();
-
-}
-
-
-/* =========================================================
-   MAPS
-   ========================================================= */
-
-function mapsUrl(h){
-
-  return (
-
-    "https://www.google.com/maps/search/?api=1&query=" +
-
-    encodeURIComponent(
-
-      h.address +
-      ", " +
-      h.suburb
-
-    )
-
-  );
-
-}
+    },
+    {passive:true}
+);
 
 
 /* =========================================================
    WEEKEND
-   ========================================================= */
+========================================================= */
 
 function toggleWeekend(id){
 
-  weekendIds =
+    const index =
+        weekendIds.indexOf(id);
 
-    weekendIds.includes(id)
+    if(index === -1){
 
-      ? weekendIds.filter(
-          x => x !== id
-        )
+        weekendIds.push(id);
 
-      : [
-          ...weekendIds,
-          id
-        ];
+    }else{
 
+        weekendIds.splice(index,1);
 
-  localStorage.setItem(
-    "ypaWeekend",
-    JSON.stringify(
-      weekendIds
-    )
-  );
+    }
 
+    localStorage.setItem(
+        "ypaWeekend",
+        JSON.stringify(weekendIds)
+    );
 
-  render();
+    updateWeekendCounts();
 
-  renderWeekendDashboard();
+    renderWeekendDashboard();
 
+    updateSaveButton(id);
+
+    if(
+        currentProperty &&
+        currentProperty.id === id
+    ){
+
+        updateModalWeekendButton();
+
+    }
 }
 
 
-/* =========================================================
-   UPDATE WEEKEND COUNTS
-   ========================================================= */
+function updateSaveButton(id){
+
+    const button =
+        $(`save-${id}`);
+
+    if(!button){
+        return;
+    }
+
+    const saved =
+        weekendIds.includes(id);
+
+    button.classList.toggle(
+        "saved",
+        saved
+    );
+
+    button.textContent =
+        saved ? "✓" : "+";
+}
+
 
 function updateWeekendCounts(){
 
-  const count =
-    weekendIds.length;
+    const count =
+        weekendIds.length;
 
+    $("weekendCountHeader").textContent =
+        count;
 
-  $("weekendCount")
-    .textContent =
-      count;
+    $("weekendCountFloating").textContent =
+        count;
 
+    $("weekendCountHero").textContent =
+        count;
 
-  $("weekendCountHero")
-    .textContent =
-      count;
-
+    $("weekendSummaryCount").textContent =
+        count;
 }
 
 
-/* =========================================================
-   COSTA'S WEEKEND DASHBOARD
-   ========================================================= */
-
 function renderWeekendDashboard(){
 
-  updateWeekendCounts();
+    const dashboard =
+        $("weekendDashboard");
 
-
-  const list =
-    weekendIds
-
-      .map(
-        id =>
-          homes.find(
-            h => h.id === id
-          )
-      )
-
-      .filter(Boolean)
-
-      .sort(
-        (a,b) =>
-          (
-            a.dt?.getTime() ||
-            9999999999999
-          ) -
-          (
-            b.dt?.getTime() ||
-            9999999999999
-          )
-      );
-
-
-  const container =
-    $("weekendDashboard");
-
-
-  if(!container)
-    return;
-
-
-  if(!list.length){
-
-    container.innerHTML =
-
-      `
-
-        <div class="weekend-empty">
-
-          <strong>
-            Your weekend is clear.
-          </strong>
-
-          <br>
-
-          Add properties using the
-          <strong>+ Weekend</strong>
-          button below each listing.
-
-        </div>
-
-      `;
-
-    return;
-
-  }
-
-
-  /*
-   * Determine total inspection
-   * window.
-   */
-
-  let firstTime =
-    null;
-
-  let lastTime =
-    null;
-
-
-  list.forEach(
-    h => {
-
-      const start =
-        parseTime(h.start);
-
-      const end =
-        parseTime(h.end);
-
-
-      if(
-        start != null
-      ){
-
-        if(
-          firstTime === null ||
-          start < firstTime
-        ){
-
-          firstTime =
-            start;
-
-        }
-
-      }
-
-
-      if(
-        end != null
-      ){
-
-        if(
-          lastTime === null ||
-          end > lastTime
-        ){
-
-          lastTime =
-            end;
-
-        }
-
-      }
-
-    }
-  );
-
-
-  let durationText =
-    "—";
-
-
-  if(
-    firstTime != null &&
-    lastTime != null
-  ){
-
-    const minutes =
-      lastTime -
-      firstTime;
-
-
-    if(minutes > 0){
-
-      const hours =
-        Math.floor(
-          minutes / 60
-        );
-
-      const mins =
-        minutes % 60;
-
-
-      durationText =
-        hours +
-        "h " +
-        (
-          mins
-            ? mins + "m"
-            : ""
-        );
-
+    if(!dashboard){
+        return;
     }
 
-  }
-
-
-  const firstDate =
-    list[0].dt;
-
-
-  $("weekendDate")
-    .textContent =
-      firstDate
-
-        ? firstDate.toLocaleDateString(
-            "en-AU",
-            {
-              weekday:"long",
-              day:"numeric",
-              month:"long"
-            }
-          )
-
-        : "Your saved inspections";
-
-
-  container.innerHTML =
-
-    `
-
-      <div class="weekend-stats">
-
-
-        <div class="weekend-stat">
-
-          <div
-            class="weekend-stat-number"
-          >
-            ${list.length}
-          </div>
-
-          <div
-            class="weekend-stat-label"
-          >
-            Inspections
-          </div>
-
-        </div>
-
-
-        <div class="weekend-stat">
-
-          <div
-            class="weekend-stat-number"
-          >
-            ${durationText}
-          </div>
-
-          <div
-            class="weekend-stat-label"
-          >
-            Inspection Window
-          </div>
-
-        </div>
-
-
-        <div class="weekend-stat">
-
-          <div
-            class="weekend-stat-number"
-          >
-            ${
-              new Set(
-                list
-                  .map(
-                    h =>
-                      h.suburb
-                  )
-                  .filter(Boolean)
-              ).size
-            }
-          </div>
-
-          <div
-            class="weekend-stat-label"
-          >
-            Suburbs
-          </div>
-
-        </div>
-
-
-        <div class="weekend-stat">
-
-          <div
-            class="weekend-stat-number"
-          >
-            ${list.length}
-          </div>
-
-          <div
-            class="weekend-stat-label"
-          >
-            Properties
-          </div>
-
-        </div>
-
-
-      </div>
-
-
-      <div class="weekend-list">
-
-
-        ${
-          list
+    const selected =
+        weekendIds
             .map(
-              h =>
-
-                `
-
-                  <div
-                    class="weekend-item"
-                  >
-
-
-                    <div
-                      class="weekend-time"
-                    >
-
-                      ${
-                        esc(
-                          h.start ||
-                          "TBC"
-                        )
-                      }
-
-                    </div>
-
-
-                    <div
-                      class="weekend-address"
-                    >
-
-                      <strong>
-                        ${esc(h.address)}
-                      </strong>
-
-                      <small>
-                        ${esc(h.suburb)}
-                      </small>
-
-                    </div>
-
-
-                    <button
-                      class="weekend-directions"
-                      onclick="
-                        window.open(
-                          '${esc(
-                            mapsUrl(h)
-                          )}',
-                          '_blank'
-                        )
-                      "
-                    >
-                      Directions
-                    </button>
-
-
-                  </div>
-
-                `
+                id =>
+                    homes.find(
+                        h => h.id === id
+                    )
             )
-            .join("")
-        }
+            .filter(Boolean)
+            .sort(
+                (a,b) =>
+                    (a.dt || 0) -
+                    (b.dt || 0)
+            );
 
 
-      </div>
+    if(!selected.length){
+
+        dashboard.innerHTML = `
+            <div class="weekend-empty">
+
+                <strong>
+                    Build your inspection day.
+                </strong>
+
+                <span>
+                    Save properties below to create your own personalised weekend itinerary.
+                </span>
+
+            </div>
+        `;
+
+        return;
+    }
 
 
-      <div class="weekend-footer">
+    dashboard.innerHTML =
+        selected
+            .map(
+                (h,index) =>
+                    `
+                    <div class="weekend-item">
 
-        ${
-          list.length > 1
+                        <div class="weekend-time">
+                            ${esc(formatTimeRange(h))}
+                        </div>
 
-            ? `
+                        <div class="weekend-suburb">
+                            ${esc(h.suburb || "")}
+                        </div>
 
-              <button
-                class="route-btn"
-                onclick="openRoute()"
-              >
-                Open Full Route In Google Maps
-              </button>
+                        <div class="weekend-address">
+                            ${esc(h.address || "Property")}
+                        </div>
 
-            `
+                        <button
+                            class="weekend-remove"
+                            onclick="toggleWeekend('${esc(h.id)}')"
+                        >
+                            Remove
+                        </button>
 
-            : ""
-        }
+                    </div>
+                    `
+            )
+            .join("");
+}
 
-      </div>
 
-    `;
+function updateModalWeekendButton(){
+
+    if(!currentProperty){
+        return;
+    }
+
+    const saved =
+        weekendIds.includes(
+            currentProperty.id
+        );
+
+    const button =
+        $("modalWeekendBtn");
+
+    button.textContent =
+        saved
+            ? "✓ Saved To My Weekend"
+            : "+ Add To My Weekend";
+
+    button.classList.toggle(
+        "saved",
+        saved
+    );
+}
 
 
-  window._route =
-    list;
+function toggleCurrentWeekend(){
 
+    if(!currentProperty){
+        return;
+    }
+
+    toggleWeekend(
+        currentProperty.id
+    );
+
+    updateModalWeekendButton();
 }
 
 
 /* =========================================================
    WEEKEND DRAWER
-   ========================================================= */
+========================================================= */
 
 function openWeekend(){
 
-  renderWeekend();
+    renderWeekend();
 
+    $("weekendDrawer").classList.add("open");
 
-  $("weekendDrawer")
-    .classList
-    .add("open");
-
-
-  document.body.style.overflow =
-    "hidden";
-
+    document.body.style.overflow = "hidden";
 }
 
 
 function closeWeekend(){
 
-  $("weekendDrawer")
-    .classList
-    .remove("open");
+    $("weekendDrawer").classList.remove("open");
 
-
-  document.body.style.overflow =
-    "";
-
+    document.body.style.overflow = "";
 }
 
 
 function renderWeekend(){
 
-  let list =
+    const container =
+        $("drawerItinerary");
 
-    weekendIds
-
-      .map(
-        id =>
-          homes.find(
-            h => h.id === id
-          )
-      )
-
-      .filter(Boolean)
-
-      .sort(
-        (a,b) =>
-          (
-            a.dt?.getTime() ||
-            9999999999999
-          ) -
-          (
-            b.dt?.getTime() ||
-            9999999999999
-          )
-      );
-
-
-  if(!list.length){
-
-    $("itinerary")
-      .innerHTML =
-
-      `
-
-        <div class="empty">
-
-          No homes saved yet.
-
-          <br><br>
-
-          Tap
-          <strong>
-            "+ Weekend"
-          </strong>
-          on a property.
-
-        </div>
-
-      `;
-
-
-    $("mapsButton")
-      .style.display =
-        "none";
-
-
-    return;
-
-  }
-
-
-  $("itinerary")
-    .innerHTML =
-
-      list
-        .map(
-          h =>
-
-            `
-
-              <div class="trip">
-
-                <div
-                  class="triptime"
-                >
-
-                  ${esc(
-                    h.start ||
-                    "Time TBC"
-                  )}
-
-                  ${
-                    h.end
-
-                      ? " – " +
-                        esc(h.end)
-
-                      : ""
-                  }
-
-                </div>
-
-
-                <div
-                  class="tripaddr"
-                >
-
-                  ${esc(
-                    h.address
-                  )}
-
-                </div>
-
-
-                <div
-                  class="tripsuburb"
-                >
-
-                  ${esc(
-                    h.suburb
-                  )}
-
-                </div>
-
-
-                <button
-                  class="bluebtn"
-                  style="margin-top:12px"
-                  onclick="
-                    window.open(
-                      '${esc(
-                        mapsUrl(h)
-                      )}',
-                      '_blank'
+    const selected =
+        weekendIds
+            .map(
+                id =>
+                    homes.find(
+                        h => h.id === id
                     )
-                  "
-                >
-                  Directions
-                </button>
-
-              </div>
-
-            `
-        )
-        .join("");
+            )
+            .filter(Boolean)
+            .sort(
+                (a,b) =>
+                    (a.dt || 0) -
+                    (b.dt || 0)
+            );
 
 
-  $("mapsButton")
-    .style.display =
-      list.length > 1
-        ? "block"
-        : "none";
+    if(!selected.length){
+
+        container.innerHTML = `
+            <div class="weekend-empty">
+
+                <strong>
+                    Nothing saved yet.
+                </strong>
+
+                <span>
+                    Add properties to build your weekend inspection route.
+                </span>
+
+            </div>
+        `;
+
+        return;
+    }
 
 
-  window._route =
-    list;
+    container.innerHTML =
+        selected
+            .map(
+                (h,index) =>
+                    `
+                    <div class="drawer-item">
 
+                        <div class="drawer-number">
+                            ${index + 1}
+                        </div>
+
+                        <div>
+
+                            <div class="drawer-time">
+                                ${esc(formatTimeRange(h))}
+                            </div>
+
+                            <div class="drawer-address">
+                                ${esc(h.address || "Property")}
+                            </div>
+
+                            <div class="drawer-suburb">
+                                ${esc(h.suburb || "")}
+                            </div>
+
+                            <button
+                                class="drawer-remove"
+                                onclick="toggleWeekend('${esc(h.id)}'); renderWeekend();"
+                            >
+                                Remove
+                            </button>
+
+                        </div>
+
+                    </div>
+                    `
+            )
+            .join("");
+}
+
+
+function mapsUrl(h){
+
+    const query =
+        [
+            h.address,
+            h.suburb,
+            "Victoria",
+            "Australia"
+        ]
+        .filter(Boolean)
+        .join(", ");
+
+    return (
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(query)
+    );
+}
+
+
+function openCurrentDirections(){
+
+    if(!currentProperty){
+        return;
+    }
+
+    window.open(
+        mapsUrl(currentProperty),
+        "_blank"
+    );
+}
+
+
+function openCurrentListing(){
+
+    if(
+        !currentProperty ||
+        !currentProperty.listing
+    ){
+        return;
+    }
+
+    window.open(
+        currentProperty.listing,
+        "_blank"
+    );
+}
+
+
+function openRoute(){
+
+    const selected =
+        weekendIds
+            .map(
+                id =>
+                    homes.find(
+                        h => h.id === id
+                    )
+            )
+            .filter(Boolean)
+            .sort(
+                (a,b) =>
+                    (a.dt || 0) -
+                    (b.dt || 0)
+            );
+
+
+    if(!selected.length){
+        return;
+    }
+
+
+    const locations =
+        selected
+            .map(
+                h =>
+                    [
+                        h.address,
+                        h.suburb,
+                        "Victoria",
+                        "Australia"
+                    ]
+                    .filter(Boolean)
+                    .join(", ")
+            );
+
+
+    let url =
+        "https://www.google.com/maps/dir/?api=1";
+
+    if(locations.length){
+
+        url +=
+            "&destination=" +
+            encodeURIComponent(
+                locations[locations.length - 1]
+            );
+    }
+
+
+    if(locations.length > 1){
+
+        url +=
+            "&waypoints=" +
+            encodeURIComponent(
+                locations
+                    .slice(0,-1)
+                    .join("|")
+            );
+
+    }
+
+
+    window.open(
+        url,
+        "_blank"
+    );
 }
 
 
 /* =========================================================
-   GOOGLE MAPS ROUTE
-   ========================================================= */
+   AGENTS
+========================================================= */
 
-function openRoute(){
+function renderAgents(){
 
-  let list =
-    window._route ||
-    [];
+    const container =
+        $("agents");
 
-
-  if(!list.length)
-    return;
+    const agentMap =
+        new Map();
 
 
-  let origin =
-    list[0];
+    homes.forEach(h => {
+
+        if(!h.agent){
+            return;
+        }
+
+        const key =
+            String(h.agent)
+                .trim()
+                .toLowerCase();
+
+        if(!agentMap.has(key)){
+
+            agentMap.set(
+                key,
+                h
+            );
+
+        }
+
+    });
 
 
-  let destination =
-    list[
-      list.length - 1
-    ];
+    const agents =
+        Array.from(
+            agentMap.values()
+        );
 
 
-  let waypoints =
-    list
+    if(!agents.length){
 
-      .slice(1,-1)
+        container.innerHTML = `
+            <div class="agent">
 
-      .map(
-        h =>
-          h.address +
-          ", " +
-          h.suburb
-      )
+                <div>
+                    <div class="agent-name">
+                        YPA Bacchus Marsh
+                    </div>
 
-      .join("|");
+                    <div class="agent-role">
+                        Local Property Team
+                    </div>
 
+                    <div class="agent-contact">
+                        crodriguez@ypa.com.au
+                    </div>
+                </div>
 
-  let url =
-    "https://www.google.com/maps/dir/?api=1" +
+            </div>
+        `;
 
-    "&origin=" +
-
-    encodeURIComponent(
-      origin.address +
-      ", " +
-      origin.suburb
-    ) +
-
-    "&destination=" +
-
-    encodeURIComponent(
-      destination.address +
-      ", " +
-      destination.suburb
-    );
+        return;
+    }
 
 
-  if(waypoints){
+    container.innerHTML =
+        agents
+            .map(
+                h =>
+                    `
+                    <div class="agent">
 
-    url +=
-      "&waypoints=" +
+                        ${
+                            h.agentPhoto
+                            ?
+                            `<img
+                                class="agent-photo"
+                                src="${esc(h.agentPhoto)}"
+                                alt="${esc(h.agent)}"
+                                onerror="this.style.display='none'"
+                            >`
+                            :
+                            `<div class="agent-photo"></div>`
+                        }
 
-      encodeURIComponent(
-        waypoints
-      );
+                        <div>
 
-  }
+                            <div class="agent-name">
+                                ${esc(h.agent)}
+                            </div>
 
+                            <div class="agent-role">
+                                YPA Bacchus Marsh
+                            </div>
 
-  window.open(
-    url,
-    "_blank"
-  );
+                            ${
+                                h.agentPhone
+                                ?
+                                `<div class="agent-contact">
+                                    ${esc(h.agentPhone)}
+                                </div>`
+                                :
+                                ""
+                            }
 
+                        </div>
+
+                    </div>
+                    `
+            )
+            .join("");
 }
 
 
 /* =========================================================
    SEARCH
-   ========================================================= */
+========================================================= */
 
-$("search")
-  .addEventListener(
+$("searchInput").addEventListener(
     "input",
-    e => {
+    event => {
 
-      searchText =
-        e.target.value
-          .toLowerCase()
-          .trim();
+        searchText =
+            event.target.value || "";
 
-
-      render();
+        render();
 
     }
-  );
+);
 
 
 /* =========================================================
-   FILTERS
-   ========================================================= */
+   FILTER BUTTONS
+========================================================= */
 
 document
-  .querySelectorAll(
-    ".filter"
-  )
-  .forEach(
-    button => {
+    .querySelectorAll(".filter-btn")
+    .forEach(button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-          document
-            .querySelectorAll(
-              ".filter"
-            )
-            .forEach(
-              x =>
-                x.classList
-                  .remove(
-                    "active"
-                  )
-            );
+                document
+                    .querySelectorAll(".filter-btn")
+                    .forEach(
+                        b =>
+                            b.classList.remove("active")
+                    );
 
+                button.classList.add("active");
 
-          button
-            .classList
-            .add(
-              "active"
-            );
+                filter =
+                    button.dataset.filter ||
+                    "all";
 
+                render();
 
-          filter =
-            button.dataset.filter ||
-            "all";
+            }
+        );
 
-
-          render();
-
-        }
-      );
-
-    }
-  );
+    });
 
 
 /* =========================================================
-   AGENTS
-   ========================================================= */
+   MODAL CLICK OUTSIDE
+========================================================= */
 
-function renderAgents(){
+$("propertyModal").addEventListener(
+    "click",
+    event => {
 
-  let map =
-    new Map();
+        if(
+            event.target ===
+            $("propertyModal")
+        ){
 
+            closeProperty();
 
-  homes.forEach(
-    h => {
-
-      if(
-        h.agent &&
-        !map.has(
-          h.agent.toLowerCase()
-        )
-      ){
-
-        map.set(
-          h.agent.toLowerCase(),
-          h
-        );
-
-      }
+        }
 
     }
-  );
+);
 
 
-  $("agentGrid")
-    .innerHTML =
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
 
-      [...map.values()]
+document.addEventListener(
+    "keydown",
+    event => {
 
-        .map(
-          h =>
+        if(event.key !== "Escape"){
+            return;
+        }
 
-            `
+        if(
+            $("propertyModal")
+                .classList
+                .contains("open")
+        ){
 
-              <div class="agent">
+            closeProperty();
 
+        }
 
-                ${
-                  h.agentPhoto
+        if(
+            $("weekendDrawer")
+                .classList
+                .contains("open")
+        ){
 
-                    ? `
+            closeWeekend();
 
-                      <img
-                        src="${esc(
-                          h.agentPhoto
-                        )}"
-                        alt="${esc(
-                          h.agent
-                        )}"
-                      >
+        }
 
-                    `
-
-                    : ""
-                }
-
-
-                <div>
-
-                  <h4>
-                    ${esc(h.agent)}
-                  </h4>
-
-
-                  <p>
-                    YPA Bacchus Marsh
-                  </p>
-
-
-                  ${
-                    h.agentPhone
-
-                      ? `
-
-                        <a
-                          href="tel:${esc(
-                            h.agentPhone
-                          )}"
-                        >
-                          Call
-                        </a>
-
-                      `
-
-                      : ""
-                  }
-
-
-                  ${
-                    h.agentEmail
-
-                      ? `
-
-                        <a
-                          href="mailto:${esc(
-                            h.agentEmail
-                          )}"
-                        >
-                          Email
-                        </a>
-
-                      `
-
-                      : ""
-                  }
-
-
-                </div>
-
-
-              </div>
-
-            `
-        )
-
-        .join("");
-
-}
+    }
+);
 
 
 /* =========================================================
    LOAD GOOGLE SHEET
-   ========================================================= */
+========================================================= */
 
 async function load(){
 
-  try{
+    const grid =
+        $("propertyGrid");
 
-    const response =
-      await fetch(
-        API_URL
-      );
+    try{
 
-
-    const data =
-      await response.json();
-
-
-    homes =
-
-      (
-        Array.isArray(data)
-
-          ? data
-
-          : (
-              Array.isArray(
-                data.events
-              )
-
-                ? data.events
-
-                : []
-            )
-      )
-
-      .map(
-        normalise
-      );
+        grid.innerHTML = `
+            <div class="loading">
+                Loading this weekend's properties...
+            </div>
+        `;
 
 
-    render();
+        const response =
+            await fetch(
+                API_URL +
+                (
+                    API_URL.includes("?")
+                    ? "&"
+                    : "?"
+                ) +
+                "_=" +
+                Date.now()
+            );
 
-    renderWeekendDashboard();
+
+        if(!response.ok){
+
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+
+        }
 
 
-  }catch(error){
-
-    console.error(
-      error
-    );
+        const data =
+            await response.json();
 
 
-    $("propertyGrid")
-      .innerHTML =
+        let rows = [];
 
-      `
 
-        <div class="empty">
+        if(Array.isArray(data)){
 
-          Unable to load properties
-          right now.
+            rows = data;
 
-          <br><br>
+        }else if(
+            data &&
+            Array.isArray(data.events)
+        ){
 
-          Please refresh the page
-          and try again.
+            rows = data.events;
 
-        </div>
+        }else if(
+            data &&
+            Array.isArray(data.data)
+        ){
 
-      `;
+            rows = data.data;
 
-  }
+        }else if(
+            data &&
+            Array.isArray(data.rows)
+        ){
+
+            rows = data.rows;
+
+        }
+
+
+        homes =
+            rows
+                .map(
+                    (row,index) =>
+                        normalise(
+                            row,
+                            index
+                        )
+                )
+                .filter(
+                    h =>
+                        h.address ||
+                        h.headline
+                );
+
+
+        render();
+
+
+    }catch(error){
+
+        console.error(
+            "Dashboard loading error:",
+            error
+        );
+
+
+        grid.innerHTML = `
+
+            <div class="no-results">
+
+                <strong>
+                    Unable to load properties.
+                </strong>
+
+                <span>
+                    Please refresh the page or try again shortly.
+                </span>
+
+            </div>
+
+        `;
+
+    }
 
 }
 
 
 /* =========================================================
-   INITIAL LOAD
-   ========================================================= */
+   INITIALISE
+========================================================= */
+
+$("weekendDate").textContent =
+    new Date().toLocaleDateString(
+        "en-AU",
+        {
+            weekday:"long",
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+
+updateWeekendCounts();
 
 load();
 
 
 /*
- * Refresh data every 5 minutes.
- */
+    Refresh Google Sheet data every 5 minutes.
+    No HTML editing is required when your weekly
+    property information changes.
+*/
 
 setInterval(
-  load,
-  300000
-);
-
-
-/* =========================================================
-   ESC KEY
-   ========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if(
-      event.key === "Escape"
-    ){
-
-      closeProperty();
-
-      closeWeekend();
-
-    }
-
-  }
+    load,
+    300000
 );
 
 </script>
