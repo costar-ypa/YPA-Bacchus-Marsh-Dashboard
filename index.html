@@ -5812,6 +5812,69 @@ setInterval(
     300000
 );
 
+    /* FILTER FIX */
+const oldMatches = matches;
+
+matches = function(h){
+  const key = sheetDateKey(h.date);
+  const today = new Date();
+  const todayKey = dateKey(today);
+
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  let pass = true;
+
+  if(filter === "today"){
+    pass = key === todayKey;
+  }
+
+  if(filter === "tomorrow"){
+    pass = key === dateKey(tomorrow);
+  }
+
+  if(filter === "week"){
+    const day = today.getDay();
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - (day === 0 ? 6 : day - 1));
+    monday.setHours(0,0,0,0);
+
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 7);
+
+    const d = parseDate(h.date);
+
+    pass = d && d >= monday && d < sunday;
+  }
+
+  const text = (
+    h.address + " " +
+    h.suburb + " " +
+    h.price + " " +
+    h.headline
+  ).toLowerCase();
+
+  return pass && text.includes(searchText);
+};
+
+function sheetDateKey(v){
+  if(!v) return "";
+
+  const s = String(v).trim();
+
+  let m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+
+  if(m){
+    return m[3] + "-" +
+      String(m[2]).padStart(2,"0") + "-" +
+      String(m[1]).padStart(2,"0");
+  }
+
+  const d = parseDate(v);
+
+  return d ? dateKey(d) : "";
+}
+    
 </script>
 
 </body>
