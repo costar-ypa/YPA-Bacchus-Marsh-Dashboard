@@ -3895,134 +3895,150 @@ function rotateCardCarousel(
 
 function updateCardCarousel(h){
 
+  function updateCardCarousel(h){
+
     if(!h){
         return;
     }
 
+    const id = normaliseId(h.id);
+    const carousel = cardCarousels[id];
 
-    const id =
-        normaliseId(h.id);
-
-
-    const carousel =
-        cardCarousels[id];
-
-
-    if(!carousel){
+    if(!carousel || !carousel.photos || !carousel.photos.length){
         return;
     }
 
+    const card = document.querySelector(
+        `[data-property-id="${CSS.escape(String(id))}"]`
+    );
 
-    const img =
-        $(`img-${id}`);
-
-
-    const count =
-        $(`count-${id}`);
-
-
-    const dots =
-        $(`dots-${id}`);
-
-
-    if(img){
-
-        const url =
-            carousel.photos[
-                carousel.index
-            ];
-
-
-        img.src =
-            url;
-
-
-        img.alt =
-            h.address ||
-            "Property";
-
-
-        img.onerror =
-            function(){
-
-                handleImageError(
-                    this,
-                    h.suburb || "YPA",
-                    () => {
-
-                        if(
-                            carousel.photos.length > 1
-                        ){
-
-                            carousel.photos.splice(
-                                carousel.index,
-                                1
-                            );
-
-
-                            if(
-                                carousel.index >=
-                                carousel.photos.length
-                            ){
-
-                                carousel.index =
-                                    0;
-
-                            }
-
-
-                            updateCardCarousel(
-                                h
-                            );
-
-                        }else{
-
-                            this.src =
-                                placeholder(
-                                    h.suburb ||
-                                    "YPA"
-                                );
-
-                        }
-
-                    }
-                );
-
-            };
-
+    if(!card){
+        return;
     }
 
+    const img = card.querySelector(".card-photo img");
+    const count = card.querySelector(".card-count");
+    const dots = card.querySelector(".card-dots");
+
+    /*
+       Keep the index safely inside the available
+       photo range.
+    */
+
+    carousel.index =
+        Math.max(
+            0,
+            Math.min(
+                carousel.index || 0,
+                carousel.photos.length - 1
+            )
+        );
+
+    const currentPhoto =
+        carousel.photos[carousel.index];
+
+    if(img && currentPhoto){
+
+        /*
+           Main image ALWAYS uses the exact
+           same index as the carousel.
+        */
+
+        if(img.src !== currentPhoto){
+            img.src = currentPhoto;
+        }
+
+        img.dataset.carouselIndex =
+            carousel.index;
+    }
+
+    /*
+       Update image counter.
+    */
 
     if(count){
 
         count.textContent =
             `${carousel.index + 1} / ${carousel.photos.length}`;
-
     }
 
+    /*
+       Update dots.
+    */
 
     if(dots){
 
         dots.innerHTML =
             carousel.photos
-                .map(
-                    (_,i) =>
-                        `
-                        <span
+                .map((photo,index) => {
+
+                    return `
+                        <button
+                            type="button"
                             class="card-dot ${
-                                i === carousel.index
+                                index === carousel.index
                                     ? "active"
                                     : ""
                             }"
-                        ></span>
-                        `
-                )
+                            aria-label="View photo ${index + 1}"
+                            data-photo-index="${index}">
+                        </button>
+                    `;
+
+                })
                 .join("");
 
+        /*
+           Clicking a dot changes the SAME carousel index.
+        */
+
+        dots.querySelectorAll(".card-dot")
+            .forEach(dot => {
+
+                dot.addEventListener("click", event => {
+
+                    event.stopPropagation();
+
+                    const newIndex =
+                        Number(
+                            dot.dataset.photoIndex
+                        );
+
+                    if(
+                        Number.isInteger(newIndex) &&
+                        newIndex >= 0 &&
+                        newIndex < carousel.photos.length
+                    ){
+
+                        carousel.index =
+                            newIndex;
+
+                        updateCardCarousel(h);
+                    }
+
+                });
+
+            });
     }
 
-}
+    /*
+       Keep the active thumbnail/dot visually synced.
+    */
 
+    card
+        .querySelectorAll("[data-photo-index]")
+        .forEach(element => {
+
+            const index =
+                Number(element.dataset.photoIndex);
+
+            element.classList.toggle(
+                "active",
+                index === carousel.index
+            );
+
+        });
+}
 
 /* =========================================================
    PROPERTY MODAL
