@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-
 <meta name="theme-color" content="#071A33">
 
 <title>The Property Edit | YPA Bacchus Marsh</title>
@@ -13,7 +12,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
   --navy:#071A33;
   --deep:#041225;
@@ -23,14 +21,11 @@
   --ink:#101B2D;
   --muted:#667085;
   --line:#E2E7ED;
-
   --shadow:0 16px 45px rgba(4,18,37,.10);
   --shadow-hover:0 24px 60px rgba(4,18,37,.16);
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html{
   scroll-behavior:smooth;
@@ -44,26 +39,13 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-button,
-input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-a{
-  color:inherit;
-}
-
-/* =========================
-   TOP NAVIGATION
-========================= */
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
 
 .top{
   background:var(--navy);
-  color:var(--white);
+  color:#fff;
   min-height:68px;
   padding:0 5%;
   display:flex;
@@ -79,12 +61,10 @@ a{
   text-transform:uppercase;
 }
 
-.brand span{
-  color:var(--yellow);
-}
+.brand span{color:var(--yellow)}
 
 .top a{
-  color:var(--white);
+  color:#fff;
   text-decoration:none;
   font-size:11px;
   font-weight:700;
@@ -92,19 +72,11 @@ a{
   text-transform:uppercase;
 }
 
-/* =========================
-   GLOBAL LAYOUT
-========================= */
-
 .wrap{
   max-width:1280px;
   margin:auto;
   padding:0 28px;
 }
-
-/* =========================
-   MASTHEAD
-========================= */
 
 .masthead{
   padding:72px 0 48px;
@@ -116,7 +88,7 @@ a{
   line-height:1.4;
   letter-spacing:.24em;
   text-transform:uppercase;
-  color:#8A6E00;
+  color:#806A00;
   font-weight:800;
 }
 
@@ -162,10 +134,6 @@ a{
   text-transform:uppercase;
 }
 
-/* =========================
-   TOOLBAR
-========================= */
-
 .toolbar{
   display:flex;
   gap:10px;
@@ -180,13 +148,12 @@ a{
   height:48px;
   padding:0 17px;
   border:1px solid var(--line);
-  background:var(--white);
+  background:#fff;
   border-radius:2px;
   color:var(--navy);
   font-size:13px;
   font-weight:500;
   outline:none;
-  transition:.2s ease;
 }
 
 .search:focus{
@@ -194,9 +161,7 @@ a{
   box-shadow:0 0 0 3px rgba(255,212,0,.14);
 }
 
-.search::placeholder{
-  color:#98A2B3;
-}
+.search::placeholder{color:#98A2B3}
 
 .filter,
 .goldbtn,
@@ -208,25 +173,17 @@ a{
   font-weight:700;
   letter-spacing:.08em;
   text-transform:uppercase;
-  transition:.2s ease;
 }
 
 .filter{
-  background:var(--white);
+  background:#fff;
   color:var(--navy);
   border:1px solid var(--line);
 }
 
-.filter:hover{
-  border-color:var(--navy);
-}
+.filter:hover{border-color:var(--navy)}
 
-.filter.active{
-  background:var(--yellow);
-  color:var(--deep);
-  border-color:var(--yellow);
-}
-
+.filter.active,
 .goldbtn{
   background:var(--yellow);
   color:var(--deep);
@@ -235,23 +192,15 @@ a{
 
 .goldbtn:hover{
   background:#F2C900;
-  transform:translateY(-1px);
 }
 
 .darkbtn{
   background:var(--navy);
-  color:var(--white);
+  color:#fff;
   border:1px solid var(--navy);
 }
 
-.darkbtn:hover{
-  background:var(--deep);
-  transform:translateY(-1px);
-}
-
-/* =========================
-   PROPERTY GRID
-========================= */
+.darkbtn:hover{background:var(--deep)}
 
 .grid{
   display:grid;
@@ -261,7 +210,7 @@ a{
 }
 
 .card{
-  background:var(--white);
+  background:#fff;
   box-shadow:var(--shadow);
   overflow:hidden;
   transition:.25s ease;
@@ -305,9 +254,7 @@ a{
   text-transform:uppercase;
 }
 
-.cardbody{
-  padding:25px;
-}
+.cardbody{padding:25px}
 
 .sub{
   font-size:9px;
@@ -353,13 +300,7 @@ a{
   gap:8px;
 }
 
-.actions button{
-  flex:1;
-}
-
-/* =========================
-   WEEKEND BUTTON
-========================= */
+.actions button{flex:1}
 
 .weekend{
   position:fixed;
@@ -367,7 +308,7 @@ a{
   bottom:22px;
   z-index:20;
   background:var(--navy);
-  color:var(--white);
+  color:#fff;
   border:2px solid var(--yellow);
   padding:15px 20px;
   border-radius:2px;
@@ -376,21 +317,9 @@ a{
   font-weight:800;
   letter-spacing:.12em;
   text-transform:uppercase;
-  transition:.2s ease;
 }
 
-.weekend:hover{
-  background:var(--deep);
-  transform:translateY(-2px);
-}
-
-.weekend span{
-  color:var(--yellow);
-}
-
-/* =========================
-   EDITORIAL SECTION
-========================= */
+.weekend span{color:var(--yellow)}
 
 .editorial{
   padding:75px 0;
@@ -415,7 +344,7 @@ a{
 
 .storybox{
   background:var(--navy);
-  color:var(--white);
+  color:#fff;
   padding:38px;
   min-height:270px;
   display:flex;
@@ -444,26 +373,15 @@ a{
   margin:0 0 22px;
 }
 
-/* =========================
-   AGENTS
-========================= */
-
-#agents{
-  padding-bottom:70px;
-}
-
-.sectionhead{
-  margin-bottom:30px;
-}
-
 .agentgrid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
+  padding-bottom:70px;
 }
 
 .agent{
-  background:var(--white);
+  background:#fff;
   padding:22px;
   display:flex;
   gap:16px;
@@ -483,7 +401,6 @@ a{
 .agent h4{
   margin:0 0 6px;
   font-size:15px;
-  line-height:1.2;
   font-weight:800;
   color:var(--navy);
 }
@@ -505,10 +422,6 @@ a{
   letter-spacing:.05em;
 }
 
-/* =========================
-   MODAL
-========================= */
-
 .modal{
   position:fixed;
   inset:0;
@@ -519,9 +432,7 @@ a{
   padding:20px;
 }
 
-.modal.open{
-  display:block;
-}
+.modal.open{display:block}
 
 .panel{
   background:var(--grey);
@@ -539,12 +450,11 @@ a{
   z-index:3;
   border:0;
   background:var(--navy);
-  color:var(--white);
+  color:#fff;
   border-radius:2px;
   width:42px;
   height:42px;
   font-size:24px;
-  line-height:1;
 }
 
 .close:hover{
@@ -564,9 +474,7 @@ a{
   display:block;
 }
 
-.story{
-  padding:42px;
-}
+.story{padding:42px}
 
 .story h1{
   font-size:clamp(40px,6vw,76px);
@@ -599,18 +507,13 @@ a{
   object-fit:cover;
   cursor:pointer;
   display:block;
-  transition:.2s ease;
-}
-
-.gallery img:hover{
-  opacity:.88;
 }
 
 .agentbox{
   display:flex;
   align-items:center;
   gap:16px;
-  background:var(--white);
+  background:#fff;
   padding:20px;
   margin:30px 0;
   border-left:4px solid var(--yellow);
@@ -651,10 +554,6 @@ a{
   flex-wrap:wrap;
 }
 
-/* =========================
-   WEEKEND DRAWER
-========================= */
-
 .drawer{
   position:fixed;
   inset:0;
@@ -663,9 +562,7 @@ a{
   display:none;
 }
 
-.drawer.open{
-  display:block;
-}
+.drawer.open{display:block}
 
 .drawerpanel{
   margin-left:auto;
@@ -677,10 +574,10 @@ a{
 }
 
 .drawerpanel h2{
-  font-size:40px !important;
-  line-height:1 !important;
+  font-size:40px;
+  line-height:1;
   letter-spacing:-.045em;
-  font-weight:800 !important;
+  font-weight:800;
   color:var(--navy);
 }
 
@@ -692,7 +589,7 @@ a{
 }
 
 .trip{
-  background:var(--white);
+  background:#fff;
   padding:20px;
   border-left:4px solid var(--yellow);
   box-shadow:0 5px 20px rgba(4,18,37,.05);
@@ -737,13 +634,9 @@ a{
   font-size:12px;
 }
 
-/* =========================
-   FOOTER
-========================= */
-
 .footer{
   background:var(--deep);
-  color:var(--white);
+  color:#fff;
   padding:65px 0;
   margin-top:30px;
   border-top:5px solid var(--yellow);
@@ -764,52 +657,33 @@ a{
   max-width:560px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.image-note{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:10px;
+  letter-spacing:.05em;
+}
 
 @media(max-width:1000px){
-
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .agentgrid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .storygrid{
-    grid-template-columns:1fr;
-  }
-
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .agentgrid{grid-template-columns:1fr 1fr}
+  .storygrid{grid-template-columns:1fr}
 }
 
 @media(max-width:650px){
-
   .top{
     min-height:60px;
     padding:0 18px;
   }
 
-  .brand{
-    font-size:11px;
-  }
+  .brand{font-size:11px}
+  .top a{display:none}
 
-  .top a{
-    display:none;
-  }
+  .wrap{padding:0 18px}
 
-  .wrap{
-    padding:0 18px;
-  }
+  .masthead{padding:48px 0 38px}
 
-  .masthead{
-    padding:48px 0 38px;
-  }
-
-  .title{
-    font-size:56px;
-  }
+  .title{font-size:56px}
 
   .subtitle{
     font-size:13px;
@@ -821,13 +695,9 @@ a{
     margin-top:32px;
   }
 
-  .stat b{
-    font-size:25px;
-  }
+  .stat b{font-size:25px}
 
-  .toolbar{
-    padding:20px 0;
-  }
+  .toolbar{padding:20px 0}
 
   .search{
     width:100%;
@@ -839,55 +709,35 @@ a{
     grid-template-columns:1fr;
   }
 
-  .cardimg{
-    height:245px;
-  }
+  .cardimg{height:245px}
 
-  .cardbody{
-    padding:21px;
-  }
+  .cardbody{padding:21px}
 
-  .cardbody h3{
-    font-size:21px;
-  }
-
-  .actions{
-    flex-direction:row;
-  }
+  .actions{flex-direction:row}
 
   .weekend{
     right:14px;
     bottom:14px;
   }
 
-  .editorial{
-    padding:55px 0;
-  }
+  .editorial{padding:55px 0}
 
   .storybox{
     padding:28px;
     min-height:230px;
   }
 
-  .storybox h3{
-    font-size:27px;
-  }
+  .storybox h3{font-size:27px}
 
-  .story{
-    padding:27px 22px;
-  }
+  .story{padding:27px 22px}
 
-  .story h1{
-    font-size:45px;
-  }
+  .story h1{font-size:45px}
 
   .gallery{
     grid-template-columns:1fr 1fr;
   }
 
-  .gallery img{
-    height:135px;
-  }
+  .gallery img{height:135px}
 
   .modal{
     padding:0;
@@ -898,19 +748,10 @@ a{
     min-height:100vh;
   }
 
-  .heroimg{
-    height:48vh;
-  }
+  .heroimg{height:48vh}
 
-  .drawerpanel{
-    padding:22px;
-  }
-
+  .drawerpanel{padding:22px}
 }
-
-/* =========================
-   ACCESSIBILITY
-========================= */
 
 button:focus-visible,
 input:focus-visible,
@@ -918,7 +759,6 @@ a:focus-visible{
   outline:3px solid var(--yellow);
   outline-offset:2px;
 }
-
 </style>
 </head>
 
@@ -1134,23 +974,15 @@ a:focus-visible{
 
   <div class="drawerpanel">
 
-    <button
-      class="darkbtn"
-      onclick="closeWeekend()"
-    >
+    <button class="darkbtn" onclick="closeWeekend()">
       Close
     </button>
 
-    <div
-      class="kicker"
-      style="margin-top:30px"
-    >
+    <div class="kicker" style="margin-top:30px">
       Your Inspection Plan
     </div>
 
-    <h2
-      style="margin:8px 0"
-    >
+    <h2 style="margin:8px 0">
       Build My Weekend
     </h2>
 
@@ -1178,26 +1010,33 @@ a:focus-visible{
 const API_URL =
 "https://script.google.com/macros/s/AKfycbymGhL5QAEnkxA4LRiSvSKOFyCAJSDqmFGD3qB7MmYbQSw15YiOEIM_D4Zm1AR7XM-i/exec";
 
+const PHOTO_INDEX_URL = "images/photo-index.json";
+
 let homes = [];
+let photoIndex = {};
 let filter = "all";
 let searchText = "";
 
 let weekendIds =
-JSON.parse(localStorage.getItem("ypaWeekend") || "[]");
+JSON.parse(
+  localStorage.getItem("ypaWeekend") || "[]"
+);
 
-const $ = id =>
-document.getElementById(id);
+const $ =
+id => document.getElementById(id);
 
-const esc = s =>
+const esc =
+s =>
 String(s ?? "").replace(
   /[&<>"']/g,
-  m => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[m])
+  m =>
+    ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m])
 );
 
 function field(o,...names){
@@ -1214,51 +1053,139 @@ function field(o,...names){
   }
 
   return "";
+
+}
+
+function slugify(value){
+
+  return String(value || "")
+    .toLowerCase()
+    .trim()
+    .replace(/[\/\\]/g,"-")
+    .replace(/[^a-z0-9]+/g,"-")
+    .replace(/^-+|-+$/g,"");
+
+}
+
+function photoFolder(h){
+
+  /*
+   * If the Google Sheet has a "Photo Folder"
+   * column, use it.
+   *
+   * Otherwise automatically create the folder
+   * from Address + Suburb.
+   */
+
+  const manual =
+    field(
+      h,
+      "photo folder",
+      "photofolder",
+      "photo_folder"
+    );
+
+  if(manual){
+    return slugify(manual);
+  }
+
+  return slugify(
+    [h.address,h.suburb]
+      .filter(Boolean)
+      .join(" ")
+  );
+
+}
+
+function localPhotos(h){
+
+  const folder =
+    photoFolder(h);
+
+  const files =
+    photoIndex[folder] || [];
+
+  return files
+    .map(file =>
+      `images/${folder}/${file}`
+    );
+
+}
+
+function placeholder(){
+
+  return (
+    "data:image/svg+xml;charset=UTF-8," +
+    encodeURIComponent(
+      "<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'>" +
+      "<rect width='100%' height='100%' fill='#071A33'/>" +
+      "<text x='50%' y='48%' text-anchor='middle' fill='#FFD400' font-family='Arial' font-size='28' font-weight='700'>YPA BACCHUS MARSH</text>" +
+      "<text x='50%' y='54%' text-anchor='middle' fill='white' font-family='Arial' font-size='18'>THE PROPERTY EDIT</text>" +
+      "</svg>"
+    )
+  );
+
 }
 
 function parseDate(v){
 
   if(!v) return null;
 
-  let s = String(v).trim();
+  let s =
+    String(v).trim();
+
   let d;
 
-  if(/^\d{2}\/\d{2}\/\d{4}$/.test(s)){
+  if(
+    /^\d{2}\/\d{2}\/\d{4}$/.test(s)
+  ){
 
-    let [a,b,c] = s.split("/");
+    let [a,b,c] =
+      s.split("/");
 
-    d = new Date(
-      +c,
-      +b - 1,
-      +a
-    );
+    d =
+      new Date(
+        +c,
+        +b - 1,
+        +a
+      );
 
-  }else if(/^\d{4}-\d{2}-\d{2}/.test(s)){
+  }else if(
+    /^\d{4}-\d{2}-\d{2}/.test(s)
+  ){
 
-    d = new Date(
-      s.slice(0,10) + "T00:00:00"
-    );
+    d =
+      new Date(
+        s.slice(0,10) +
+        "T00:00:00"
+      );
 
   }else{
 
-    d = new Date(s);
+    d =
+      new Date(s);
 
   }
 
-  return isNaN(d) ? null : d;
+  return isNaN(d)
+    ? null
+    : d;
+
 }
 
 function parseTime(v){
 
   if(!v) return null;
 
-  let s = String(v)
-    .trim()
-    .toUpperCase();
+  let s =
+    String(v)
+      .trim()
+      .toUpperCase();
 
-  let m = s.match(
-    /(\d{1,2}):(\d{2})\s*(AM|PM)?/
-  );
+  let m =
+    s.match(
+      /(\d{1,2}):(\d{2})\s*(AM|PM)?/
+    );
 
   if(!m) return null;
 
@@ -1266,18 +1193,26 @@ function parseTime(v){
   let min = +m[2];
   let ap = m[3];
 
-  if(ap === "PM" && h < 12) h += 12;
-  if(ap === "AM" && h === 12) h = 0;
+  if(ap === "PM" && h < 12)
+    h += 12;
+
+  if(ap === "AM" && h === 12)
+    h = 0;
 
   return h * 60 + min;
+
 }
 
 function dateTime(h){
 
-  let d = parseDate(h.date);
-  let t = parseTime(h.start);
+  let d =
+    parseDate(h.date);
 
-  if(!d || t == null) return null;
+  let t =
+    parseTime(h.start);
+
+  if(!d || t == null)
+    return null;
 
   d.setHours(
     Math.floor(t / 60),
@@ -1287,6 +1222,7 @@ function dateTime(h){
   );
 
   return d;
+
 }
 
 function dateKey(d){
@@ -1312,7 +1248,8 @@ function normalise(raw,i){
     btoa(
       unescape(
         encodeURIComponent(
-          field(h,"address") || "property"
+          field(h,"address") ||
+          "property"
         )
       )
     )
@@ -1323,10 +1260,20 @@ function normalise(raw,i){
     field(h,"date");
 
   h.start =
-    field(h,"start time","starttime","start");
+    field(
+      h,
+      "start time",
+      "starttime",
+      "start"
+    );
 
   h.end =
-    field(h,"end time","endtime","end");
+    field(
+      h,
+      "end time",
+      "endtime",
+      "end"
+    );
 
   h.address =
     field(h,"address");
@@ -1338,13 +1285,26 @@ function normalise(raw,i){
     field(h,"price");
 
   h.bedrooms =
-    field(h,"bedrooms","beds");
+    field(
+      h,
+      "bedrooms",
+      "beds"
+    );
 
   h.bathrooms =
-    field(h,"bathrooms","baths");
+    field(
+      h,
+      "bathrooms",
+      "baths"
+    );
 
   h.parking =
-    field(h,"parking","car spaces","cars");
+    field(
+      h,
+      "parking",
+      "car spaces",
+      "cars"
+    );
 
   h.url =
     field(
@@ -1405,61 +1365,39 @@ function normalise(raw,i){
       "agentprofileurl"
     );
 
-  h.photos = [];
+  h.photoFolder =
+    field(
+      h,
+      "photo folder",
+      "photofolder",
+      "photo_folder"
+    );
 
-  for(let n = 1; n <= 10; n++){
+  h.dt =
+    dateTime(h);
 
-    let x =
-      field(
-        h,
-        "photo " + n,
-        "photo" + n,
-        "photo_" + n
-      );
-
-    if(x) h.photos.push(x);
-
-  }
-
-  if(!h.photos.length){
-
-    let x =
-      field(
-        h,
-        "photo url",
-        "photourl",
-        "image",
-        "image url"
-      );
-
-    if(x){
-
-      h.photos =
-        x
-        .split(/\s*,\s*/)
-        .filter(Boolean);
-
-    }
-
-  }
-
-  h.dt = dateTime(h);
-  h.dateKey = dateKey(h.dt);
+  h.dateKey =
+    dateKey(h.dt);
 
   return h;
+
 }
 
 function activeHomes(){
 
-  let now = new Date();
+  let now =
+    new Date();
 
   return homes.filter(h => {
 
-    if(!h.dt) return true;
+    if(!h.dt)
+      return true;
 
-    let end = parseTime(h.end);
+    let end =
+      parseTime(h.end);
 
-    let d = new Date(h.dt);
+    let d =
+      new Date(h.dt);
 
     if(end != null){
 
@@ -1490,7 +1428,8 @@ function matches(h){
     h.dt ||
     parseDate(h.date);
 
-  let now = new Date();
+  let now =
+    new Date();
 
   let k =
     dateKey(d);
@@ -1507,7 +1446,7 @@ function matches(h){
 
   let days =
     d
-      ? (d - now) / 86400000
+      ? (d-now) / 86400000
       : 0;
 
   let fm =
@@ -1540,19 +1479,6 @@ function matches(h){
     .toLowerCase()
     .includes(searchText)
   );
-
-}
-
-function photo(h){
-
-  return h.photos[0] ||
-    "data:image/svg+xml;charset=UTF-8," +
-    encodeURIComponent(
-      "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500'>" +
-      "<rect width='100%' height='100%' fill='#dfe4e9'/>" +
-      "<text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' fill='#667085' font-family='Arial' font-size='24'>PROPERTY EDIT</text>" +
-      "</svg>"
-    );
 
 }
 
@@ -1601,87 +1527,99 @@ function render(){
   $("propertyGrid").innerHTML =
     list.length
 
-      ? list.map(h => `
+      ? list.map(h => {
 
-        <article class="card">
+          const photos =
+            localPhotos(h);
 
-          <div class="cardimg">
+          const hero =
+            photos[0] ||
+            placeholder();
 
-            <img
-              src="${esc(photo(h))}"
-              loading="lazy"
-              onerror="this.style.display='none'"
-            >
+          return `
 
-            <div class="badge">
-              ${esc(formatDate(h))}
-            </div>
+            <article class="card">
 
-          </div>
+              <div class="cardimg">
 
-          <div class="cardbody">
+                <img
+                  src="${esc(hero)}"
+                  loading="lazy"
+                  alt="${esc(h.address)}"
+                  onerror="this.onerror=null;this.src='${placeholder()}'"
+                >
 
-            <div class="sub">
-              ${esc(h.suburb)}
-            </div>
+                <div class="badge">
+                  ${esc(formatDate(h))}
+                </div>
 
-            <h3>
-              ${esc(h.address)}
-            </h3>
+              </div>
 
-            <div class="price">
-              ${esc(h.price || "Contact Agent")}
-            </div>
+              <div class="cardbody">
 
-            <div class="chips">
+                <div class="sub">
+                  ${esc(h.suburb)}
+                </div>
 
-              <span>
-                ${esc(h.bedrooms || "—")} bed
-              </span>
+                <h3>
+                  ${esc(h.address)}
+                </h3>
 
-              <span>
-                ${esc(h.bathrooms || "—")} bath
-              </span>
+                <div class="price">
+                  ${esc(h.price || "Contact Agent")}
+                </div>
 
-              ${
-                h.parking
-                  ? `<span>${esc(h.parking)} car</span>`
-                  : ""
-              }
+                <div class="chips">
 
-            </div>
+                  <span>
+                    ${esc(h.bedrooms || "—")} bed
+                  </span>
 
-            <div class="actions">
+                  <span>
+                    ${esc(h.bathrooms || "—")} bath
+                  </span>
 
-              <button
-                class="darkbtn"
-                onclick="openProperty('${h.id}')"
-              >
-                View Story
-              </button>
+                  ${
+                    h.parking
+                      ? `<span>${esc(h.parking)} car</span>`
+                      : ""
+                  }
 
-              <button
-                class="${
-                  weekendIds.includes(h.id)
-                    ? "goldbtn"
-                    : "filter"
-                }"
-                onclick="toggleWeekend('${h.id}')"
-              >
-                ${
-                  weekendIds.includes(h.id)
-                    ? "✓ Saved"
-                    : "+ Weekend"
-                }
-              </button>
+                </div>
 
-            </div>
+                <div class="actions">
 
-          </div>
+                  <button
+                    class="darkbtn"
+                    onclick="openProperty('${h.id}')"
+                  >
+                    View Story
+                  </button>
 
-        </article>
+                  <button
+                    class="${
+                      weekendIds.includes(h.id)
+                        ? "goldbtn"
+                        : "filter"
+                    }"
+                    onclick="toggleWeekend('${h.id}')"
+                  >
+                    ${
+                      weekendIds.includes(h.id)
+                        ? "✓ Saved"
+                        : "+ Weekend"
+                    }
+                  </button>
 
-      `).join("")
+                </div>
+
+              </div>
+
+            </article>
+
+          `;
+
+        }).join("")
 
       : `
         <div class="empty">
@@ -1711,7 +1649,8 @@ function render(){
 
 function renderAgents(){
 
-  let map = new Map();
+  let map =
+    new Map();
 
   activeHomes().forEach(h => {
 
@@ -1721,82 +1660,82 @@ function renderAgents(){
         h.agent.toLowerCase()
       )
     ){
+
       map.set(
         h.agent.toLowerCase(),
         h
       );
+
     }
 
   });
 
-  let arr = [...map.values()];
+  let arr =
+    [...map.values()];
 
   $("agentGrid").innerHTML =
     arr.length
 
       ? arr.map(h => `
 
-        <div class="agent">
+          <div class="agent">
 
-          ${
-            h.agentPhoto
-              ? `
-                <img
-                  src="${esc(h.agentPhoto)}"
-                  onerror="this.style.display='none'"
-                >
-              `
-              : ""
-          }
-
-          <div>
-
-            <h4>
-              ${esc(h.agent)}
-            </h4>
-
-            <p>
-              YPA Bacchus Marsh
-            </p>
+            ${
+              h.agentPhoto
+                ? `
+                  <img
+                    src="${esc(h.agentPhoto)}"
+                    alt="${esc(h.agent)}"
+                    loading="lazy"
+                  >
+                `
+                : ""
+            }
 
             <div>
 
-              ${
-                h.agentPhone
-                  ? `
-                    <a
-                      href="tel:${esc(h.agentPhone)}"
-                    >
-                      Call
-                    </a>
-                    ·
-                  `
-                  : ""
-              }
+              <h4>
+                ${esc(h.agent)}
+              </h4>
 
-              ${
-                h.agentEmail
-                  ? `
-                    <a
-                      href="mailto:${esc(h.agentEmail)}"
-                    >
-                      Email
-                    </a>
-                  `
-                  : ""
-              }
+              <p>
+                YPA Bacchus Marsh
+              </p>
+
+              <div>
+
+                ${
+                  h.agentPhone
+                    ? `
+                      <a href="tel:${esc(h.agentPhone)}">
+                        Call
+                      </a>
+                      ·
+                    `
+                    : ""
+                }
+
+                ${
+                  h.agentEmail
+                    ? `
+                      <a href="mailto:${esc(h.agentEmail)}">
+                        Email
+                      </a>
+                    `
+                    : ""
+                }
+
+              </div>
 
             </div>
 
           </div>
 
-        </div>
-
-      `).join("")
+        `).join("")
 
       : `
         <div class="empty">
-          Add Agent, Agent Photo, Agent Phone and Agent Email
+          Add Agent, Agent Phone and Agent Email
           columns to your sheet to display agent profiles.
         </div>
       `;
@@ -1812,13 +1751,21 @@ function openProperty(id){
 
   if(!h) return;
 
+  const photos =
+    localPhotos(h);
+
+  const hero =
+    photos[0] ||
+    placeholder();
+
   $("propertyStory").innerHTML = `
 
     <div class="heroimg">
 
       <img
-        src="${esc(photo(h))}"
-        onerror="this.style.display='none'"
+        src="${esc(hero)}"
+        alt="${esc(h.address)}"
+        onerror="this.onerror=null;this.src='${placeholder()}'"
       >
 
     </div>
@@ -1856,32 +1803,44 @@ function openProperty(id){
         )}
       </div>
 
-      <div class="gallery">
+      ${
+        photos.length > 1
 
-        ${
-          h.photos
-          .slice(1)
-          .map(
-            p => `
-              <img
-                src="${esc(p)}"
-                loading="lazy"
-                onclick="window.open('${esc(p)}','_blank')"
-                onerror="this.style.display='none'"
-              >
-            `
-          )
-          .join("")
-        }
+          ? `
 
-      </div>
+            <div class="gallery">
+
+              ${
+                photos
+                .slice(1)
+                .map(
+                  p => `
+                    <img
+                      src="${esc(p)}"
+                      loading="lazy"
+                      alt="${esc(h.address)}"
+                      onclick="window.open('${esc(p)}','_blank')"
+                      onerror="this.style.display='none'"
+                    >
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+          `
+
+          : `
+            <div class="image-note">
+              Property photography will appear here once uploaded.
+            </div>
+          `
+      }
 
       <div
         class="chips"
-        style="
-          font-size:11px;
-          margin-top:25px;
-        "
+        style="font-size:11px;margin-top:25px"
       >
 
         <span>
@@ -1907,7 +1866,7 @@ function openProperty(id){
             ? `
               <img
                 src="${esc(h.agentPhoto)}"
-                onerror="this.style.display='none'"
+                alt="${esc(h.agent || "YPA Bacchus Marsh")}"
               >
             `
             : ""
@@ -1939,9 +1898,7 @@ function openProperty(id){
           ${
             h.agentPhone
               ? `
-                <a
-                  href="tel:${esc(h.agentPhone)}"
-                >
+                <a href="tel:${esc(h.agentPhone)}">
                   Call Agent
                 </a>
               `
@@ -2104,6 +2061,7 @@ function renderWeekend(){
       .display = "none";
 
     return;
+
   }
 
   let warning = "";
@@ -2114,8 +2072,11 @@ function renderWeekend(){
     i++
   ){
 
-    let prev = list[i - 1];
-    let cur = list[i];
+    let prev =
+      list[i - 1];
+
+    let cur =
+      list[i];
 
     if(
       prev.dt &&
@@ -2255,7 +2216,8 @@ function renderWeekend(){
         ? "block"
         : "none";
 
-  window._route = list;
+  window._route =
+    list;
 
 }
 
@@ -2264,10 +2226,14 @@ function openRoute(){
   let l =
     window._route || [];
 
-  if(!l.length) return;
+  if(!l.length)
+    return;
 
-  let o = l[0];
-  let d = l[l.length - 1];
+  let o =
+    l[0];
+
+  let d =
+    l[l.length - 1];
 
   let w =
     l
@@ -2351,9 +2317,43 @@ document
     )
 );
 
+async function loadPhotos(){
+
+  try{
+
+    const response =
+      await fetch(
+        PHOTO_INDEX_URL +
+        "?v=" +
+        Date.now()
+      );
+
+    if(!response.ok)
+      throw new Error(
+        "Photo index unavailable"
+      );
+
+    photoIndex =
+      await response.json();
+
+  }catch(error){
+
+    console.warn(
+      "Local photo index could not be loaded.",
+      error
+    );
+
+    photoIndex = {};
+
+  }
+
+}
+
 async function load(){
 
   try{
+
+    await loadPhotos();
 
     let r =
       await fetch(API_URL);
@@ -2401,3 +2401,4 @@ setInterval(
 
 </body>
 </html>
+
