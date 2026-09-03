@@ -5876,6 +5876,68 @@ function sheetDateKey(v){
 }
     /* REMOVE THIS WEEK FILTER */
 document.querySelectorAll('[data-filter="week"]').forEach(btn => btn.remove());
+
+    /* PHOTO LOADING FIX */
+
+let ypaPhotoCache = {};
+
+getLocalPhotos = async function(h){
+
+  const folder = photoFolder(h).toLowerCase();
+
+  if(ypaPhotoCache[folder]){
+    return ypaPhotoCache[folder];
+  }
+
+  try{
+
+    const response = await fetch(
+      "https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard/git/trees/main?recursive=1"
+    );
+
+    if(!response.ok){
+      return [];
+    }
+
+    const data = await response.json();
+
+    const photos = (data.tree || [])
+      .filter(file =>
+        file.type === "blob" &&
+        file.path.toLowerCase().startsWith("images/" + folder + "/") &&
+        /\.(jpg|jpeg|png|webp|gif|avif)$/i.test(file.path)
+      )
+      .sort((a,b) =>
+        a.path.localeCompare(
+          b.path,
+          undefined,
+          {
+            numeric:true,
+            sensitivity:"base"
+          }
+        )
+      )
+      .map(file =>
+        "https://costar-ypa.github.io/YPA-Bacchus-Marsh-Dashboard/" +
+        file.path
+          .split("/")
+          .map(encodeURIComponent)
+          .join("/")
+      );
+
+    ypaPhotoCache[folder] = photos;
+
+    return photos;
+
+  }catch(error){
+
+    console.error("Photo loading error:", error);
+
+    return [];
+
+  }
+
+};
     
 </script>
 
