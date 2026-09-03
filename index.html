@@ -3596,8 +3596,51 @@ function propertyCardHTML(h){
 ========================================================= */
 
 function render(){
+/* =========================================================
+   RENDER
+========================================================= */
 
-  
+function render(){
+
+    /* Clear any existing master carousel timer */
+    if(typeof masterCarouselTimer !== "undefined"){
+
+        if(masterCarouselTimer){
+
+            clearInterval(
+                masterCarouselTimer
+            );
+
+            masterCarouselTimer = null;
+
+        }
+
+    }
+
+
+    /* Clear old individual carousel timers */
+
+    Object.keys(cardCarousels)
+        .forEach(id => {
+
+            if(
+                cardCarousels[id] &&
+                cardCarousels[id].timer
+            ){
+
+                clearInterval(
+                    cardCarousels[id].timer
+                );
+
+            }
+
+        });
+
+
+    cardCarousels = {};
+
+
+    /* Sort properties by inspection time */
 
     homes.sort(
         (a,b) => {
@@ -3618,6 +3661,8 @@ function render(){
     );
 
 
+    /* Apply filters */
+
     const visible =
         homes.filter(matches);
 
@@ -3625,6 +3670,8 @@ function render(){
     const grid =
         $("propertyGrid");
 
+
+    /* Render property cards */
 
     if(!visible.length){
 
@@ -3654,6 +3701,8 @@ function render(){
     }
 
 
+    /* Update page information */
+
     updateCounts();
 
     renderWeekendDashboard();
@@ -3661,31 +3710,30 @@ function render(){
     renderAgents();
 
 
+    /*
+       Initialise every property independently.
+
+       IMPORTANT:
+       We do NOT wait for all photos before
+       displaying the properties.
+    */
+
     visible.forEach(
-  /* =========================================================
-   INITIALISE ALL PROPERTY CAROUSELS
-========================================================= */
+        h =>
+            initialiseCardCarousel(h)
+    );
 
-if(masterCarouselTimer){
-    clearInterval(masterCarouselTimer);
-    masterCarouselTimer = null;
-}
-
-Promise.all(
-    visible.map(
-        h => initialiseCardCarousel(h)
-    )
-).then(() => {
 
     /*
-       Start ONE master clock only after
-       all property photos have loaded.
-       This keeps every card perfectly synchronised.
+       Start ONE carousel clock.
+
+       This keeps all cards on the same
+       3.5 second rotation cycle.
     */
 
     startMasterCarousel();
 
-});
+}
 /* =========================================================
    COUNTS
 ========================================================= */
@@ -3733,69 +3781,166 @@ function updateCounts(){
    CARD CAROUSELS
 ========================================================= */
 
+let masterCarouselTimer = null;
+
+
+/* =========================================================
+   INITIALISE PROPERTY CAROUSEL
+========================================================= */
+
 async function initialiseCardCarousel(h){
 
-    const id = normaliseId(h.id);
+    const id =
+        normaliseId(h.id);
+
 
     cardCarousels[id] = {
+
         photos: [],
+
         index: 0
+
     };
 
-    const photos = await getLocalPhotos(h);
 
-    if(!cardCarousels[id]){
-        return;
+    try{
+
+        const photos =
+            await getLocalPhotos(h);
+
+
+        /*
+           The card may have been removed by a
+           search/filter while photos were loading.
+        */
+
+        if(!cardCarousels[id]){
+
+            return;
+
+        }
+
+
+        cardCarousels[id].photos =
+            photos && photos.length
+                ? photos
+                : [
+                    placeholder(
+                        h.suburb || "YPA"
+                    )
+                ];
+
+
+        updateCardCarousel(h);
+
+    }
+    catch(error){
+
+        console.error(
+            "Unable to load property photos:",
+            h.address,
+            error
+        );
+
+
+        if(!cardCarousels[id]){
+
+            return;
+
+        }
+
+
+        cardCarousels[id].photos = [
+
+            placeholder(
+                h.suburb || "YPA"
+            )
+
+        ];
+
+
+        cardCarousels[id].index = 0;
+
+
+        updateCardCarousel(h);
+
     }
 
-    cardCarousels[id].photos =
-        photos.length
-            ? photos
-            : [
-                placeholder(
-                    h.suburb || "YPA"
-                )
-            ];
-
-    updateCardCarousel(h);
 }
 
 
-
-    if(
-        cardCarousels[id].photos.length > 1
-    ){
-
-      
-function rotateCardCarousel(
-  /* =========================================================
-   SYNCHRONISED PROPERTY CAROUSEL
+/* =========================================================
+   SYNCHRONISED CAROUSEL CLOCK
 ========================================================= */
-
-let masterCarouselTimer = null;
 
 function startMasterCarousel(){
 
-  /* =========================================================
-   INITIALISE PROPERTY CAROUSELS
-========================================================= */
+    if(masterCarouselTimer){
 
-if(masterCarouselTimer){
-    clearInterval(masterCarouselTimer);
-    masterCarouselTimer = null;
+        clearInterval(
+            masterCarouselTimer
+        );
+
+    }
+
+
+    masterCarouselTimer =
+        setInterval(
+
+            () => {
+
+                Object.keys(cardCarousels)
+                    .forEach(id => {
+
+                        const carousel =
+                            cardCarousels[id];
+
+
+                        if(
+                            !carousel ||
+                            !carousel.photos ||
+                            carousel.photos.length <= 1
+                        ){
+
+                            return;
+
+                        }
+
+
+                        carousel.index =
+                            (
+                                (carousel.index || 0) + 1
+                            ) %
+                            carousel.photos.length;
+
+
+                        const property =
+                            homes.find(
+                                h =>
+                                    normaliseId(h.id) ===
+                                    normaliseId(id)
+                            );
+
+
+                        if(property){
+
+                            updateCardCarousel(
+                                property
+                            );
+
+                        }
+
+                    });
+
+            },
+
+            3500
+
+        );
+
 }
 
-visible.forEach(h => {
-    initialiseCardCarousel(h);
-});
 
-/*
-   Start the single carousel clock immediately.
-   Individual cards will begin rotating once their
-   photos have finished loading.
-*/
-
-startMasterCarousel();
 /* =========================================================
    PREVIOUS / NEXT PHOTO
 ========================================================= */
@@ -3805,17 +3950,24 @@ function rotateCardCarousel(
     direction = 1
 ){
 
-    id = normaliseId(id);
+    id =
+        normaliseId(id);
 
-    const carousel = cardCarousels[id];
+
+    const carousel =
+        cardCarousels[id];
+
 
     if(
         !carousel ||
         !carousel.photos ||
         !carousel.photos.length
     ){
+
         return;
+
     }
+
 
     carousel.index =
         (
@@ -3825,21 +3977,27 @@ function rotateCardCarousel(
         ) %
         carousel.photos.length;
 
+
     const property =
         homes.find(
             h =>
                 normaliseId(h.id) === id
         );
 
+
     if(property){
-        updateCardCarousel(property);
+
+        updateCardCarousel(
+            property
+        );
+
     }
 
 }
 
 
 /* =========================================================
-   SET SPECIFIC CAROUSEL PHOTO
+   SET SPECIFIC PHOTO
 ========================================================= */
 
 function setCardCarouselPhoto(
@@ -3847,26 +4005,38 @@ function setCardCarouselPhoto(
     index
 ){
 
-    id = normaliseId(id);
+    id =
+        normaliseId(id);
 
-    const carousel = cardCarousels[id];
+
+    const carousel =
+        cardCarousels[id];
+
 
     if(
         !carousel ||
         !carousel.photos ||
         !carousel.photos.length
     ){
+
         return;
+
     }
+
 
     if(
         index < 0 ||
         index >= carousel.photos.length
     ){
+
         return;
+
     }
 
-    carousel.index = index;
+
+    carousel.index =
+        index;
+
 
     const property =
         homes.find(
@@ -3874,8 +4044,13 @@ function setCardCarouselPhoto(
                 normaliseId(h.id) === id
         );
 
+
     if(property){
-        updateCardCarousel(property);
+
+        updateCardCarousel(
+            property
+        );
+
     }
 
 }
@@ -3888,33 +4063,55 @@ function setCardCarouselPhoto(
 function updateCardCarousel(h){
 
     if(!h){
+
         return;
+
     }
 
-    const id = normaliseId(h.id);
 
-    const carousel = cardCarousels[id];
+    const id =
+        normaliseId(h.id);
+
+
+    const carousel =
+        cardCarousels[id];
+
 
     if(
         !carousel ||
         !carousel.photos ||
         !carousel.photos.length
     ){
+
         return;
+
     }
+
 
     const card =
         document.querySelector(
             `.property-card[data-id="${CSS.escape(String(id))}"]`
         );
 
+
     if(!card){
+
         return;
+
     }
 
-    const img = $(`img-${id}`);
-    const count = $(`count-${id}`);
-    const dots = $(`dots-${id}`);
+
+    const img =
+        $(`img-${id}`);
+
+
+    const count =
+        $(`count-${id}`);
+
+
+    const dots =
+        $(`dots-${id}`);
+
 
     carousel.index =
         Math.max(
@@ -3925,20 +4122,27 @@ function updateCardCarousel(h){
             )
         );
 
+
     const currentPhoto =
-        carousel.photos[carousel.index];
+        carousel.photos[
+            carousel.index
+        ];
+
 
     if(
         img &&
         currentPhoto
     ){
 
-        img.src = currentPhoto;
+        img.src =
+            currentPhoto;
+
 
         img.dataset.carouselIndex =
             carousel.index;
 
     }
+
 
     if(count){
 
@@ -3947,12 +4151,14 @@ function updateCardCarousel(h){
 
     }
 
+
     if(dots){
 
         dots.innerHTML =
             carousel.photos
                 .map(
                     (_, index) => `
+
                         <button
                             type="button"
                             class="card-dot ${
@@ -3970,6 +4176,7 @@ function updateCardCarousel(h){
                                 );
                             "
                         ></button>
+
                     `
                 )
                 .join("");
@@ -3977,297 +4184,6 @@ function updateCardCarousel(h){
     }
 
 }
-
-/* =========================================================
-   PREVIOUS / NEXT PHOTO
-========================================================= */
-
-function rotateCardCarousel(
-    id,
-    direction=1
-){
-
-    id =
-        normaliseId(id);
-
-    const carousel =
-        cardCarousels[id];
-
-    if(
-        !carousel ||
-        !carousel.photos ||
-        !carousel.photos.length
-    ){
-        return;
-    }
-
-    carousel.index =
-        (
-            (carousel.index || 0) +
-            direction +
-            carousel.photos.length
-        ) %
-        carousel.photos.length;
-
-    const property =
-        homes.find(
-            h =>
-                normaliseId(h.id) === id
-        );
-
-    if(property){
-
-        updateCardCarousel(
-            property
-        );
-
-    }
-
-}
-/* =========================================================
-   PROPERTY MODAL
-========================================================= */
-
-async function openProperty(id){
-
-    const normalId =
-        normaliseId(id);
-
-
-    const property =
-        homes.find(
-            h =>
-                normaliseId(h.id) === normalId
-        );
-
-
-    if(!property){
-        return;
-    }
-
-
-    currentProperty =
-        property;
-
-
-    $("modalKicker").textContent =
-        `${property.suburb || "BACCHUS MARSH"} · ${formatDate(property)}`;
-
-
-    $("modalTitle").textContent =
-        property.headline ||
-        property.address ||
-        "Property";
-
-
-    $("modalAddress").textContent =
-        property.address || "";
-
-
-    $("modalPrice").textContent =
-        property.price || "";
-
-
-    $("modalDescription").innerHTML =
-        property.description
-            ? esc(
-                property.description
-            ).replace(
-                /\n/g,
-                "<br>"
-            )
-            :
-            "Contact YPA Bacchus Marsh for further property information.";
-
-
-    $("modalBeds").textContent =
-        property.beds || "—";
-
-
-    $("modalBaths").textContent =
-        property.baths || "—";
-
-
-    $("modalCars").textContent =
-        property.cars || "—";
-
-
-    const agentHTML =
-        property.agent
-        ?
-        `
-
-            ${
-                property.agentPhoto
-                ?
-                `
-                <img
-                    src="${esc(property.agentPhoto)}"
-                    alt="${esc(property.agent)}"
-                    onerror="this.style.display='none'"
-                >
-                `
-                :
-                ""
-            }
-
-            <div>
-
-                <strong>
-                    ${esc(property.agent)}
-                </strong>
-
-                <span>
-                    ${esc(
-                        property.agentPhone ||
-                        "YPA Bacchus Marsh"
-                    )}
-                </span>
-
-            </div>
-
-        `
-        :
-        `
-
-            <div>
-
-                <strong>
-                    YPA Bacchus Marsh
-                </strong>
-
-                <span>
-                    Local Property Team
-                </span>
-
-            </div>
-
-        `;
-
-
-    $("modalAgent").innerHTML =
-        agentHTML;
-
-
-    $("modalListingBtn").style.display =
-        property.listing
-            ? "block"
-            : "none";
-
-
-    updateModalWeekendButton();
-
-
-    $("propertyModal").classList.add(
-        "open"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
-
-    $("modalMainImage").src =
-        placeholder(
-            property.suburb ||
-            "YPA BACCHUS MARSH"
-        );
-
-
-    $("modalDots").innerHTML =
-        "";
-
-
-    currentPhotos = [];
-
-
-    clearInterval(
-        modalTimer
-    );
-
-
-    currentPhotos =
-        await getLocalPhotos(
-            property
-        );
-
-
-    if(!currentProperty){
-        return;
-    }
-
-
-    if(
-        normaliseId(currentProperty.id) !==
-        normaliseId(property.id)
-    ){
-
-        return;
-
-    }
-
-
-    if(!currentPhotos.length){
-
-        currentPhotos = [
-            placeholder(
-                property.suburb ||
-                "YPA BACCHUS MARSH"
-            )
-        ];
-
-    }
-
-
-    currentPhotoIndex = 0;
-
-
-    updateCarousel();
-
-
-    if(currentPhotos.length > 1){
-
-        modalTimer =
-            setInterval(
-                () =>
-                    nextPhoto(),
-                4000
-            );
-
-    }
-
-}
-
-
-function closeProperty(){
-
-    $("propertyModal")
-        .classList
-        .remove("open");
-
-
-    document.body.style.overflow =
-        "";
-
-
-    clearInterval(
-        modalTimer
-    );
-
-
-    currentProperty =
-        null;
-
-
-    currentPhotos =
-        [];
-
-
-    currentPhotoIndex =
-        0;
-
-}
-
 
 function updateCarousel(){
 
