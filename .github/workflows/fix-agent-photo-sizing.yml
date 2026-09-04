@@ -1,0 +1,30 @@
+name: Fix Agent Photo Sizing
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-agent-photo-sizing.yml'
+      - 'scripts/fix-agent-photo-sizing.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply photo sizing fix
+        run: python scripts/fix-agent-photo-sizing.py
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes required"
+          else
+            git commit -m "Standardise agent profile photo sizing"
+            git push
+          fi
