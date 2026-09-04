@@ -1,0 +1,22 @@
+name: Fix Joint Labels
+on:
+  push:
+    paths:
+      - 'scripts/fix-joint-labels.py'
+      - '.github/workflows/fix-joint-labels.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/fix-joint-labels.py
+      - run: |
+          rm -f .github/workflows/fix-joint-labels.yml
+          rm -f scripts/fix-joint-labels.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/fix-joint-labels.yml scripts/fix-joint-labels.py
+          git commit -m "Clean joint team branding labels"
+          git push
