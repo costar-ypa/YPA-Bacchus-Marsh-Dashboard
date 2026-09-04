@@ -1,0 +1,1 @@
+Final image asset upload uses text-based SVG wrappers so GitHub Pages can serve the supplied portraits directly.
