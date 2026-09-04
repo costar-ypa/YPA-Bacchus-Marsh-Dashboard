@@ -1,0 +1,30 @@
+name: Add YPA Loading Screen
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-loading-screen.yml'
+      - 'scripts/add-loading-screen.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add branded loading screen
+        run: python scripts/add-loading-screen.py
+      - name: Commit loading screen
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes required"
+          else
+            git commit -m "Add YPA branded loading screen"
+            git push
+          fi
