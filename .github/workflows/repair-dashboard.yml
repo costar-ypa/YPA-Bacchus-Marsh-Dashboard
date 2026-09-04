@@ -1,0 +1,120 @@
+name: Repair Dashboard Photo Matching
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Repair index.html
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          path = Path("index.html")
+          text = path.read_text(encoding="utf-8")
+
+          # Replace the broken/nested render function with one clean render function.
+          render_replacement = r'''/* =========================================================
+             RENDER
+          ========================================================= */
+
+          function render(){
+
+              Object.keys(cardCarousels).forEach(id => {
+                  if(cardCarousels[id] && cardCarousels[id].timer){
+                      clearInterval(cardCarousels[id].timer);
+                  }
+              });
+
+              cardCarousels = {};
+
+              homes.sort((a,b) => {
+                  const aTime = a.dt ? a.dt.getTime() : Infinity;
+                  const bTime = b.dt ? b.dt.getTime() : Infinity;
+                  return aTime - bTime;
+              });
+
+              const visible = homes.filter(matches);
+              const grid = $("propertyGrid");
+
+              if(!visible.length){
+                  grid.innerHTML = `
+                      <div class="no-results">
+                          <strong>No properties found.</strong>
+                          <span>Try another search or filter.</span>
+                      </div>
+                  `;
+              }else{
+                  grid.innerHTML = visible.map(propertyCardHTML).join("");
+              }
+
+              updateCounts();
+              renderWeekendDashboard();
+              renderAgents();
+
+              visible.forEach(h => initialiseCardCarousel(h));
+          }
+
+          /* =========================================================
+             COUNTS
+          ========================================================= */'''
+
+          pattern = re.compile(
+              r'/\* =========================================================\s+RENDER\s+========================================================= \*/\s*function render\(\)\{.*?/\* =========================================================\s+COUNTS\s+========================================================= \*/',
+              re.S
+          )
+
+          text, count = pattern.subn(render_replacement, text, count=1)
+          if count != 1:
+              raise SystemExit(f"Could not repair render function; matches={count}")
+
+          # Replace the final photo-loading override with the robust GitHub tree index.
+          photo_replacement = r'''/* PHOTO LOADING FIX */
+
+          getLocalPhotos = async function(h){
+
+              const index = await buildGithubImageIndex();
+              const folder = photoFolder(h).trim().toLowerCase();
+              const entries = index instanceof Map ? (index.get(folder) || []) : [];
+
+              return entries
+                  .map(item => item.pagesUrl)
+                  .filter(Boolean);
+          };
+          '''
+
+          pattern2 = re.compile(
+              r'/\* PHOTO LOADING FIX \*/[\s\S]*?\n\s*</script>',
+              re.S
+          )
+
+          text, count2 = pattern2.subn(photo_replacement + '\n</script>', text, count=1)
+          if count2 != 1:
+              raise SystemExit(f"Could not repair photo loader; matches={count2}")
+
+          path.write_text(text, encoding="utf-8")
+          print("Dashboard repair completed successfully.")
+
+      - name: Commit repaired dashboard and remove temporary workflow
+        run: |
+          rm -f .github/workflows/repair-dashboard.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/repair-dashboard.yml
+          if git diff --cached --quiet; then
+            echo "No changes required."
+            exit 0
+          fi
+          git commit -m "Fix automatic property photo matching"
+          git push
