@@ -13,22 +13,22 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Pillow
         run: python -m pip install pillow
-      - name: Repair iOS and PWA icons
+      - name: Rebuild iOS and PWA icons from verified source
         run: |
           python - <<'PY'
           from PIL import Image
           from pathlib import Path
-          src=Path('images/ypa-app-icon-180.png')
-          im=Image.open(src).convert('RGBA')
-          for size in (192,512):
-              im.resize((size,size),Image.Resampling.LANCZOS).save(f'images/ypa-app-icon-{size}.png')
-          im.save('apple-touch-icon.png')
+          src=Path('apple-touch-icon.png')
+          im=Image.open(src).convert('RGB')
+          im.resize((180,180),Image.Resampling.LANCZOS).save('apple-touch-icon-v5.png')
+          im.resize((192,192),Image.Resampling.LANCZOS).save('images/ypa-app-icon-v5-192.png')
+          im.resize((512,512),Image.Resampling.LANCZOS).save('images/ypa-app-icon-v5-512.png')
           PY
           python scripts/fix-pwa-icons.py
       - name: Commit
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add index.html site.webmanifest apple-touch-icon.png images/ypa-app-icon-192.png images/ypa-app-icon-512.png
-          git diff --cached --quiet || git commit -m 'Repair iPhone and PWA icon assets'
+          git add index.html site-v5.webmanifest apple-touch-icon-v5.png images/ypa-app-icon-v5-192.png images/ypa-app-icon-v5-512.png
+          git diff --cached --quiet || git commit -m 'Publish fresh iPhone home screen icons'
           git push
