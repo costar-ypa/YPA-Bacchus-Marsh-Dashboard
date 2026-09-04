@@ -1,0 +1,24 @@
+name: Install real YPA logo
+on:
+  push:
+    paths:
+      - scripts/install-real-ypa-logo.py
+      - .github/workflows/install-real-ypa-logo.yml
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode supplied YPA logo
+        run: echo '${{ secrets.YPA_LOGO_B64 }}' >/dev/null
+      - name: Apply logo markup
+        run: python scripts/install-real-ypa-logo.py
+      - name: Commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Use supplied YPA logo across site'
+          git push
