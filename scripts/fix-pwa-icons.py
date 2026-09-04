@@ -30,3 +30,4 @@ manifest={
   ]
 }
 Path('site-v5.webmanifest').write_text(json.dumps(manifest,separators=(',',':')))
+# v5 rebuild source verified 2026-09-04
