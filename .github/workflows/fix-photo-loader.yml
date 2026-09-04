@@ -26,28 +26,28 @@ jobs:
           path = Path("index.html")
           text = path.read_text(encoding="utf-8")
 
-          replacement = r'''/* PHOTO LOADING FIX */
-
-getLocalPhotos = async function(h){
-    const index = await buildGithubImageIndex();
-    const folder = photoFolder(h).trim().toLowerCase();
-
-    let entries = [];
-
-    if(index instanceof Map){
-        entries = index.get(folder) || [];
-    }else if(index && typeof index === "object"){
-        entries = index[folder] || [];
-    }
-
-    return entries
-        .map(item => {
-            if(typeof item === "string") return item;
-            if(!item || typeof item !== "object") return "";
-            return item.pagesUrl || item.rawUrl || item.url || "";
-        })
-        .filter(Boolean);
-};'''
+          replacement = """/* PHOTO LOADING FIX */
+          
+          getLocalPhotos = async function(h){
+              const index = await buildGithubImageIndex();
+              const folder = photoFolder(h).trim().toLowerCase();
+          
+              let entries = [];
+          
+              if(index instanceof Map){
+                  entries = index.get(folder) || [];
+              }else if(index && typeof index === \"object\"){
+                  entries = index[folder] || [];
+              }
+          
+              return entries
+                  .map(item => {
+                      if(typeof item === \"string\") return item;
+                      if(!item || typeof item !== \"object\") return \"\";
+                      return item.pagesUrl || item.rawUrl || item.url || \"\";
+                  })
+                  .filter(Boolean);
+          };"""
 
           pattern = re.compile(
               r'/\* PHOTO LOADING FIX \*/\s*getLocalPhotos\s*=\s*async function\(h\)\{[\s\S]*?\n\};',
