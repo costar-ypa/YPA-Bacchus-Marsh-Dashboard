@@ -1,0 +1,30 @@
+name: Smooth Property Carousel
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/smooth-carousel.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply smooth carousel
+        run: python tools/smooth-carousel.py
+
+      - name: Commit carousel transition
+        run: |
+          rm -f .github/workflows/smooth-carousel.yml tools/smooth-carousel.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/smooth-carousel.yml tools/smooth-carousel.py
+          git commit -m "Smooth property photo carousel transitions"
+          git push
