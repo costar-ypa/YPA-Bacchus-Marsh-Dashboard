@@ -108,13 +108,7 @@ img{
     gap:16px;
 }
 
-.ypa-logo{
-    font-family:Montserrat,sans-serif;
-    font-size:34px;
-    font-weight:800;
-    letter-spacing:-3px;
-    color:#fff;
-}
+.ypa-logo{display:flex;align-items:center}.ypa-logo img{display:block;width:84px;height:auto}
 
 .brand-divider{
     width:1px;
@@ -2256,7 +2250,7 @@ body{
 <body>
 
 <div id="ypa-launch-screen" aria-hidden="true">
-    <div class="ypa-launch-logo">ypa<span class="dot">.</span></div>
+    <div class="ypa-launch-logo"><img src="images/ypa-logo-transparent.png" alt="YPA"></div>
 </div>
 
 
@@ -2264,7 +2258,7 @@ body{
     <div class="container header-inner">
 
     <a href="#" class="brand">
-        <div class="ypa-logo">ypa.</div>
+        <div class="ypa-logo"><img src="images/ypa-logo-transparent.png" alt="YPA"></div>
 
         <div class="brand-divider"></div>
 
@@ -2583,7 +2577,7 @@ body{
 
     <div class="footer-brand">
 
-        <div class="ypa-logo">ypa.</div>
+        <div class="ypa-logo"><img src="images/ypa-logo-transparent.png" alt="YPA"></div>
 
         <div class="footer-copy">
             YPA BACCHUS MARSH + MELTON<br>
@@ -6690,3 +6684,5 @@ getLocalPhotos = async function(h){
 
 </body>
 </html>
+
+<style id="real-ypa-logo-fix">#ypa-launch-screen .ypa-launch-logo{width:min(300px,58vw);height:auto;font-size:0;line-height:0}#ypa-launch-screen .ypa-launch-logo img{display:block;width:100%;height:auto;filter:drop-shadow(0 12px 35px rgba(0,0,0,.2))}</style>
