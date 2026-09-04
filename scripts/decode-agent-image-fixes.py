@@ -1,6 +1,7 @@
 from pathlib import Path
 import base64
 
+# Decode staged portrait payloads into real JPEG files.
 root = Path('images/agents')
 for staged in root.glob('*-fixed.b64'):
     target = root / staged.name.replace('-fixed.b64', '.jpg')
