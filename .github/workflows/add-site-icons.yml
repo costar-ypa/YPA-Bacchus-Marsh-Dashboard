@@ -2,7 +2,7 @@ name: Add site icons
 on:
   push:
     paths:
-      - scripts/add-site-icons.py
+      - scripts/fix-pwa-icons.py
       - .github/workflows/add-site-icons.yml
 permissions:
   contents: write
@@ -11,12 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add favicon and web app metadata
-        run: python scripts/add-site-icons.py
+      - name: Install Pillow
+        run: python -m pip install pillow
+      - name: Repair iOS and PWA icons
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          src=Path('images/ypa-app-icon-180.png')
+          im=Image.open(src).convert('RGBA')
+          for size in (192,512):
+              im.resize((size,size),Image.Resampling.LANCZOS).save(f'images/ypa-app-icon-{size}.png')
+          im.save('apple-touch-icon.png')
+          PY
+          python scripts/fix-pwa-icons.py
       - name: Commit
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add index.html
-          git diff --cached --quiet || git commit -m 'Add YPA favicon and web app branding'
+          git add index.html site.webmanifest apple-touch-icon.png images/ypa-app-icon-192.png images/ypa-app-icon-512.png
+          git diff --cached --quiet || git commit -m 'Repair iPhone and PWA icon assets'
           git push
