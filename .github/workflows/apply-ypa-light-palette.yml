@@ -1,0 +1,31 @@
+name: Apply YPA Light Palette
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/apply-ypa-light-palette.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply palette
+        run: python scripts/apply-ypa-light-palette.py
+
+      - name: Commit palette update
+        run: |
+          rm -f .github/workflows/apply-ypa-light-palette.yml
+          rm -f scripts/apply-ypa-light-palette.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/apply-ypa-light-palette.yml scripts/apply-ypa-light-palette.py
+          git commit -m "Apply YPA light dashboard colour palette"
+          git push
