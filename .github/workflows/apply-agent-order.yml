@@ -1,0 +1,29 @@
+name: Apply Agent Seniority Order
+
+on:
+  push:
+    paths:
+      - 'scripts/patch-agent-order.py'
+      - '.github/workflows/apply-agent-order.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reorder agent directory
+        run: python scripts/patch-agent-order.py
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Order agent directory by seniority"
+          git push
