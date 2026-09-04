@@ -3526,138 +3526,41 @@ async function getLocalPhotos(h){
 
 function render(){
 
-    /* Clear any existing master carousel timer */
-    if(typeof masterCarouselTimer !== "undefined"){
-
-        if(masterCarouselTimer){
-
-            clearInterval(
-                masterCarouselTimer
-            );
-
-            masterCarouselTimer = null;
-
+    Object.keys(cardCarousels).forEach(id => {
+        if(cardCarousels[id] && cardCarousels[id].timer){
+            clearInterval(cardCarousels[id].timer);
         }
-
-    }
-
-
-    /* Clear old individual carousel timers */
-
-    Object.keys(cardCarousels)
-        .forEach(id => {
-
-            if(
-                cardCarousels[id] &&
-                cardCarousels[id].timer
-            ){
-
-                clearInterval(
-                    cardCarousels[id].timer
-                );
-
-            }
-
-        });
-
+    });
 
     cardCarousels = {};
 
+    homes.sort((a,b) => {
+        const aTime = a.dt ? a.dt.getTime() : Infinity;
+        const bTime = b.dt ? b.dt.getTime() : Infinity;
+        return aTime - bTime;
+    });
 
-    /* Sort properties by inspection time */
-
-    homes.sort(
-        (a,b) => {
-
-            const aTime =
-                a.dt
-                    ? a.dt.getTime()
-                    : Infinity;
-
-            const bTime =
-                b.dt
-                    ? b.dt.getTime()
-                    : Infinity;
-
-            return aTime - bTime;
-
-        }
-    );
-
-
-    /* Apply filters */
-
-    const visible =
-        homes.filter(matches);
-
-
-    const grid =
-        $("propertyGrid");
-
-
-    /* Render property cards */
+    const visible = homes.filter(matches);
+    const grid = $("propertyGrid");
 
     if(!visible.length){
-
         grid.innerHTML = `
-
             <div class="no-results">
-
-                <strong>
-                    No properties found.
-                </strong>
-
-                <span>
-                    Try another search or filter.
-                </span>
-
+                <strong>No properties found.</strong>
+                <span>Try another search or filter.</span>
             </div>
-
         `;
-
     }else{
-
-        grid.innerHTML =
-            visible
-                .map(propertyCardHTML)
-                .join("");
-
+        grid.innerHTML = visible.map(propertyCardHTML).join("");
     }
 
-
-    /* Update page information */
-
     updateCounts();
-
     renderWeekendDashboard();
-
     renderAgents();
 
-
-    /*
-       Initialise every property independently.
-
-       IMPORTANT:
-       We do NOT wait for all photos before
-       displaying the properties.
-    */
-
-    visible.forEach(
-        h =>
-            initialiseCardCarousel(h)
-    );
-
-
-    /*
-       Start ONE carousel clock.
-
-       This keeps all cards on the same
-       3.5 second rotation cycle.
-    */
-
-    startMasterCarousel();
-
+    visible.forEach(h => initialiseCardCarousel(h));
 }
+
 /* =========================================================
    COUNTS
 ========================================================= */
@@ -5519,66 +5422,17 @@ document.querySelectorAll('[data-filter="week"]').forEach(btn => btn.remove());
 
     /* PHOTO LOADING FIX */
 
-let ypaPhotoCache = {};
-
 getLocalPhotos = async function(h){
 
-  const folder = photoFolder(h).toLowerCase();
+    const index = await buildGithubImageIndex();
+    const folder = photoFolder(h).trim().toLowerCase();
+    const entries = index instanceof Map ? (index.get(folder) || []) : [];
 
-  if(ypaPhotoCache[folder]){
-    return ypaPhotoCache[folder];
-  }
-
-  try{
-
-    const response = await fetch(
-      "https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard/git/trees/main?recursive=1"
-    );
-
-    if(!response.ok){
-      return [];
-    }
-
-    const data = await response.json();
-
-    const photos = (data.tree || [])
-      .filter(file =>
-        file.type === "blob" &&
-        file.path.toLowerCase().startsWith("images/" + folder + "/") &&
-        /\.(jpg|jpeg|png|webp|gif|avif)$/i.test(file.path)
-      )
-      .sort((a,b) =>
-        a.path.localeCompare(
-          b.path,
-          undefined,
-          {
-            numeric:true,
-            sensitivity:"base"
-          }
-        )
-      )
-      .map(file =>
-        "https://costar-ypa.github.io/YPA-Bacchus-Marsh-Dashboard/" +
-        file.path
-          .split("/")
-          .map(encodeURIComponent)
-          .join("/")
-      );
-
-    ypaPhotoCache[folder] = photos;
-
-    return photos;
-
-  }catch(error){
-
-    console.error("Photo loading error:", error);
-
-    return [];
-
-  }
-
+    return entries
+        .map(item => item.pagesUrl)
+        .filter(Boolean);
 };
-    
+
 </script>
 
 </body>
