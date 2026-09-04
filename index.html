@@ -6438,7 +6438,9 @@ getLocalPhotos = async function(h){
         ` : '';
 
         profile.innerHTML = `
-            <div class="agent-profile-photo agent-profile-photo-empty" aria-label="Photo space for ${esc(person.name)}"></div>
+            <div class="agent-profile-photo" aria-label="Photo of ${esc(person.name)}">
+                <img src="${esc(person.photo)}" alt="${esc(person.name)}" loading="lazy">
+            </div>
             <div class="agent-profile-copy">
                 <div class="agent-profile-kicker">YPA Bacchus Marsh + Melton</div>
                 <div class="agent-profile-name">${esc(person.name)}</div>
