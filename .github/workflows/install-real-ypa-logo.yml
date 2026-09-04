@@ -1,24 +1,35 @@
 name: Install real YPA logo
+
 on:
   push:
     paths:
+      - images/ypa-logo-transparent.png.b64
       - scripts/install-real-ypa-logo.py
       - .github/workflows/install-real-ypa-logo.yml
+  workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
   install:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Decode supplied YPA logo
-        run: echo '${{ secrets.YPA_LOGO_B64 }}' >/dev/null
+        run: |
+          base64 -d images/ypa-logo-transparent.png.b64 > images/ypa-logo-transparent.png
+          file images/ypa-logo-transparent.png
       - name: Apply logo markup
         run: python scripts/install-real-ypa-logo.py
-      - name: Commit
+      - name: Commit logo asset and markup
         run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add index.html
-          git diff --cached --quiet || git commit -m 'Use supplied YPA logo across site'
-          git push
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/ypa-logo-transparent.png index.html
+          if git diff --cached --quiet; then
+            echo "No changes required"
+          else
+            git commit -m "Install supplied YPA logo asset"
+            git push
+          fi
