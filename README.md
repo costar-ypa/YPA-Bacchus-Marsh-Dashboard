@@ -1,3 +1,3 @@
 # YPA-Bacchus-Marsh-Dashboard
 
-Deployment refreshed after property photo loader repair.
+Deployment refreshed after restoring working property rendering.
