@@ -5423,13 +5423,23 @@ document.querySelectorAll('[data-filter="week"]').forEach(btn => btn.remove());
     /* PHOTO LOADING FIX */
 
 getLocalPhotos = async function(h){
-
     const index = await buildGithubImageIndex();
     const folder = photoFolder(h).trim().toLowerCase();
-    const entries = index instanceof Map ? (index.get(folder) || []) : [];
+
+    let entries = [];
+
+    if(index instanceof Map){
+        entries = index.get(folder) || [];
+    }else if(index && typeof index === "object"){
+        entries = index[folder] || [];
+    }
 
     return entries
-        .map(item => item.pagesUrl)
+        .map(item => {
+            if(typeof item === "string") return item;
+            if(!item || typeof item !== "object") return "";
+            return item.pagesUrl || item.rawUrl || item.url || "";
+        })
         .filter(Boolean);
 };
 
