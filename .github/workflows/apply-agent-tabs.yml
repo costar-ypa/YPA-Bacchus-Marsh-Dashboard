@@ -1,0 +1,32 @@
+name: Apply Agent Tabs
+
+on:
+  push:
+    paths:
+      - 'scripts/patch-agent-tabs.py'
+      - '.github/workflows/apply-agent-tabs.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply update
+        run: python scripts/patch-agent-tabs.py
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Add agent tabs and improve weekend contrast"
+          git push
