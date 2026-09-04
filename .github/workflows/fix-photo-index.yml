@@ -17,102 +17,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Patch photo loader only
-        shell: python
-        run: |
-          from pathlib import Path
-          import re
-
-          path = Path("index.html")
-          text = path.read_text(encoding="utf-8")
-
-          replacement = r'''async function getLocalPhotos(h){
-
-    const wantedFolder = photoFolder(h).trim().toLowerCase();
-
-    try{
-
-        if(!githubImageIndex){
-
-            const response = await fetch(
-                "https://api.github.com/repos/costar-ypa/YPA-Bacchus-Marsh-Dashboard/git/trees/main?recursive=1",
-                { cache:"no-store" }
-            );
-
-            if(!response.ok){
-                throw new Error(`GitHub tree request failed: ${response.status}`);
-            }
-
-            const data = await response.json();
-            const index = new Map();
-
-            (data.tree || []).forEach(item => {
-
-                if(!item || item.type !== "blob" || !item.path) return;
-
-                const path = String(item.path);
-                if(!/^images\//i.test(path)) return;
-
-                const parts = path.split("/");
-                if(parts.length < 3) return;
-
-                const filename = parts[parts.length - 1];
-                if(!/\.(jpg|jpeg|png|webp|gif|avif)$/i.test(filename)) return;
-
-                const folderKey = parts[1].trim().toLowerCase();
-                if(!index.has(folderKey)) index.set(folderKey, []);
-
-                const encodedPath = parts
-                    .map(segment => encodeURIComponent(segment))
-                    .join("/");
-
-                index.get(folderKey).push(
-                    `${GITHUB_PAGES_BASE}/${encodedPath}`
-                );
-            });
-
-            for(const photos of index.values()){
-                photos.sort((a,b) =>
-                    a.localeCompare(b, undefined, {
-                        numeric:true,
-                        sensitivity:"base"
-                    })
-                );
-            }
-
-            githubImageIndex = index;
-        }
-
-        return githubImageIndex.get(wantedFolder) || [];
-
-    }catch(error){
-        console.error("Photo loading error:", error);
-        return [];
-    }
-}
-'''
-
-          pattern = re.compile(
-              r'async function getLocalPhotos\(h\)\{[\s\S]*?\n\}\n\n\n\n\n/\* =========================================================\n   PROPERTY CARD',
-              re.S
-          )
-
-          updated, count = pattern.subn(
-              replacement + "\n\n\n/* =========================================================\n   PROPERTY CARD",
-              text,
-              count=1
-          )
-
-          if count != 1:
-              raise SystemExit(f"Photo loader block not found exactly once; matches={count}")
-
-          path.write_text(updated, encoding="utf-8")
+      - name: Patch photo loader
+        run: python .github/fix_photo.py
 
       - name: Commit repair
         run: |
-          rm -f .github/workflows/fix-photo-index.yml
+          rm -f .github/workflows/fix-photo-index.yml .github/fix_photo.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html .github/workflows/fix-photo-index.yml
+          git add index.html .github/workflows/fix-photo-index.yml .github/fix_photo.py
           git commit -m "Fix cached automatic property photo loading"
           git push
