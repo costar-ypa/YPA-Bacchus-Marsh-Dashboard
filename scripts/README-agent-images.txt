@@ -1,0 +1,1 @@
+Agent image files live under images/agents/ and are referenced by the team directory in index.html.
