@@ -1,1 +1,1 @@
-{"name":"YPA Weekend Property Guide","short_name":"YPA Guide","start_url":"./","scope":"./","display":"standalone","background_color":"#030914","theme_color":"#030914","icons":[{"src":"favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
+{"name":"YPA Weekend Property Guide","short_name":"YPA Guide","start_url":"./","display":"standalone","background_color":"#030914","theme_color":"#030914","icons":[{"src":"images/ypa-app-icon-180.png","sizes":"180x180","type":"image/png","purpose":"any"}]}
