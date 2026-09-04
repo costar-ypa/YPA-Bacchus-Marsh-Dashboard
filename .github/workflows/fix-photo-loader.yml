@@ -1,0 +1,71 @@
+name: Fix Property Photo Loader
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/fix-photo-loader.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Repair property photo loading
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          path = Path("index.html")
+          text = path.read_text(encoding="utf-8")
+
+          replacement = r'''/* PHOTO LOADING FIX */
+
+getLocalPhotos = async function(h){
+    const index = await buildGithubImageIndex();
+    const folder = photoFolder(h).trim().toLowerCase();
+
+    let entries = [];
+
+    if(index instanceof Map){
+        entries = index.get(folder) || [];
+    }else if(index && typeof index === "object"){
+        entries = index[folder] || [];
+    }
+
+    return entries
+        .map(item => {
+            if(typeof item === "string") return item;
+            if(!item || typeof item !== "object") return "";
+            return item.pagesUrl || item.rawUrl || item.url || "";
+        })
+        .filter(Boolean);
+};'''
+
+          pattern = re.compile(
+              r'/\* PHOTO LOADING FIX \*/\s*getLocalPhotos\s*=\s*async function\(h\)\{[\s\S]*?\n\};',
+              re.S
+          )
+
+          text, count = pattern.subn(replacement, text, count=1)
+          if count != 1:
+              raise SystemExit(f"Could not locate photo loader block; matches={count}")
+
+          path.write_text(text, encoding="utf-8")
+          print("Property photo loader repaired successfully.")
+
+      - name: Commit repair and remove temporary workflow
+        run: |
+          rm -f .github/workflows/fix-photo-loader.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/fix-photo-loader.yml
+          git commit -m "Fix property photo loader for automatic matching"
+          git push
